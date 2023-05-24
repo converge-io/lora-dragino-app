@@ -110,7 +110,7 @@ void sha1_iterator_input(SHA1Context* context, U8 tmp_V[20], U32 byteLen[2]);
 #endif /* ifndef __SHA1_H__ */
 
 /**
- * @} 
+ * @}
  * @}
  * @}
  */

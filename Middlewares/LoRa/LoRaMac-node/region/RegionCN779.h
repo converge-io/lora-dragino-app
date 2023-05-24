@@ -173,7 +173,7 @@
 /*!
  * Verification of default datarate
  */
-#if ( CN779_DEFAULT_DATARATE > DR_5 )
+#if (CN779_DEFAULT_DATARATE > DR_5)
 #error "A default DR higher than DR_5 may lead to connectivity loss."
 #endif
 
@@ -202,28 +202,29 @@
  * LoRaMac default channel 1
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
-#define CN779_LC1                                   { 779500000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
+#define CN779_LC1                                   { 779500000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
+
 /*!
  * LoRaMac default channel 2
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
-#define CN779_LC2                                   { 779700000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
+#define CN779_LC2                                   { 779700000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
 
 /*!
  * LoRaMac default channel 3
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
-#define CN779_LC3                                   { 779900000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
+#define CN779_LC3                                   { 779900000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
 
 /*!
  * LoRaMac channels which are allowed for the join procedure
  */
-#define CN779_JOIN_CHANNELS                         ( uint16_t )( LC( 1 ) | LC( 2 ) | LC( 3 ) )
+#define CN779_JOIN_CHANNELS                         (uint16_t)(LC(1) | LC(2) | LC(3))
 
 /*!
  * Data rates table definition
  */
-static const uint8_t DataratesCN779[]  = { 12, 11, 10,  9,  8,  7,  7, 50 };
+static const uint8_t DataratesCN779[] = { 12, 11, 10,  9,  8,  7,  7, 50 };
 
 /*!
  * Bandwidths table definition in Hz
@@ -247,21 +248,21 @@ static const uint8_t MaxPayloadOfDatarateRepeaterCN779[] = { 51, 51, 51, 115, 22
  *
  * \retval Returns a structure containing the PHY parameter.
  */
-PhyParam_t RegionCN779GetPhyParam( GetPhyParams_t* getPhy );
+PhyParam_t RegionCN779GetPhyParam(GetPhyParams_t* getPhy);
 
 /*!
  * \brief Updates the last TX done parameters of the current channel.
  *
  * \param [IN] txDone Pointer to the function parameters.
  */
-void RegionCN779SetBandTxDone( SetBandTxDoneParams_t* txDone );
+void RegionCN779SetBandTxDone(SetBandTxDoneParams_t* txDone);
 
 /*!
  * \brief Initializes the channels masks and the channels.
  *
  * \param [IN] type Sets the initialization type.
  */
-void RegionCN779InitDefaults( InitType_t type );
+void RegionCN779InitDefaults(InitType_t type);
 
 /*!
  * \brief Verifies a parameter.
@@ -272,7 +273,7 @@ void RegionCN779InitDefaults( InitType_t type );
  *
  * \retval Returns true, if the parameter is valid.
  */
-bool RegionCN779Verify( VerifyParams_t* verify, PhyAttribute_t phyAttribute );
+bool RegionCN779Verify(VerifyParams_t* verify, PhyAttribute_t phyAttribute);
 
 /*!
  * \brief The function parses the input buffer and sets up the channels of the
@@ -280,7 +281,7 @@ bool RegionCN779Verify( VerifyParams_t* verify, PhyAttribute_t phyAttribute );
  *
  * \param [IN] applyCFList Pointer to the function parameters.
  */
-void RegionCN779ApplyCFList( ApplyCFListParams_t* applyCFList );
+void RegionCN779ApplyCFList(ApplyCFListParams_t* applyCFList);
 
 /*!
  * \brief Sets a channels mask.
@@ -289,7 +290,7 @@ void RegionCN779ApplyCFList( ApplyCFListParams_t* applyCFList );
  *
  * \retval Returns true, if the channels mask could be set.
  */
-bool RegionCN779ChanMaskSet( ChanMaskSetParams_t* chanMaskSet );
+bool RegionCN779ChanMaskSet(ChanMaskSetParams_t* chanMaskSet);
 
 /*!
  * \brief Calculates the next datarate to set, when ADR is on or off.
@@ -304,7 +305,7 @@ bool RegionCN779ChanMaskSet( ChanMaskSetParams_t* chanMaskSet );
  *
  * \retval Returns true, if an ADR request should be performed.
  */
-bool RegionCN779AdrNext( AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowOut, uint32_t* adrAckCounter );
+bool RegionCN779AdrNext(AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowOut, uint32_t* adrAckCounter);
 
 /*!
  * Computes the Rx window timeout and offset.
@@ -319,7 +320,7 @@ bool RegionCN779AdrNext( AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowO
  *
  * \param [OUT]rxConfigParams Returns updated WindowTimeout and WindowOffset fields.
  */
-void RegionCN779ComputeRxWindowParameters( int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams );
+void RegionCN779ComputeRxWindowParameters(int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t* rxConfigParams);
 
 /*!
  * \brief Configuration of the RX windows.
@@ -330,7 +331,7 @@ void RegionCN779ComputeRxWindowParameters( int8_t datarate, uint8_t minRxSymbols
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-bool RegionCN779RxConfig( RxConfigParams_t* rxConfig, int8_t* datarate );
+bool RegionCN779RxConfig(RxConfigParams_t* rxConfig, int8_t* datarate);
 
 /*!
  * \brief TX configuration.
@@ -343,7 +344,7 @@ bool RegionCN779RxConfig( RxConfigParams_t* rxConfig, int8_t* datarate );
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-bool RegionCN779TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime_t* txTimeOnAir );
+bool RegionCN779TxConfig(TxConfigParams_t* txConfig, int8_t* txPower, TimerTime_t* txTimeOnAir);
 
 /*!
  * \brief The function processes a Link ADR Request.
@@ -352,7 +353,7 @@ bool RegionCN779TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionCN779LinkAdrReq( LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, int8_t* txPowOut, uint8_t* nbRepOut, uint8_t* nbBytesParsed );
+uint8_t RegionCN779LinkAdrReq(LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, int8_t* txPowOut, uint8_t* nbRepOut, uint8_t* nbBytesParsed);
 
 /*!
  * \brief The function processes a RX Parameter Setup Request.
@@ -361,7 +362,7 @@ uint8_t RegionCN779LinkAdrReq( LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, in
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionCN779RxParamSetupReq( RxParamSetupReqParams_t* rxParamSetupReq );
+uint8_t RegionCN779RxParamSetupReq(RxParamSetupReqParams_t* rxParamSetupReq);
 
 /*!
  * \brief The function processes a Channel Request.
@@ -370,7 +371,7 @@ uint8_t RegionCN779RxParamSetupReq( RxParamSetupReqParams_t* rxParamSetupReq );
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionCN779NewChannelReq( NewChannelReqParams_t* newChannelReq );
+uint8_t RegionCN779NewChannelReq(NewChannelReqParams_t* newChannelReq);
 
 /*!
  * \brief The function processes a TX ParamSetup Request.
@@ -381,7 +382,7 @@ uint8_t RegionCN779NewChannelReq( NewChannelReqParams_t* newChannelReq );
  *         Returns -1, if the functionality is not implemented. In this case, the end node
  *         shall not process the command.
  */
-int8_t RegionCN779TxParamSetupReq( TxParamSetupReqParams_t* txParamSetupReq );
+int8_t RegionCN779TxParamSetupReq(TxParamSetupReqParams_t* txParamSetupReq);
 
 /*!
  * \brief The function processes a DlChannel Request.
@@ -390,7 +391,7 @@ int8_t RegionCN779TxParamSetupReq( TxParamSetupReqParams_t* txParamSetupReq );
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionCN779DlChannelReq( DlChannelReqParams_t* dlChannelReq );
+uint8_t RegionCN779DlChannelReq(DlChannelReqParams_t* dlChannelReq);
 
 /*!
  * \brief Alternates the datarate of the channel for the join request.
@@ -399,14 +400,14 @@ uint8_t RegionCN779DlChannelReq( DlChannelReqParams_t* dlChannelReq );
  *
  * \retval Datarate to apply.
  */
-int8_t RegionCN779AlternateDr( AlternateDrParams_t* alternateDr );
+int8_t RegionCN779AlternateDr(AlternateDrParams_t* alternateDr);
 
 /*!
  * \brief Calculates the back-off time.
  *
  * \param [IN] calcBackOff Pointer to the function parameters.
  */
-void RegionCN779CalcBackOff( CalcBackOffParams_t* calcBackOff );
+void RegionCN779CalcBackOff(CalcBackOffParams_t* calcBackOff);
 
 /*!
  * \brief Searches and set the next random available channel
@@ -420,7 +421,7 @@ void RegionCN779CalcBackOff( CalcBackOffParams_t* calcBackOff );
  *
  * \retval Function status [1: OK, 0: Unable to find a channel on the current datarate]
  */
-bool RegionCN779NextChannel( NextChanParams_t* nextChanParams, uint8_t* channel, TimerTime_t* time, TimerTime_t* aggregatedTimeOff );
+bool RegionCN779NextChannel(NextChanParams_t* nextChanParams, uint8_t* channel, TimerTime_t* time, TimerTime_t* aggregatedTimeOff);
 
 /*!
  * \brief Adds a channel.
@@ -429,7 +430,7 @@ bool RegionCN779NextChannel( NextChanParams_t* nextChanParams, uint8_t* channel,
  *
  * \retval Status of the operation.
  */
-LoRaMacStatus_t RegionCN779ChannelAdd( ChannelAddParams_t* channelAdd );
+LoRaMacStatus_t RegionCN779ChannelAdd(ChannelAddParams_t* channelAdd);
 
 /*!
  * \brief Removes a channel.
@@ -438,14 +439,14 @@ LoRaMacStatus_t RegionCN779ChannelAdd( ChannelAddParams_t* channelAdd );
  *
  * \retval Returns true, if the channel was removed successfully.
  */
-bool RegionCN779ChannelsRemove( ChannelRemoveParams_t* channelRemove  );
+bool RegionCN779ChannelsRemove(ChannelRemoveParams_t* channelRemove);
 
 /*!
  * \brief Sets the radio into continuous wave mode.
  *
  * \param [IN] continuousWave Pointer to the function parameters.
  */
-void RegionCN779SetContinuousWave( ContinuousWaveParams_t* continuousWave );
+void RegionCN779SetContinuousWave(ContinuousWaveParams_t* continuousWave);
 
 /*!
  * \brief Computes new datarate according to the given offset
@@ -458,7 +459,7 @@ void RegionCN779SetContinuousWave( ContinuousWaveParams_t* continuousWave );
  *
  * \retval newDr Computed datarate.
  */
-uint8_t RegionCN779ApplyDrOffset( uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset );
+uint8_t RegionCN779ApplyDrOffset(uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset);
 
 /*! \} defgroup REGIONCN779 */
 

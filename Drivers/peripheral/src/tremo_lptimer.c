@@ -11,35 +11,45 @@
 void lptimer_init(lptimer_t* LPTIMERx, lptimer_init_t* lptimer_init)
 {
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
-    if (lptimer_init->count_by_external == true) {
+    {}
+    if (lptimer_init->count_by_external == true)
+    {
         LPTIMERx->CFGR |= (uint32_t)LPTIMER_CFGR_COUNTMODE;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CFGR_COUNTMODE;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
     LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_PRESC_128;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
     LPTIMERx->CFGR |= (uint32_t)(lptimer_init->prescaler);
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
-    if (lptimer_init->autoreload_preload == true) {
+    {}
+    if (lptimer_init->autoreload_preload == true)
+    {
         LPTIMERx->CFGR |= (uint32_t)LPTIMER_CFGR_PRELOAD;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CFGR_PRELOAD;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
-    if (lptimer_init->wavpol_inverted == true) {
+    {}
+    if (lptimer_init->wavpol_inverted == true)
+    {
         LPTIMERx->CFGR |= (uint32_t)LPTIMER_CFGR_WAVPOL;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CFGR_WAVPOL;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer deinitialize
@@ -48,18 +58,24 @@ void lptimer_init(lptimer_t* LPTIMERx, lptimer_init_t* lptimer_init)
  */
 void lptimer_deinit(lptimer_t* LPTIMERx)
 {
-    if (LPTIMERx == LPTIMER0) {
+    if (LPTIMERx == LPTIMER0)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_LPTIMER0, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_LPTIMER0, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_LPTIMER0, false);
-    } else if (LPTIMERx == LPTIMER1) {
+    }
+    else if (LPTIMERx == LPTIMER1)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_LPTIMER1, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_LPTIMER1, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_LPTIMER1, false);
-    } else {
+    }
+    else
+    {
         return;
     }
 }
+
 
 /**
  * @brief  Lptimer enable or disable external clock filter
@@ -69,14 +85,18 @@ void lptimer_deinit(lptimer_t* LPTIMERx)
  */
 void lptimer_enable_clock_filter(lptimer_t* LPTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         LPTIMERx->CFGR |= (uint32_t)LPTIMER_CFGR_CKFLT_EN;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CFGR_CKFLT_EN;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer enable or disable trigger filter
@@ -86,14 +106,18 @@ void lptimer_enable_clock_filter(lptimer_t* LPTIMERx, uint8_t state)
  */
 void lptimer_enable_trigger_filter(lptimer_t* LPTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         LPTIMERx->CFGR |= (uint32_t)LPTIMER_CFGR_TRGFLT_EN;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CFGR_TRGFLT_EN;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config wakeup
@@ -104,14 +128,18 @@ void lptimer_enable_trigger_filter(lptimer_t* LPTIMERx, uint8_t state)
  */
 void lptimer_config_wakeup(lptimer_t* LPTIMERx, lptimer_wkup_t wkup, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         LPTIMERx->CFGR |= (uint32_t)wkup;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)wkup;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config timeout
@@ -121,14 +149,18 @@ void lptimer_config_wakeup(lptimer_t* LPTIMERx, lptimer_wkup_t wkup, uint8_t sta
  */
 void lptimer_config_timeout(lptimer_t* LPTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         LPTIMERx->CFGR |= (uint32_t)LPTIMER_CFGR_TIMEOUT;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CFGR_TIMEOUT;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config wave
@@ -138,14 +170,18 @@ void lptimer_config_timeout(lptimer_t* LPTIMERx, uint8_t state)
  */
 void lptimer_config_wave(lptimer_t* LPTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         LPTIMERx->CFGR |= (uint32_t)LPTIMER_CFGR_WAVE;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CFGR_WAVE;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config encoder mode
@@ -155,14 +191,18 @@ void lptimer_config_wave(lptimer_t* LPTIMERx, uint8_t state)
  */
 void lptimer_config_encoder(lptimer_t* LPTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         LPTIMERx->CFGR |= (uint32_t)LPTIMER_CFGR_ENC;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CFGR_ENC;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config external trigger polarity
@@ -174,11 +214,12 @@ void lptimer_config_trigger_polarity(lptimer_t* LPTIMERx, lptimer_trigpolari_t c
 {
     LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_TRIGEN_RISING_FALLING;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
     LPTIMERx->CFGR |= (uint32_t)config_trigpolari;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config trigger source
@@ -190,11 +231,12 @@ void lptimer_config_trigger_source(lptimer_t* LPTIMERx, lptimer_trigsel_t config
 {
     LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_TRIGSEL_7;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
     LPTIMERx->CFGR |= (uint32_t)config_trigsel;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config clock prescaler
@@ -206,11 +248,12 @@ void lptimer_config_clock_prescaler(lptimer_t* LPTIMERx, lptimer_presc_t config_
 {
     LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_PRESC_128;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
     LPTIMERx->CFGR |= (uint32_t)config_presc;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config trigger filter
@@ -222,11 +265,12 @@ void lptimer_config_trigger_filter(lptimer_t* LPTIMERx, lptimer_trgflt_t config_
 {
     LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_TRGFLT_8;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
     LPTIMERx->CFGR |= (uint32_t)config_trgflt;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config external clock filter
@@ -238,11 +282,12 @@ void lptimer_config_clock_filter(lptimer_t* LPTIMERx, lptimer_ckflt_t config_ckf
 {
     LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CKFLT_8;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
     LPTIMERx->CFGR |= (uint32_t)config_ckflt;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config clock polarity
@@ -254,11 +299,12 @@ void lptimer_config_clock_polarity(lptimer_t* LPTIMERx, lptimer_ckpol_t config_c
 {
     LPTIMERx->CFGR &= (uint32_t) ~(uint32_t)LPTIMER_CKPOL_RESV;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
     LPTIMERx->CFGR |= (uint32_t)config_ckpol;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CFGROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config enable or disable
@@ -268,14 +314,18 @@ void lptimer_config_clock_polarity(lptimer_t* LPTIMERx, lptimer_ckpol_t config_c
  */
 void lptimer_cmd(lptimer_t* LPTIMERx, bool state)
 {
-    if (state == true) {
+    if (state == true)
+    {
         LPTIMERx->CR |= (uint32_t)LPTIMER_CR_ENABLE;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CR &= (uint32_t) ~(uint32_t)LPTIMER_CR_ENABLE;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config count mode
@@ -286,14 +336,18 @@ void lptimer_cmd(lptimer_t* LPTIMERx, bool state)
  */
 void lptimer_config_count_mode(lptimer_t* LPTIMERx, lptimer_mode_t count_mode, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         LPTIMERx->CR |= (uint32_t)count_mode;
-    } else {
+    }
+    else
+    {
         LPTIMERx->CR &= (uint32_t) ~(uint32_t)count_mode;
     }
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer config interrupt
@@ -304,12 +358,16 @@ void lptimer_config_count_mode(lptimer_t* LPTIMERx, lptimer_mode_t count_mode, u
  */
 void lptimer_config_interrupt(lptimer_t* LPTIMERx, lptimer_it_t interrupt, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         LPTIMERx->IER |= (uint32_t)interrupt;
-    } else {
+    }
+    else
+    {
         LPTIMERx->IER &= (uint32_t) ~(uint32_t)interrupt;
     }
 }
+
 
 /**
  * @brief  Lptimer clear interrupt status
@@ -322,6 +380,7 @@ void lptimer_clear_interrupt(lptimer_t* LPTIMERx, lptimer_it_t interrupt)
     LPTIMERx->ICR |= (uint32_t)interrupt;
 }
 
+
 /**
  * @brief  Lptimer set ARR register
  * @param  LPTIMERx the LPTIMER peripheral
@@ -332,8 +391,9 @@ void lptimer_set_arr_register(lptimer_t* LPTIMERx, uint16_t arr_value)
 {
     LPTIMERx->ARR = (uint32_t)arr_value;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_ARROK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer set CMP register
@@ -345,8 +405,9 @@ void lptimer_set_cmp_register(lptimer_t* LPTIMERx, uint16_t cmp_value)
 {
     LPTIMERx->CMP = (uint32_t)cmp_value;
     while (!lptimer_get_status(LPTIMERx, LPTIMER_ISR_CMPOK))
-        ;
+    {}
 }
+
 
 /**
  * @brief  Lptimer get status
@@ -356,12 +417,16 @@ void lptimer_set_cmp_register(lptimer_t* LPTIMERx, uint16_t cmp_value)
  */
 bool lptimer_get_status(lptimer_t* LPTIMERx, lptimer_status_t status)
 {
-    if ((LPTIMERx->ISR & status) == status) {
+    if ((LPTIMERx->ISR & status) == status)
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
+
 
 /**
  * @brief  Lptimer get clear status success flag
@@ -372,12 +437,16 @@ bool lptimer_get_status(lptimer_t* LPTIMERx, lptimer_status_t status)
  */
 bool lptimer_get_clear_status_flag(lptimer_t* LPTIMERx, lptimer_clear_status_flag_t status_flag)
 {
-    if ((LPTIMERx->CSR & status_flag) == status_flag) {
+    if ((LPTIMERx->CSR & status_flag) == status_flag)
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
+
 
 /**
  * @brief  Lptimer get interrupt status
@@ -388,9 +457,13 @@ bool lptimer_get_clear_status_flag(lptimer_t* LPTIMERx, lptimer_clear_status_fla
  */
 bool lptimer_get_interrupt_status(lptimer_t* LPTIMERx, lptimer_it_t interrupt)
 {
-    if ((LPTIMERx->SR1 & interrupt) == interrupt) {
+    if ((LPTIMERx->SR1 & interrupt) == interrupt)
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
+

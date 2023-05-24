@@ -105,6 +105,6 @@ uint32_t i2s_receive_data(i2s_t* I2Sx, uint8_t lr);
 #endif /* __TREMO_I2S_H */
 
 /**
- * @} 
+ * @}
  * @}
  */

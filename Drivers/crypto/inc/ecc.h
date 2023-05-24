@@ -48,13 +48,13 @@ typedef struct
  */
 typedef struct
 {
-    U16  ECC_NUMBIT; /*!< the size of elliptic curve domain parameters,can be 192/224/256/384/521*/
-    U8*  ECC_p;      /*!< pointer to P value*/
-    U8*  ECC_a;      /*!< pointer to A value*/
-    U8*  ECC_b;      /*!< pointer to B value*/
-    U8*  ECC_G0x;    /*!< pointer to x coordinate of generator point*/
-    U8*  ECC_G0y;    /*!< pointer to y coordinate of generator point*/
-    U8*  ECC_n;      /*!< pointer to n value*/
+    U16 ECC_NUMBIT;  /*!< the size of elliptic curve domain parameters,can be 192/224/256/384/521*/
+    U8* ECC_p;       /*!< pointer to P value*/
+    U8* ECC_a;       /*!< pointer to A value*/
+    U8* ECC_b;       /*!< pointer to B value*/
+    U8* ECC_G0x;     /*!< pointer to x coordinate of generator point*/
+    U8* ECC_G0y;     /*!< pointer to y coordinate of generator point*/
+    U8* ECC_n;       /*!< pointer to n value*/
 } ECC_PARA;
 
 /**
@@ -92,7 +92,7 @@ U8 ecc_close(void);
  * @param  abytelen A value bytes length
  * @return bit length
  */
- U16 ecc_getbitlen(U8* a, U16 abytelen);
+U16 ecc_getbitlen(U8* a, U16 abytelen);
 
 /**
  * @brief  ECC compare the data a and b
@@ -102,8 +102,8 @@ U8 ecc_close(void);
  * @param  bbytelen B value bytes length
  * @return compare result
  */
- U8 ecc_compare(U8* a, U16 abytelen, U8* b, U16 bbytelen );
- 
+U8 ecc_compare(U8* a, U16 abytelen, U8* b, U16 bbytelen);
+
 
 /**
  * @brief  ECC point multiple
@@ -165,7 +165,7 @@ U8 ecc_pointdouble(ECC_POINT* x, ECC_POINT* out);
  * @param  out output
  * @return
  */
-void ecc_modmul( U8* a, U8* b, U8* p, U16 pbytelen, U8* out);
+void ecc_modmul(U8* a, U8* b, U8* p, U16 pbytelen, U8* out);
 
 /**
  * @brief  ECC modular add
@@ -214,7 +214,7 @@ U8 ecc_testpoint(ECC_POINT* x);
  * @retval 1 OK
  * @retval 0 ERROR
  */
-U8 ecp_check_privkey( U8 *d,U8 dbytelen);
+U8 ecp_check_privkey(U8* d,U8 dbytelen);
 
 /**
  * @brief  for data converse endian
@@ -231,7 +231,7 @@ U8 ecp_check_privkey( U8 *d,U8 dbytelen);
  * @retval ECCKError K error
  * @retval ECCNOMODINV no inverse mode
  */
-U8 ecc_swith_endian_cpy(U8* in ,U8* out,U8 dbytelen);
+U8 ecc_swith_endian_cpy(U8* in,U8* out,U8 dbytelen);
 
 /**
  * @brief  ecies xor function
@@ -249,7 +249,7 @@ U8 ecc_swith_endian_cpy(U8* in ,U8* out,U8 dbytelen);
  * @retval ECCKError K error
  * @retval ECCNOMODINV no inverse mode
  */
-U8 ecies_xor_meg(U8* in,U8* message,U8* out ,U8 bytelen);
+U8 ecies_xor_meg(U8* in,U8* message,U8* out,U8 bytelen);
 
 /**
  * @brief  ECC gen prikey pubkey pair
@@ -302,11 +302,10 @@ U8 ecdsa_verify(ECC_POINT* pubkey, U8* digest, ECC_POINT* rs);
 U8 ecdsa_sign(U8* prikey, U8* digest, ECC_POINT* rs);
 
 
-
 #endif /* ifndef __ECCBASIC_H__ */
 
 /**
- * @} 
+ * @}
  * @}
  * @}
  */

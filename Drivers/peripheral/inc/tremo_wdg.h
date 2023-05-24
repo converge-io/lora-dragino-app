@@ -36,6 +36,6 @@ void wdg_stop(void);
 #endif //__TREMO_WDG_H
 
 /**
- * @} 
+ * @}
  * @}
  */

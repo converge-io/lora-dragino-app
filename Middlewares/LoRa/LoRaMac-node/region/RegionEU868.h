@@ -172,7 +172,7 @@
  */
 #define EU868_ACK_TIMEOUT_RND                       1000
 
-#if ( EU868_DEFAULT_DATARATE > DR_5 )
+#if (EU868_DEFAULT_DATARATE > DR_5)
 #error "A default DR higher than DR_5 may lead to connectivity loss."
 #endif
 
@@ -195,13 +195,13 @@
  * Band 0 definition
  * { DutyCycle, TxMaxPower, LastJoinTxDoneTime, LastTxDoneTime, TimeOff }
  */
-#define EU868_BAND0                                 { 100 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
+#define EU868_BAND0                                 { 100, EU868_MAX_TX_POWER, 0, 0, 0 }  //  1.0 %
 
 /*!
  * Band 1 definition
  * { DutyCycle, TxMaxPower, LastJoinTxDoneTime, LastTxDoneTime, TimeOff }
  */
-#define EU868_BAND1                                 { 100 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
+#define EU868_BAND1                                 { 100, EU868_MAX_TX_POWER, 0, 0, 0 }  //  1.0 %
 
 /*!
  * Band 2 definition
@@ -213,13 +213,13 @@
  * Band 3 definition
  * Band = { DutyCycle, TxMaxPower, LastJoinTxDoneTime, LastTxDoneTime, TimeOff }
  */
-#define EU868_BAND3                                 { 10  , EU868_MAX_TX_POWER, 0, 0, 0 } // 10.0 %
+#define EU868_BAND3                                 { 10, EU868_MAX_TX_POWER, 0, 0, 0 }   // 10.0 %
 
 /*!
  * Band 4 definition
  * Band = { DutyCycle, TxMaxPower, LastJoinTxDoneTime, LastTxDoneTime, TimeOff }
  */
-#define EU868_BAND4                                 { 100 , EU868_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
+#define EU868_BAND4                                 { 100, EU868_MAX_TX_POWER, 0, 0, 0 }  //  1.0 %
 
 /*!
  * Band 5 definition
@@ -231,29 +231,29 @@
  * LoRaMac default channel 1
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
-#define EU868_LC1                                   { 868100000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 1 }
+#define EU868_LC1                                   { 868100000, 0, { ((DR_5 << 4) | DR_0) }, 1 }
 
 /*!
  * LoRaMac default channel 2
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
-#define EU868_LC2                                   { 868300000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 1 }
+#define EU868_LC2                                   { 868300000, 0, { ((DR_5 << 4) | DR_0) }, 1 }
 
 /*!
  * LoRaMac default channel 3
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
-#define EU868_LC3                                   { 868500000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 1 }
+#define EU868_LC3                                   { 868500000, 0, { ((DR_5 << 4) | DR_0) }, 1 }
 
 /*!
  * LoRaMac channels which are allowed for the join procedure
  */
-#define EU868_JOIN_CHANNELS                         ( uint16_t )( LC( 1 ) | LC( 2 ) | LC( 3 ) )
+#define EU868_JOIN_CHANNELS                         (uint16_t)(LC(1) | LC(2) | LC(3))
 
 /*!
  * Data rates table definition
  */
-static const uint8_t DataratesEU868[]  = { 12, 11, 10,  9,  8,  7,  7, 50 };
+static const uint8_t DataratesEU868[] = { 12, 11, 10,  9,  8,  7,  7, 50 };
 
 /*!
  * Bandwidths table definition in Hz
@@ -277,21 +277,21 @@ static const uint8_t MaxPayloadOfDatarateRepeaterEU868[] = { 51, 51, 51, 115, 22
  *
  * \retval Returns a structure containing the PHY parameter.
  */
-PhyParam_t RegionEU868GetPhyParam( GetPhyParams_t* getPhy );
+PhyParam_t RegionEU868GetPhyParam(GetPhyParams_t* getPhy);
 
 /*!
  * \brief Updates the last TX done parameters of the current channel.
  *
  * \param [IN] txDone Pointer to the function parameters.
  */
-void RegionEU868SetBandTxDone( SetBandTxDoneParams_t* txDone );
+void RegionEU868SetBandTxDone(SetBandTxDoneParams_t* txDone);
 
 /*!
  * \brief Initializes the channels masks and the channels.
  *
  * \param [IN] type Sets the initialization type.
  */
-void RegionEU868InitDefaults( InitType_t type );
+void RegionEU868InitDefaults(InitType_t type);
 
 /*!
  * \brief Verifies a parameter.
@@ -302,7 +302,7 @@ void RegionEU868InitDefaults( InitType_t type );
  *
  * \retval Returns true, if the parameter is valid.
  */
-bool RegionEU868Verify( VerifyParams_t* verify, PhyAttribute_t phyAttribute );
+bool RegionEU868Verify(VerifyParams_t* verify, PhyAttribute_t phyAttribute);
 
 /*!
  * \brief The function parses the input buffer and sets up the channels of the
@@ -310,7 +310,7 @@ bool RegionEU868Verify( VerifyParams_t* verify, PhyAttribute_t phyAttribute );
  *
  * \param [IN] applyCFList Pointer to the function parameters.
  */
-void RegionEU868ApplyCFList( ApplyCFListParams_t* applyCFList );
+void RegionEU868ApplyCFList(ApplyCFListParams_t* applyCFList);
 
 /*!
  * \brief Sets a channels mask.
@@ -319,7 +319,7 @@ void RegionEU868ApplyCFList( ApplyCFListParams_t* applyCFList );
  *
  * \retval Returns true, if the channels mask could be set.
  */
-bool RegionEU868ChanMaskSet( ChanMaskSetParams_t* chanMaskSet );
+bool RegionEU868ChanMaskSet(ChanMaskSetParams_t* chanMaskSet);
 
 /*!
  * \brief Calculates the next datarate to set, when ADR is on or off.
@@ -334,7 +334,7 @@ bool RegionEU868ChanMaskSet( ChanMaskSetParams_t* chanMaskSet );
  *
  * \retval Returns true, if an ADR request should be performed.
  */
-bool RegionEU868AdrNext( AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowOut, uint32_t* adrAckCounter );
+bool RegionEU868AdrNext(AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowOut, uint32_t* adrAckCounter);
 
 /*!
  * Computes the Rx window timeout and offset.
@@ -349,7 +349,7 @@ bool RegionEU868AdrNext( AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowO
  *
  * \param [OUT]rxConfigParams Returns updated WindowTimeout and WindowOffset fields.
  */
-void RegionEU868ComputeRxWindowParameters( int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams );
+void RegionEU868ComputeRxWindowParameters(int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t* rxConfigParams);
 
 /*!
  * \brief Configuration of the RX windows.
@@ -360,7 +360,7 @@ void RegionEU868ComputeRxWindowParameters( int8_t datarate, uint8_t minRxSymbols
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-bool RegionEU868RxConfig( RxConfigParams_t* rxConfig, int8_t* datarate );
+bool RegionEU868RxConfig(RxConfigParams_t* rxConfig, int8_t* datarate);
 
 /*!
  * \brief TX configuration.
@@ -373,7 +373,7 @@ bool RegionEU868RxConfig( RxConfigParams_t* rxConfig, int8_t* datarate );
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-bool RegionEU868TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime_t* txTimeOnAir );
+bool RegionEU868TxConfig(TxConfigParams_t* txConfig, int8_t* txPower, TimerTime_t* txTimeOnAir);
 
 /*!
  * \brief The function processes a Link ADR Request.
@@ -382,7 +382,7 @@ bool RegionEU868TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionEU868LinkAdrReq( LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, int8_t* txPowOut, uint8_t* nbRepOut, uint8_t* nbBytesParsed );
+uint8_t RegionEU868LinkAdrReq(LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, int8_t* txPowOut, uint8_t* nbRepOut, uint8_t* nbBytesParsed);
 
 /*!
  * \brief The function processes a RX Parameter Setup Request.
@@ -391,7 +391,7 @@ uint8_t RegionEU868LinkAdrReq( LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, in
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionEU868RxParamSetupReq( RxParamSetupReqParams_t* rxParamSetupReq );
+uint8_t RegionEU868RxParamSetupReq(RxParamSetupReqParams_t* rxParamSetupReq);
 
 /*!
  * \brief The function processes a Channel Request.
@@ -400,7 +400,7 @@ uint8_t RegionEU868RxParamSetupReq( RxParamSetupReqParams_t* rxParamSetupReq );
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionEU868NewChannelReq( NewChannelReqParams_t* newChannelReq );
+uint8_t RegionEU868NewChannelReq(NewChannelReqParams_t* newChannelReq);
 
 /*!
  * \brief The function processes a TX ParamSetup Request.
@@ -411,7 +411,7 @@ uint8_t RegionEU868NewChannelReq( NewChannelReqParams_t* newChannelReq );
  *         Returns -1, if the functionality is not implemented. In this case, the end node
  *         shall not process the command.
  */
-int8_t RegionEU868TxParamSetupReq( TxParamSetupReqParams_t* txParamSetupReq );
+int8_t RegionEU868TxParamSetupReq(TxParamSetupReqParams_t* txParamSetupReq);
 
 /*!
  * \brief The function processes a DlChannel Request.
@@ -420,7 +420,7 @@ int8_t RegionEU868TxParamSetupReq( TxParamSetupReqParams_t* txParamSetupReq );
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionEU868DlChannelReq( DlChannelReqParams_t* dlChannelReq );
+uint8_t RegionEU868DlChannelReq(DlChannelReqParams_t* dlChannelReq);
 
 /*!
  * \brief Alternates the datarate of the channel for the join request.
@@ -429,14 +429,14 @@ uint8_t RegionEU868DlChannelReq( DlChannelReqParams_t* dlChannelReq );
  *
  * \retval Datarate to apply.
  */
-int8_t RegionEU868AlternateDr( AlternateDrParams_t* alternateDr );
+int8_t RegionEU868AlternateDr(AlternateDrParams_t* alternateDr);
 
 /*!
  * \brief Calculates the back-off time.
  *
  * \param [IN] calcBackOff Pointer to the function parameters.
  */
-void RegionEU868CalcBackOff( CalcBackOffParams_t* calcBackOff );
+void RegionEU868CalcBackOff(CalcBackOffParams_t* calcBackOff);
 
 /*!
  * \brief Searches and set the next random available channel
@@ -450,7 +450,7 @@ void RegionEU868CalcBackOff( CalcBackOffParams_t* calcBackOff );
  *
  * \retval Function status [1: OK, 0: Unable to find a channel on the current datarate]
  */
-bool RegionEU868NextChannel( NextChanParams_t* nextChanParams, uint8_t* channel, TimerTime_t* time, TimerTime_t* aggregatedTimeOff );
+bool RegionEU868NextChannel(NextChanParams_t* nextChanParams, uint8_t* channel, TimerTime_t* time, TimerTime_t* aggregatedTimeOff);
 
 /*!
  * \brief Adds a channel.
@@ -459,7 +459,7 @@ bool RegionEU868NextChannel( NextChanParams_t* nextChanParams, uint8_t* channel,
  *
  * \retval Status of the operation.
  */
-LoRaMacStatus_t RegionEU868ChannelAdd( ChannelAddParams_t* channelAdd );
+LoRaMacStatus_t RegionEU868ChannelAdd(ChannelAddParams_t* channelAdd);
 
 /*!
  * \brief Removes a channel.
@@ -468,14 +468,14 @@ LoRaMacStatus_t RegionEU868ChannelAdd( ChannelAddParams_t* channelAdd );
  *
  * \retval Returns true, if the channel was removed successfully.
  */
-bool RegionEU868ChannelsRemove( ChannelRemoveParams_t* channelRemove  );
+bool RegionEU868ChannelsRemove(ChannelRemoveParams_t* channelRemove);
 
 /*!
  * \brief Sets the radio into continuous wave mode.
  *
  * \param [IN] continuousWave Pointer to the function parameters.
  */
-void RegionEU868SetContinuousWave( ContinuousWaveParams_t* continuousWave );
+void RegionEU868SetContinuousWave(ContinuousWaveParams_t* continuousWave);
 
 /*!
  * \brief Computes new datarate according to the given offset
@@ -488,7 +488,7 @@ void RegionEU868SetContinuousWave( ContinuousWaveParams_t* continuousWave );
  *
  * \retval newDr Computed datarate.
  */
-uint8_t RegionEU868ApplyDrOffset( uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset );
+uint8_t RegionEU868ApplyDrOffset(uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset);
 
 /*! \} defgroup REGIONEU868 */
 

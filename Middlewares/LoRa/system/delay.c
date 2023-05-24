@@ -23,12 +23,14 @@
 #include "tremo_delay.h"
 #include "delay.h"
 
-void Delay( float s )
+void Delay(float s)
 {
-    DelayMs( s * 1000.0f );
+    DelayMs(s * 1000.0f);
 }
 
-void DelayMs( uint32_t ms )
+
+void DelayMs(uint32_t ms)
 {
-    delay_ms(ms);                    
+    delay_ms(ms);
 }
+

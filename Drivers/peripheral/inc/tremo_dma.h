@@ -270,7 +270,7 @@ typedef struct {
     uint8_t dest_msize;  /*!< DMA destination burst transaction length,0:1,1:4,2:8*/
     uint8_t res[3];      /*!< reserved*/
     uint16_t block_size; /*!< DMA transfer block size*/
-} dma_lli_block_config_t; 
+} dma_lli_block_config_t;
 
 /**
  * @brief DMA LLI mode configuration
@@ -309,6 +309,6 @@ void dma_finalize(dma_dev_t* dma);
 #endif /* __TREMO_DMA_H_ */
 
 /**
- * @} 
+ * @}
  * @}
  */

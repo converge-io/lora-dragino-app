@@ -24,7 +24,7 @@ extern "C" {
  * @brief Read the value of the register
  */
 #define TREMO_REG_RD(addr)           (*(volatile uint32_t*)(addr))
-    
+
 /**
  * @brief Write the value into the register
  */
@@ -51,9 +51,9 @@ extern "C" {
 #define TREMO_REG_EN(reg, mask, enable) \
     do {                                \
         if (enable)                     \
-            reg |= (mask);              \
+        reg |= (mask);              \
         else                            \
-            reg &= ~(mask);             \
+        reg &= ~(mask);             \
     } while (0)
 
 #define FLASH_BASE      ((uint32_t)0x08000000) /*!< The Flash base address */
@@ -65,6 +65,7 @@ extern "C" {
 
 
 /******************************************************************************/
+
 /**
  * @brief RCC
  */
@@ -385,6 +386,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief SSP
  */
@@ -421,6 +423,7 @@ typedef struct __SSP {
 
 
 /******************************************************************************/
+
 /**
  * @brief GPIO
  */
@@ -452,6 +455,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief RTC
  */
@@ -484,7 +488,8 @@ typedef struct __RTC {
 
 
 /******************************************************************************/
-/** 
+
+/**
  * @brief UART
  */
 typedef struct {
@@ -591,6 +596,7 @@ typedef struct __LPUART {
 
 
 /******************************************************************************/
+
 /**
  * @brief EFC
  */
@@ -711,6 +717,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief IWDG
  */
@@ -760,6 +767,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief WDG
  */
@@ -795,6 +803,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief CRC
  */
@@ -829,6 +838,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief I2C
  */
@@ -936,6 +946,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief SYSCFG
  */
@@ -958,6 +969,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief PWR
  */
@@ -977,6 +989,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief TIMER
  */
@@ -1015,6 +1028,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief LPTIMER
  */
@@ -1038,6 +1052,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief I2S
  */
@@ -1084,6 +1099,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief BSTIMER
  */
@@ -1107,6 +1123,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief SEC
  */
@@ -1127,6 +1144,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief QSPI
  */
@@ -1157,19 +1175,20 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief DAC
  */
 typedef struct {
     __IO uint32_t CR;      /*!< control register,offset 0x00*/
-    __O  uint32_t SWTRIGR; /*!< software trigger register,offset 0x04*/
+    __O uint32_t SWTRIGR;  /*!< software trigger register,offset 0x04*/
     __IO uint32_t DHR;     /*!< data holding register,offset 0x08*/
-    __I  uint32_t DOR;     /*!< data output register,offset 0x0C*/
+    __I uint32_t DOR;      /*!< data output register,offset 0x0C*/
     __IO uint32_t SR;      /*!< status register,offset 0x10*/
 } dac_t;
 
 #define DAC_BASE 0x40019000          /*!< DAC base address*/
-#define DAC      ((dac_t*) DAC_BASE) /*!< DAC peripheral*/
+#define DAC      ((dac_t*)DAC_BASE)  /*!< DAC peripheral*/
 
 
 #define DAC_CR_INTR_EMPTY_EN_MASK                ((uint32_t)0x00010000)
@@ -1215,6 +1234,7 @@ typedef struct {
 
 
 /******************************************************************************/
+
 /**
  * @brief ADC
  */
@@ -1233,10 +1253,11 @@ typedef struct {
 } adc_t;
 
 #define ADC_BASE 0x40017000       /*!< ADC base address*/
-#define ADC ((adc_t *)(ADC_BASE)) /*!< ADC peripheral*/
+#define ADC ((adc_t*)(ADC_BASE))  /*!< ADC peripheral*/
 
 
 /******************************************************************************/
+
 /**
  * @brief LCD
  */
@@ -1257,8 +1278,7 @@ typedef struct {
 } lcd_t;
 
 #define LCD_BASE 0x40018000       /*!< LCD base address*/
-#define LCD ((lcd_t *)(LCD_BASE)) /*!< LCD peripheral*/
-
+#define LCD ((lcd_t*)(LCD_BASE))  /*!< LCD peripheral*/
 
 
 /******************************************************************************/
@@ -1269,6 +1289,6 @@ typedef struct {
 #endif //_TREMO_REGS_H_
 
 /**
- * @} 
+ * @}
  * @}
  */

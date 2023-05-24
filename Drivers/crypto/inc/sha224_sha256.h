@@ -52,7 +52,7 @@ enum
  * @retval HashSuccess Success
  * @retval Others Fail
  */
-U8 sha256_init(SHA256Context *context);
+U8 sha256_init(SHA256Context* context);
 
 /**
  * @brief Process input data and update the SHA256 context
@@ -66,7 +66,7 @@ U8 sha256_init(SHA256Context *context);
  * @retval HashStateError the state is wrong
  * @retval HashLenError the length is wrong
  */
-U8 sha256_input(SHA256Context *context, U8 *message, U32 byteLen);
+U8 sha256_input(SHA256Context* context, U8* message, U32 byteLen);
 
 /**
  * @brief Produce the output SHA256 digest
@@ -79,7 +79,7 @@ U8 sha256_input(SHA256Context *context, U8 *message, U32 byteLen);
  * @retval HashStateError the state is wrong
  * @retval HashLenError the length is wrong
  */
-U8 sha256_result(SHA256Context *context, U8 digest[32]);
+U8 sha256_result(SHA256Context* context, U8 digest[32]);
 
 /**
  * @brief Use the SHA256 algorithm to generate the digest of the input message directly
@@ -93,7 +93,7 @@ U8 sha256_result(SHA256Context *context, U8 digest[32]);
  * @retval HashStateError the state is wrong
  * @retval HashLenError the length is wrong
  */
-U8 sha256_hash(U8 *in, U32 inByteLen, U8 digest[32]);
+U8 sha256_hash(U8* in, U32 inByteLen, U8 digest[32]);
 
 /**
  * @brief Initialize a new SHA224 context
@@ -102,7 +102,7 @@ U8 sha256_hash(U8 *in, U32 inByteLen, U8 digest[32]);
  * @retval HashSuccess Success
  * @retval Others Fail
  */
-U8 sha224_init(SHA224Context *context);
+U8 sha224_init(SHA224Context* context);
 
 /**
  * @brief Process input data and update the SHA224 context
@@ -116,7 +116,7 @@ U8 sha224_init(SHA224Context *context);
  * @retval HashStateError the state is wrong
  * @retval HashLenError the length is wrong
  */
-U8 sha224_input(SHA224Context *context, U8 *message, U32 byteLen);
+U8 sha224_input(SHA224Context* context, U8* message, U32 byteLen);
 
 /**
  * @brief Produce the output SHA224 digest
@@ -129,7 +129,7 @@ U8 sha224_input(SHA224Context *context, U8 *message, U32 byteLen);
  * @retval HashStateError the state is wrong
  * @retval HashLenError the length is wrong
  */
-U8 sha224_result(SHA224Context *context, U8 digest[28]);
+U8 sha224_result(SHA224Context* context, U8 digest[28]);
 
 /**
  * @brief Use the SHA224 algorithm to generate the digest of the input message directly
@@ -143,13 +143,13 @@ U8 sha224_result(SHA224Context *context, U8 digest[28]);
  * @retval HashStateError the state is wrong
  * @retval HashLenError the length is wrong
  */
-U8 sha224_hash(U8 *in, U32 inByteLen, U8 digest[28]);
+U8 sha224_hash(U8* in, U32 inByteLen, U8 digest[28]);
 
 
 #endif /* ifndef __SHA224_SHA256_H__ */
 
 /**
- * @} 
+ * @}
  * @}
  * @}
  */

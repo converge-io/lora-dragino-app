@@ -34,15 +34,15 @@
 
 #include <stdint.h>
 
-/*! 
+/*!
  * Blocking delay of "s" seconds
  */
-void Delay( float s );
+void Delay(float s);
 
-/*! 
+/*!
  * Blocking delay of "ms" milliseconds
  */
-void DelayMs( uint32_t ms );
+void DelayMs(uint32_t ms);
 
 /*! \} defgroup LORA_DELAY */
 /*! \} addtogroup LORA */

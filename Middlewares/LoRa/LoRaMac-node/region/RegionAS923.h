@@ -186,18 +186,18 @@
  */
 #define AS923_ACK_TIMEOUT_RND                       1000
 
-#if ( AS923_DEFAULT_DATARATE > DR_5 )
+#if (AS923_DEFAULT_DATARATE > DR_5)
 #error "A default DR higher than DR_5 may lead to connectivity loss."
 #endif
 
 /*!
  * Second reception window channel frequency definition.
  */
-#if defined( AS923_2 )
+#if defined(AS923_2)
 #define AS923_RX_WND_2_FREQ                         921400000
-#elif defined( AS923_3 )
+#elif defined(AS923_3)
 #define AS923_RX_WND_2_FREQ                         916600000
-#elif defined( AS923_4 )
+#elif defined(AS923_4)
 #define AS923_RX_WND_2_FREQ                         917300000
 #else
 #define AS923_RX_WND_2_FREQ                         923200000
@@ -219,33 +219,34 @@
  */
 #define AS923_BAND0                                 { 100, AS923_MAX_TX_POWER, 0, 0, 0 } //  1.0 %
 
-#if defined( AS923_2 )
-#define AS923_LC1                                   { 921400000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
-#define AS923_LC2                                   { 921600000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
-#elif defined( AS923_3 )
-#define AS923_LC1                                   { 916600000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
-#define AS923_LC2                                   { 916800000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
-#elif defined( AS923_4 )
-#define AS923_LC1                                   { 917300000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
-#define AS923_LC2                                   { 917500000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
+#if defined(AS923_2)
+#define AS923_LC1                                   { 921400000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
+#define AS923_LC2                                   { 921600000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
+#elif defined(AS923_3)
+#define AS923_LC1                                   { 916600000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
+#define AS923_LC2                                   { 916800000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
+#elif defined(AS923_4)
+#define AS923_LC1                                   { 917300000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
+#define AS923_LC2                                   { 917500000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
 #else
+
 /*!
  * LoRaMac default channel 1
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
-#define AS923_LC1                                   { 923200000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
+#define AS923_LC1                                   { 923200000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
 
 /*!
  * LoRaMac default channel 2
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
-#define AS923_LC2                                   { 923400000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
+#define AS923_LC2                                   { 923400000, 0, { ((DR_5 << 4) | DR_0) }, 0 }
 #endif
 
 /*!
  * LoRaMac channels which are allowed for the join procedure
  */
-#define AS923_JOIN_CHANNELS                         ( uint16_t )( LC( 1 ) | LC( 2 ) )
+#define AS923_JOIN_CHANNELS                         (uint16_t)(LC(1) | LC(2))
 
 /*!
  * RSSI threshold for a free channel [dBm]
@@ -265,7 +266,7 @@
 /*!
  * Data rates table definition
  */
-static const uint8_t DataratesAS923[]  = { 12, 11, 10,  9,  8,  7, 7, 50 };
+static const uint8_t DataratesAS923[] = { 12, 11, 10,  9,  8,  7, 7, 50 };
 
 /*!
  * Bandwidths table definition in Hz
@@ -309,21 +310,21 @@ static const int8_t EffectiveRx1DrOffsetAS923[] = { 0, 1, 2, 3, 4, 5, -1, -2 };
  *
  * \retval Returns a structure containing the PHY parameter.
  */
-PhyParam_t RegionAS923GetPhyParam( GetPhyParams_t* getPhy );
+PhyParam_t RegionAS923GetPhyParam(GetPhyParams_t* getPhy);
 
 /*!
  * \brief Updates the last TX done parameters of the current channel.
  *
  * \param [IN] txDone Pointer to the function parameters.
  */
-void RegionAS923SetBandTxDone( SetBandTxDoneParams_t* txDone );
+void RegionAS923SetBandTxDone(SetBandTxDoneParams_t* txDone);
 
 /*!
  * \brief Initializes the channels masks and the channels.
  *
  * \param [IN] type Sets the initialization type.
  */
-void RegionAS923InitDefaults( InitType_t type );
+void RegionAS923InitDefaults(InitType_t type);
 
 /*!
  * \brief Verifies a parameter.
@@ -334,7 +335,7 @@ void RegionAS923InitDefaults( InitType_t type );
  *
  * \retval Returns true, if the parameter is valid.
  */
-bool RegionAS923Verify( VerifyParams_t* verify, PhyAttribute_t phyAttribute );
+bool RegionAS923Verify(VerifyParams_t* verify, PhyAttribute_t phyAttribute);
 
 /*!
  * \brief The function parses the input buffer and sets up the channels of the
@@ -342,7 +343,7 @@ bool RegionAS923Verify( VerifyParams_t* verify, PhyAttribute_t phyAttribute );
  *
  * \param [IN] applyCFList Pointer to the function parameters.
  */
-void RegionAS923ApplyCFList( ApplyCFListParams_t* applyCFList );
+void RegionAS923ApplyCFList(ApplyCFListParams_t* applyCFList);
 
 /*!
  * \brief Sets a channels mask.
@@ -351,7 +352,7 @@ void RegionAS923ApplyCFList( ApplyCFListParams_t* applyCFList );
  *
  * \retval Returns true, if the channels mask could be set.
  */
-bool RegionAS923ChanMaskSet( ChanMaskSetParams_t* chanMaskSet );
+bool RegionAS923ChanMaskSet(ChanMaskSetParams_t* chanMaskSet);
 
 /*!
  * \brief Calculates the next datarate to set, when ADR is on or off.
@@ -366,7 +367,7 @@ bool RegionAS923ChanMaskSet( ChanMaskSetParams_t* chanMaskSet );
  *
  * \retval Returns true, if an ADR request should be performed.
  */
-bool RegionAS923AdrNext( AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowOut, uint32_t* adrAckCounter );
+bool RegionAS923AdrNext(AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowOut, uint32_t* adrAckCounter);
 
 /*!
  * Computes the Rx window timeout and offset.
@@ -381,7 +382,7 @@ bool RegionAS923AdrNext( AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowO
  *
  * \param [OUT]rxConfigParams Returns updated WindowTimeout and WindowOffset fields.
  */
-void RegionAS923ComputeRxWindowParameters( int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams );
+void RegionAS923ComputeRxWindowParameters(int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t* rxConfigParams);
 
 /*!
  * \brief Configuration of the RX windows.
@@ -392,7 +393,7 @@ void RegionAS923ComputeRxWindowParameters( int8_t datarate, uint8_t minRxSymbols
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-bool RegionAS923RxConfig( RxConfigParams_t* rxConfig, int8_t* datarate );
+bool RegionAS923RxConfig(RxConfigParams_t* rxConfig, int8_t* datarate);
 
 /*!
  * \brief TX configuration.
@@ -405,7 +406,7 @@ bool RegionAS923RxConfig( RxConfigParams_t* rxConfig, int8_t* datarate );
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-bool RegionAS923TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime_t* txTimeOnAir );
+bool RegionAS923TxConfig(TxConfigParams_t* txConfig, int8_t* txPower, TimerTime_t* txTimeOnAir);
 
 /*!
  * \brief The function processes a Link ADR Request.
@@ -414,7 +415,7 @@ bool RegionAS923TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionAS923LinkAdrReq( LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, int8_t* txPowOut, uint8_t* nbRepOut, uint8_t* nbBytesParsed );
+uint8_t RegionAS923LinkAdrReq(LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, int8_t* txPowOut, uint8_t* nbRepOut, uint8_t* nbBytesParsed);
 
 /*!
  * \brief The function processes a RX Parameter Setup Request.
@@ -423,7 +424,7 @@ uint8_t RegionAS923LinkAdrReq( LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, in
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionAS923RxParamSetupReq( RxParamSetupReqParams_t* rxParamSetupReq );
+uint8_t RegionAS923RxParamSetupReq(RxParamSetupReqParams_t* rxParamSetupReq);
 
 /*!
  * \brief The function processes a Channel Request.
@@ -432,7 +433,7 @@ uint8_t RegionAS923RxParamSetupReq( RxParamSetupReqParams_t* rxParamSetupReq );
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionAS923NewChannelReq( NewChannelReqParams_t* newChannelReq );
+uint8_t RegionAS923NewChannelReq(NewChannelReqParams_t* newChannelReq);
 
 /*!
  * \brief The function processes a TX ParamSetup Request.
@@ -443,7 +444,7 @@ uint8_t RegionAS923NewChannelReq( NewChannelReqParams_t* newChannelReq );
  *         Returns -1, if the functionality is not implemented. In this case, the end node
  *         shall not process the command.
  */
-int8_t RegionAS923TxParamSetupReq( TxParamSetupReqParams_t* txParamSetupReq );
+int8_t RegionAS923TxParamSetupReq(TxParamSetupReqParams_t* txParamSetupReq);
 
 /*!
  * \brief The function processes a DlChannel Request.
@@ -452,7 +453,7 @@ int8_t RegionAS923TxParamSetupReq( TxParamSetupReqParams_t* txParamSetupReq );
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionAS923DlChannelReq( DlChannelReqParams_t* dlChannelReq );
+uint8_t RegionAS923DlChannelReq(DlChannelReqParams_t* dlChannelReq);
 
 /*!
  * \brief Alternates the datarate of the channel for the join request.
@@ -461,14 +462,14 @@ uint8_t RegionAS923DlChannelReq( DlChannelReqParams_t* dlChannelReq );
  *
  * \retval Datarate to apply.
  */
-int8_t RegionAS923AlternateDr( AlternateDrParams_t* alternateDr );
+int8_t RegionAS923AlternateDr(AlternateDrParams_t* alternateDr);
 
 /*!
  * \brief Calculates the back-off time.
  *
  * \param [IN] calcBackOff Pointer to the function parameters.
  */
-void RegionAS923CalcBackOff( CalcBackOffParams_t* calcBackOff );
+void RegionAS923CalcBackOff(CalcBackOffParams_t* calcBackOff);
 
 /*!
  * \brief Searches and set the next random available channel
@@ -482,7 +483,7 @@ void RegionAS923CalcBackOff( CalcBackOffParams_t* calcBackOff );
  *
  * \retval Function status [1: OK, 0: Unable to find a channel on the current datarate]
  */
-bool RegionAS923NextChannel( NextChanParams_t* nextChanParams, uint8_t* channel, TimerTime_t* time, TimerTime_t* aggregatedTimeOff );
+bool RegionAS923NextChannel(NextChanParams_t* nextChanParams, uint8_t* channel, TimerTime_t* time, TimerTime_t* aggregatedTimeOff);
 
 /*!
  * \brief Adds a channel.
@@ -491,7 +492,7 @@ bool RegionAS923NextChannel( NextChanParams_t* nextChanParams, uint8_t* channel,
  *
  * \retval Status of the operation.
  */
-LoRaMacStatus_t RegionAS923ChannelAdd( ChannelAddParams_t* channelAdd );
+LoRaMacStatus_t RegionAS923ChannelAdd(ChannelAddParams_t* channelAdd);
 
 /*!
  * \brief Removes a channel.
@@ -500,14 +501,14 @@ LoRaMacStatus_t RegionAS923ChannelAdd( ChannelAddParams_t* channelAdd );
  *
  * \retval Returns true, if the channel was removed successfully.
  */
-bool RegionAS923ChannelsRemove( ChannelRemoveParams_t* channelRemove  );
+bool RegionAS923ChannelsRemove(ChannelRemoveParams_t* channelRemove);
 
 /*!
  * \brief Sets the radio into continuous wave mode.
  *
  * \param [IN] continuousWave Pointer to the function parameters.
  */
-void RegionAS923SetContinuousWave( ContinuousWaveParams_t* continuousWave );
+void RegionAS923SetContinuousWave(ContinuousWaveParams_t* continuousWave);
 
 /*!
  * \brief Computes new datarate according to the given offset
@@ -520,7 +521,7 @@ void RegionAS923SetContinuousWave( ContinuousWaveParams_t* continuousWave );
  *
  * \retval newDr Computed datarate.
  */
-uint8_t RegionAS923ApplyDrOffset( uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset );
+uint8_t RegionAS923ApplyDrOffset(uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset);
 
 /*! \} defgroup REGIONAS923 */
 

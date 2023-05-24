@@ -61,6 +61,6 @@ int32_t flash_otp_program_data(uint32_t addr, uint8_t* data, uint32_t size);
 #endif //__TREMO_FLASH_H
 
 /**
- * @} 
+ * @}
  * @}
  */

@@ -12,7 +12,7 @@
  * @addtogroup RSA
  * @{
  */
- 
+
 #ifndef __RSA_H__
 #define __RSA_H__
 
@@ -53,10 +53,10 @@ U8 rsa_getkey(U8* e, U8* d, U8* n, U16 ebitlen, U16 nbitlen);
  *
  * @retval 0 successfully
  */
-U8 rsa_getcrtkey( U8* p, U8* q, U8* dp, U8* dq, U8* u, U8* e,
-                  U8* n, U16 ebitlen, U16 nbitlen);
+U8 rsa_getcrtkey(U8* p, U8* q, U8* dp, U8* dq, U8* u, U8* e,
+        U8* n, U16 ebitlen, U16 nbitlen);
 
-				  
+
 /**
  * @brief Modular exponentiation
  * @param a input buffer
@@ -93,7 +93,7 @@ U8 rsa_modexpwithcrt(U8* in, U8* p, U8* q, U8* dp, U8* dq, U8* u, U8* out, U16 n
  * @param  nbitlen size of data n expressed in bits
  * @retval None
  */
-void rsa_mod_mul( U8* a, U8* b, U8* n, U8* out, U16 nbitlen);
+void rsa_mod_mul(U8* a, U8* b, U8* n, U8* out, U16 nbitlen);
 
 /**
  * @brief Modular inversion
@@ -104,7 +104,7 @@ void rsa_mod_mul( U8* a, U8* b, U8* n, U8* out, U16 nbitlen);
  * @param nbitlen size of data n expressed in bits
  * @retval 0 successfully
  */
-U8 rsa_mod_inv(U8* a, U8* n, U8* out, U16 abitlen, U16 nbitlen);	
+U8 rsa_mod_inv(U8* a, U8* n, U8* out, U16 abitlen, U16 nbitlen);
 
 
 /**
@@ -145,7 +145,7 @@ void rsa_get_prime(U8* prime, U16 bitLen);
  * @return the bit length of input data
  */
 U16 rsa_getbitlen(U8* a, U16 abytelen);
-				  
+
 /**
  * @brief close rsa engine
  * @retval 0 successfully
@@ -155,7 +155,7 @@ U8 rsa_close(void);
 #endif /* ifndef __RSA_H__ */
 
 /**
- * @} 
+ * @}
  * @}
  * @}
  */

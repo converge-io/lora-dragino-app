@@ -30,6 +30,6 @@ int32_t system_get_chip_id(uint32_t* id);
 #endif //__TREMO_SYSTEM_H
 
 /**
- * @} 
+ * @}
  * @}
  */

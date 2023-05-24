@@ -38,7 +38,7 @@
  *
  * \remark The timer is based on the RTC
  */
-void RtcInit( void );
+void RtcInit(void);
 
 /*!
  * \brief Start the RTC timer
@@ -47,15 +47,15 @@ void RtcInit( void );
  *
  * \param[IN] timeout Duration of the Timer
  */
-void RtcSetTimeout( uint32_t timeout );
+void RtcSetTimeout(uint32_t timeout);
 
-void RtcStopTimeout( void );
+void RtcStopTimeout(void);
 
-TimerTime_t RtcGetTimerContext( void );
+TimerTime_t RtcGetTimerContext(void);
 
-TimerTime_t RtcSetTimerContext( void );
+TimerTime_t RtcSetTimerContext(void);
 
-TimerTime_t RtcGetElapsedTime( void );
+TimerTime_t RtcGetElapsedTime(void);
 
 
 /*!
@@ -64,21 +64,21 @@ TimerTime_t RtcGetElapsedTime( void );
  * \param[IN] timeout Duration of the Timer without compensation for wakeup time
  * \retval new value for the Timeout with compensations
  */
-TimerTime_t RtcGetAdjustedTimeoutValue( uint32_t timeout );
+TimerTime_t RtcGetAdjustedTimeoutValue(uint32_t timeout);
 
 /*!
  * \brief Get the RTC timer value
  *
  * \retval RTC Timer value
  */
-TimerTime_t RtcGetTimerValue( void );
+TimerTime_t RtcGetTimerValue(void);
 
 /*!
  * \brief Get the RTC timer elapsed time since the last Alarm was set
  *
  * \retval RTC Elapsed time since the last alarm
  */
-TimerTime_t RtcGetElapsedAlarmTime( void );
+TimerTime_t RtcGetElapsedAlarmTime(void);
 
 /*!
  * \brief Compute the timeout time of a future event in time
@@ -86,7 +86,7 @@ TimerTime_t RtcGetElapsedAlarmTime( void );
  * \param[IN] futureEventInTime Value in time
  * \retval time Time between now and the futureEventInTime
  */
-TimerTime_t RtcComputeFutureEventTime( TimerTime_t futureEventInTime );
+TimerTime_t RtcComputeFutureEventTime(TimerTime_t futureEventInTime);
 
 /*!
  * \brief Compute the elapsed time since a fix event in time
@@ -94,28 +94,28 @@ TimerTime_t RtcComputeFutureEventTime( TimerTime_t futureEventInTime );
  * \param[IN] eventInTime Value in time
  * \retval elapsed Time since the eventInTime
  */
-TimerTime_t RtcComputeElapsedTime( TimerTime_t eventInTime );
+TimerTime_t RtcComputeElapsedTime(TimerTime_t eventInTime);
 
 /*!
  * \brief This function blocks the MCU from going into low power mode
  *
  * \param [IN] status [true: Enable, false: Disable
  */
-void BlockLowPowerDuringTask ( bool status );
+void BlockLowPowerDuringTask (bool status);
 
 /*!
  * \brief Sets the MCU into low power STOP mode
  */
-void RtcEnterLowPowerStopMode( void );
+void RtcEnterLowPowerStopMode(void);
 
 /*!
  * \brief Restore the MCU to its normal operation mode
  */
-void RtcRecoverMcuStatus( void );
+void RtcRecoverMcuStatus(void);
 
 /*!
  * \brief Processes pending timer events
  */
-void RtcProcess( void );
+void RtcProcess(void);
 
 #endif // __RTC_BOARD_H__

@@ -1,31 +1,31 @@
 /*
- ---------------------------------------------------------------------------
- Copyright (c) 1998-2008, Brian Gladman, Worcester, UK. All rights reserved.
+   ---------------------------------------------------------------------------
+   Copyright (c) 1998-2008, Brian Gladman, Worcester, UK. All rights reserved.
 
- LICENSE TERMS
+   LICENSE TERMS
 
- The redistribution and use of this software (with or without changes)
- is allowed without the payment of fees or royalties provided that:
+   The redistribution and use of this software (with or without changes)
+   is allowed without the payment of fees or royalties provided that:
 
-  1. source code distributions include the above copyright notice, this
+   1. source code distributions include the above copyright notice, this
      list of conditions and the following disclaimer;
 
-  2. binary distributions include the above copyright notice, this list
+   2. binary distributions include the above copyright notice, this list
      of conditions and the following disclaimer in their documentation;
 
-  3. the name of the copyright holder is not used to endorse products
+   3. the name of the copyright holder is not used to endorse products
      built using this software without specific written permission.
 
- DISCLAIMER
+   DISCLAIMER
 
- This software is provided 'as is' with no explicit or implied warranties
- in respect of its properties, including, but not limited to, correctness
- and/or fitness for purpose.
- ---------------------------------------------------------------------------
- Issue 09/09/2006
+   This software is provided 'as is' with no explicit or implied warranties
+   in respect of its properties, including, but not limited to, correctness
+   and/or fitness for purpose.
+   ---------------------------------------------------------------------------
+   Issue 09/09/2006
 
- This is an AES implementation that uses only 8-bit byte operations on the
- cipher state.
+   This is an AES implementation that uses only 8-bit byte operations on the
+   cipher state.
  */
 
 #ifndef AES_H
@@ -59,12 +59,13 @@ typedef uint8_t return_type;
 
 /*  Warning: The key length for 256 bit keys overflows a byte
     (see comment below)
-*/
+ */
 
 typedef uint8_t length_type;
 
 typedef struct
-{   uint8_t ksch[(N_MAX_ROUNDS + 1) * N_BLOCK];
+{
+    uint8_t ksch[(N_MAX_ROUNDS + 1) * N_BLOCK];
     uint8_t rnd;
 } aes_context;
 
@@ -74,39 +75,39 @@ typedef struct
     unsigned 8-bit character, a key length of 256 bits must
     be entered as a length in bytes (valid inputs are hence
     128, 192, 16, 24 and 32).
-*/
+ */
 
-#if defined( AES_ENC_PREKEYED ) || defined( AES_DEC_PREKEYED )
+#if defined(AES_ENC_PREKEYED) || defined(AES_DEC_PREKEYED)
 
-return_type aes_set_key( const uint8_t key[],
-                         length_type keylen,
-                         aes_context ctx[1] );
+return_type aes_set_key(const uint8_t key[],
+        length_type keylen,
+        aes_context ctx[1]);
 #endif
 
-#if defined( AES_ENC_PREKEYED )
+#if defined(AES_ENC_PREKEYED)
 
-return_type aes_encrypt( const uint8_t in[N_BLOCK],
-                         uint8_t out[N_BLOCK],
-                         const aes_context ctx[1] );
+return_type aes_encrypt(const uint8_t in[N_BLOCK],
+        uint8_t out[N_BLOCK],
+        const aes_context ctx[1]);
 
-return_type aes_cbc_encrypt( const uint8_t *in,
-                         uint8_t *out,
-                         int32_t n_block,
-                         uint8_t iv[N_BLOCK],
-                         const aes_context ctx[1] );
+return_type aes_cbc_encrypt(const uint8_t* in,
+        uint8_t* out,
+        int32_t n_block,
+        uint8_t iv[N_BLOCK],
+        const aes_context ctx[1]);
 #endif
 
-#if defined( AES_DEC_PREKEYED )
+#if defined(AES_DEC_PREKEYED)
 
-return_type aes_decrypt( const uint8_t in[N_BLOCK],
-                         uint8_t out[N_BLOCK],
-                         const aes_context ctx[1] );
+return_type aes_decrypt(const uint8_t in[N_BLOCK],
+        uint8_t out[N_BLOCK],
+        const aes_context ctx[1]);
 
-return_type aes_cbc_decrypt( const uint8_t *in,
-                         uint8_t *out,
-                         int32_t n_block,
-                         uint8_t iv[N_BLOCK],
-                         const aes_context ctx[1] );
+return_type aes_cbc_decrypt(const uint8_t* in,
+        uint8_t* out,
+        int32_t n_block,
+        uint8_t iv[N_BLOCK],
+        const aes_context ctx[1]);
 #endif
 
 /*  The following calls are for 'on the fly' keying.  In this case the
@@ -127,34 +128,34 @@ return_type aes_cbc_decrypt( const uint8_t *in,
 
     Only 128 and 256 bit keys are supported in these 'on the fly'
     modes.
-*/
+ */
 
-#if defined( AES_ENC_128_OTFK )
-void aes_encrypt_128( const uint8_t in[N_BLOCK],
-                      uint8_t out[N_BLOCK],
-                      const uint8_t key[N_BLOCK],
-                      uint8_t o_key[N_BLOCK] );
+#if defined(AES_ENC_128_OTFK)
+void aes_encrypt_128(const uint8_t in[N_BLOCK],
+        uint8_t out[N_BLOCK],
+        const uint8_t key[N_BLOCK],
+        uint8_t o_key[N_BLOCK]);
 #endif
 
-#if defined( AES_DEC_128_OTFK )
-void aes_decrypt_128( const uint8_t in[N_BLOCK],
-                      uint8_t out[N_BLOCK],
-                      const uint8_t key[N_BLOCK],
-                      uint8_t o_key[N_BLOCK] );
+#if defined(AES_DEC_128_OTFK)
+void aes_decrypt_128(const uint8_t in[N_BLOCK],
+        uint8_t out[N_BLOCK],
+        const uint8_t key[N_BLOCK],
+        uint8_t o_key[N_BLOCK]);
 #endif
 
-#if defined( AES_ENC_256_OTFK )
-void aes_encrypt_256( const uint8_t in[N_BLOCK],
-                      uint8_t out[N_BLOCK],
-                      const uint8_t key[2 * N_BLOCK],
-                      uint8_t o_key[2 * N_BLOCK] );
+#if defined(AES_ENC_256_OTFK)
+void aes_encrypt_256(const uint8_t in[N_BLOCK],
+        uint8_t out[N_BLOCK],
+        const uint8_t key[2 * N_BLOCK],
+        uint8_t o_key[2 * N_BLOCK]);
 #endif
 
-#if defined( AES_DEC_256_OTFK )
-void aes_decrypt_256( const uint8_t in[N_BLOCK],
-                      uint8_t out[N_BLOCK],
-                      const uint8_t key[2 * N_BLOCK],
-                      uint8_t o_key[2 * N_BLOCK] );
+#if defined(AES_DEC_256_OTFK)
+void aes_decrypt_256(const uint8_t in[N_BLOCK],
+        uint8_t out[N_BLOCK],
+        const uint8_t key[2 * N_BLOCK],
+        uint8_t o_key[2 * N_BLOCK]);
 #endif
 
 #endif

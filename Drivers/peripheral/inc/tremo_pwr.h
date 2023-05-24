@@ -49,6 +49,6 @@ void pwr_xo32k_lpm_cmd(bool new_state);
 #endif //__TREMO_PWR_H
 
 /**
- * @} 
+ * @}
  * @}
  */

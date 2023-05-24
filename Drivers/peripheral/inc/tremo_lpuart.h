@@ -49,11 +49,11 @@ typedef enum {
  * @brief LPUART parity
  */
 typedef enum {
-    LPUART_PARITY_EVEN    = 0x0, /*!< Even check*/
-    LPUART_PARITY_ODD     = 0x4, /*!< ODD check*/
+    LPUART_PARITY_EVEN = 0x0,    /*!< Even check*/
+    LPUART_PARITY_ODD = 0x4,     /*!< ODD check*/
     LPUART_PARITY_STICK_0 = 0x8, /*!< Stick 0 check*/
     LPUART_PARITY_STICK_1 = 0xc, /*!< Stick 1 check*/
-    LPUART_PARITY_NONE    = 0x1c /*!< None check*/
+    LPUART_PARITY_NONE = 0x1c    /*!< None check*/
 } lpuart_parity_t;
 
 /**
@@ -69,25 +69,25 @@ typedef enum {
  */
 typedef enum {
     LPUART_CR0_LOW_LEVEL_WAKEUP = 0x400000,  /*!< rx low level wakeup*/
-    LPUART_CR0_START_WAKEUP     = 0x800000,  /*!< start bit wakeup*/
-    LPUART_CR0_RX_DONE_WAKEUP   = 0x1000000, /*!< receive done wakeup*/
-    LPUART_CR0_RX_ENABLE        = 0x2000000, /*!< receive enable*/
-    LPUART_CR0_RTS_ENABLE       = 0x4000000  /*!< rts enable*/
+    LPUART_CR0_START_WAKEUP = 0x800000,      /*!< start bit wakeup*/
+    LPUART_CR0_RX_DONE_WAKEUP = 0x1000000,   /*!< receive done wakeup*/
+    LPUART_CR0_RX_ENABLE = 0x2000000,        /*!< receive enable*/
+    LPUART_CR0_RTS_ENABLE = 0x4000000        /*!< rts enable*/
 } lpuart_cr0_t;
 
 /**
  * @brief LPUART interrupt definition
  */
 typedef enum {
-    LPUART_CR1_START_VALID_INT   = 0x1,  /*!< RX done interrupt*/
-    LPUART_CR1_RX_DONE_INT       = 0x2,  /*!< RX done interrupt*/
+    LPUART_CR1_START_VALID_INT = 0x1,    /*!< RX done interrupt*/
+    LPUART_CR1_RX_DONE_INT = 0x2,        /*!< RX done interrupt*/
     LPUART_CR1_START_INVALID_INT = 0x4,  /*!< RX start invalid interrupt*/
-    LPUART_CR1_PARITY_ERR_INT    = 0x8,  /*!< RX parity error interrupt*/
-    LPUART_CR1_STOP_ERR_INT      = 0x10, /*!< RX stop error interrupt*/
-    LPUART_CR1_RX_OVERFLOW_INT   = 0x20, /*!< RX overflow interrupt*/
-    LPUART_CR1_RX_NOT_EMPTY_INT  = 0x40, /*!< RX not empty interrupt*/
-    LPUART_CR1_TX_EMPTY_INT      = 0x80, /*!< TX empty interrupt*/
-    LPUART_CR1_TX_DONE_INT       = 0x100 /*!< TX done interrupt*/
+    LPUART_CR1_PARITY_ERR_INT = 0x8,     /*!< RX parity error interrupt*/
+    LPUART_CR1_STOP_ERR_INT = 0x10,      /*!< RX stop error interrupt*/
+    LPUART_CR1_RX_OVERFLOW_INT = 0x20,   /*!< RX overflow interrupt*/
+    LPUART_CR1_RX_NOT_EMPTY_INT = 0x40,  /*!< RX not empty interrupt*/
+    LPUART_CR1_TX_EMPTY_INT = 0x80,      /*!< TX empty interrupt*/
+    LPUART_CR1_TX_DONE_INT = 0x100       /*!< TX done interrupt*/
 } lpuart_it_t;
 
 /**
@@ -110,23 +110,23 @@ typedef enum {
  * @brief LPUART SR0 rx status definition
  */
 typedef enum {
-    LPUART_SR0_START_VALID_STATE   = 0x1,  /*!< RX start valid*/
-    LPUART_SR0_RX_DONE_STATE       = 0x2,  /*!< RX done*/
+    LPUART_SR0_START_VALID_STATE = 0x1,    /*!< RX start valid*/
+    LPUART_SR0_RX_DONE_STATE = 0x2,        /*!< RX done*/
     LPUART_SR0_START_INVALID_STATE = 0x4,  /*!< RX start invalid*/
-    LPUART_SR0_PARITY_ERR_STATE    = 0x8,  /*!< RX parity error*/
-    LPUART_SR0_STOP_ERR_STATE      = 0x10, /*!< RX stop error*/
-    LPUART_SR0_RX_OVERFLOW_STATE   = 0x20  /*!< RX overflow*/
+    LPUART_SR0_PARITY_ERR_STATE = 0x8,     /*!< RX parity error*/
+    LPUART_SR0_STOP_ERR_STATE = 0x10,      /*!< RX stop error*/
+    LPUART_SR0_RX_OVERFLOW_STATE = 0x20    /*!< RX overflow*/
 } lpuart_rx_status_t;
 
 /**
  * @brief LPUART SR1 register definition
  */
 typedef enum {
-    LPUART_SR1_WRITE_SR0_STATE    = 0x2,  /*!< Write SR0 register state*/
-    LPUART_SR1_WRITE_CR0_STATE    = 0x4,  /*!< Write CR0 register state*/
+    LPUART_SR1_WRITE_SR0_STATE = 0x2,     /*!< Write SR0 register state*/
+    LPUART_SR1_WRITE_CR0_STATE = 0x4,     /*!< Write CR0 register state*/
     LPUART_SR1_RX_NOT_EMPTY_STATE = 0x8,  /*!< RX not empty*/
-    LPUART_SR1_TX_EMPTY_STATE     = 0x10, /*!< TX empty*/
-    LPUART_SR1_TX_DONE_STATE      = 0x20  /*!< TX done*/
+    LPUART_SR1_TX_EMPTY_STATE = 0x10,     /*!< TX empty*/
+    LPUART_SR1_TX_DONE_STATE = 0x20       /*!< TX done*/
 } lpuart_sr1_t;
 
 /**
@@ -169,6 +169,6 @@ void lpuart_clear_tx_done_status(lpuart_t* lpuart);
 #endif /* __TREMO_LPUART_H */
 
 /**
- * @} 
+ * @}
  * @}
  */

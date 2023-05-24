@@ -10,38 +10,53 @@
 
 void deepsleep(uint32_t mode, uint32_t wfi)
 {
-    if((TREMO_REG_RD(0x10002010) & 0x3) == 0)
-        TREMO_REG_SET(PWR->CR1, (0xF<<20), (1<<20));
-	
+    if ((TREMO_REG_RD(0x10002010) & 0x3) == 0)
+    {
+        TREMO_REG_SET(PWR->CR1, (0xF << 20), (1 << 20));
+    }
+
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     if (wfi)
+    {
         PWR->CR0 &= ~(1 << 5);
+    }
     else
+    {
         PWR->CR0 |= 1 << 5;
+    }
 
     if (mode < PWR_LP_MODE_STOP3)
+    {
         TREMO_REG_SET(PWR->CR0, PWR_LP_MODE_MASK, mode);
-    else {
+    }
+    else
+    {
         uint32_t value = 0;
         //disable prefetch
-        if(EFC->CR & EFC_CR_PREFETCH_EN_MASK) {
+        if (EFC->CR & EFC_CR_PREFETCH_EN_MASK)
+        {
             FLASH_CR_UNLOCK();
             EFC->CR &= ~(EFC_CR_PREFETCH_EN_MASK);
             FLASH_CR_LOCK();
         }
-		
+
         value = TREMO_ANALOG_RD(0x0C);
-        if(!(value & (1<<14)))
-            TREMO_ANALOG_WR(0x0C, (value | 1<<14));
+        if (!(value & (1 << 14)))
+        {
+            TREMO_ANALOG_WR(0x0C, (value | 1 << 14));
+        }
 
         TREMO_REG_SET(PWR->CR0, PWR_LP_MODE_MASK, PWR_LP_MODE_STOP3);
         TREMO_REG_EN(PWR->CR1, PWR_LP_MODE_EXT_MASK, mode == PWR_LP_MODE_STOP3 ? true : false);
     }
 
-    if (wfi) {
+    if (wfi)
+    {
         NVIC_EnableIRQ(PWR_IRQn);
         __WFI();
-    } else {
+    }
+    else
+    {
         __SEV();
         __WFE();
         __WFE();
@@ -51,7 +66,7 @@ void deepsleep(uint32_t mode, uint32_t wfi)
 
 /**
  * @brief The WFI function of the deepsleep modes
- * @param mode The low power mode. 
+ * @param mode The low power mode.
  *          This parameter can be one of the following values:
  *           @arg PWR_LP_MODE_STOP0:  STOP0
  *           @arg PWR_LP_MODE_STOP1:  STOP1
@@ -65,9 +80,10 @@ void pwr_deepsleep_wfi(uint32_t mode)
     deepsleep(mode, 1);
 }
 
+
 /**
  * @brief The WFE function of the deepsleep modes
- * @param mode The low power mode. 
+ * @param mode The low power mode.
  *          This parameter can be one of the following values:
  *           @arg PWR_LP_MODE_STOP0:  STOP0
  *           @arg PWR_LP_MODE_STOP1:  STOP1
@@ -81,9 +97,10 @@ void pwr_deepsleep_wfe(uint32_t mode)
     deepsleep(mode, 0);
 }
 
+
 /**
  * @brief The WFI function of the sleep modes
- * @param lowpower The low power flag. 
+ * @param lowpower The low power flag.
  *          This parameter can be one of the following values:
  *           @arg true:  Low power sleep
  *           @arg false: Sleep
@@ -92,15 +109,18 @@ void pwr_deepsleep_wfe(uint32_t mode)
 void pwr_sleep_wfi(bool lowpower)
 {
     if (lowpower)
+    {
         pwr_enter_lprun_mode();
+    }
 
     NVIC_EnableIRQ(PWR_IRQn);
     __WFI();
 }
 
+
 /**
  * @brief The WFE function of the sleep modes
- * @param lowpower The low power flag. 
+ * @param lowpower The low power flag.
  *          This parameter can be one of the following values:
  *           @arg true:  Low power sleep
  *           @arg false: Sleep
@@ -109,10 +129,13 @@ void pwr_sleep_wfi(bool lowpower)
 void pwr_sleep_wfe(bool lowpower)
 {
     if (lowpower)
+    {
         pwr_enter_lprun_mode();
+    }
 
     __WFE();
 }
+
 
 /**
  * @brief Enter the low power run mode
@@ -121,9 +144,10 @@ void pwr_sleep_wfe(bool lowpower)
  */
 void pwr_enter_lprun_mode(void)
 {
-    TREMO_ANALOG_WR(0x05, (TREMO_ANALOG_RD(0x05) | ((1<<3))));
-    TREMO_ANALOG_WR(0x06, (TREMO_ANALOG_RD(0x06) | ((0x3<<20))));
+    TREMO_ANALOG_WR(0x05, (TREMO_ANALOG_RD(0x05) | ((1 << 3))));
+    TREMO_ANALOG_WR(0x06, (TREMO_ANALOG_RD(0x06) | ((0x3 << 20))));
 }
+
 
 /**
  * @brief Exit the low power run mode
@@ -132,9 +156,10 @@ void pwr_enter_lprun_mode(void)
  */
 void pwr_exit_lprun_mode(void)
 {
-    TREMO_ANALOG_WR(0x06, (TREMO_ANALOG_RD(0x06) & (~(0x3<<20))));
-    TREMO_ANALOG_WR(0x05, (TREMO_ANALOG_RD(0x05) & (~(1<<3))));
+    TREMO_ANALOG_WR(0x06, (TREMO_ANALOG_RD(0x06) & (~(0x3 << 20))));
+    TREMO_ANALOG_WR(0x05, (TREMO_ANALOG_RD(0x05) & (~(1 << 3))));
 }
+
 
 /**
  * @brief Enable/Disable the low power mode of the xo32k
@@ -147,3 +172,4 @@ void pwr_xo32k_lpm_cmd(bool new_state)
     uint32_t value = TREMO_ANALOG_RD(0x03);
     TREMO_ANALOG_WR(0x03, new_state ? (value | (1 << 7)): (value & (~(1 << 7))));
 }
+

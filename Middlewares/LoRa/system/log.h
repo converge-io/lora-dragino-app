@@ -15,13 +15,13 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 /* External variables --------------------------------------------------------*/
 /* Exported macros -----------------------------------------------------------*/
-typedef enum __log_level_t { 
-    LL_NONE   = 0x00, 
-    LL_ERR    = 0x01, 
-    LL_WARN   = 0x02, 
-    LL_DEBUG  = 0x04, 
-    LL_VDEBUG = 0x08, 
-    LL_ALL    = 0x0F 
+typedef enum __log_level_t {
+    LL_NONE = 0x00,
+    LL_ERR = 0x01,
+    LL_WARN = 0x02,
+    LL_DEBUG = 0x04,
+    LL_VDEBUG = 0x08,
+    LL_ALL = 0x0F
 } log_level_t;
 
 
@@ -32,7 +32,7 @@ extern log_level_t g_log_level;
 #define LOG_PRINTF(level, ...)   \
     do {                         \
         if (g_log_level & level) \
-            printf(__VA_ARGS__); \
+        printf(__VA_ARGS__); \
     } while (0)
 
 static inline int log_get_level()
@@ -40,10 +40,12 @@ static inline int log_get_level()
     return g_log_level;
 }
 
+
 static inline void log_set_level(int level)
 {
-    g_log_level = level>LL_ALL?LL_ALL:level;
+    g_log_level = level > LL_ALL?LL_ALL:level;
 }
+
 
 #else
 
@@ -54,10 +56,12 @@ static inline int log_get_level(void)
     return 0;
 }
 
+
 static inline void log_set_level(int level)
 {
     (void)level;
 }
+
 
 #endif
 

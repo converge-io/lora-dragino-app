@@ -12,7 +12,7 @@
  * @defgroup REGS
  * @{
  */
- 
+
 #ifndef WYSEC_H
 #define WYSEC_H
 
@@ -36,9 +36,9 @@
 /* testbench monitor address when simulation verification */
 #define WYSEC_DBG_BASE       (WYSEC_ARAM_MIX_BASE + 0xf00)   /*!< DBG base address */
 
-#define SAE             ((sae_t      *) WYSEC_SAE_BASE    )  /*!< SAE peripheral */
-#define RNG             ((rng_t      *) WYSEC_RNG_BASE    )  /*!< RNG peripheral */
-#define DBG             ((dbg_t      *) WYSEC_DBG_BASE    )  /*!< DBG peripheral */
+#define SAE             ((sae_t*)WYSEC_SAE_BASE)             /*!< SAE peripheral */
+#define RNG             ((rng_t*)WYSEC_RNG_BASE)             /*!< RNG peripheral */
+#define DBG             ((dbg_t*)WYSEC_DBG_BASE)             /*!< DBG peripheral */
 
 
 /*---------------------------------------------------------------------------*/
@@ -46,15 +46,14 @@
 /*---------------------------------------------------------------------------*/
 typedef struct
 {
-  volatile   UINT32  PRINT;  /*!< Addr:0x3000_0F00 (R/W) */
-  volatile   UINT32  SIMEND; /*!< Addr:0x3000_0F04 (R/W) */
-	
+    volatile UINT32 PRINT;   /*!< Addr:0x3000_0F00 (R/W) */
+    volatile UINT32 SIMEND;  /*!< Addr:0x3000_0F04 (R/W) */
 } dbg_t;
-   
+
 #endif  /* WYSEC_H */
 
 /**
- * @} 
+ * @}
  * @}
  * @}
  */

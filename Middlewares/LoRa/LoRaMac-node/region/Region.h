@@ -53,12 +53,10 @@
 #define __REGION_H__
 
 
-
-
 /*!
  * Macro to compute bit of a channel index.
  */
-#define LC( channelIndex )                          ( uint16_t )( 1 << ( channelIndex - 1 ) )
+#define LC(channelIndex)                          (uint16_t)(1 << (channelIndex - 1))
 
 /*!
  * Region       | SF
@@ -333,7 +331,6 @@
 #define DR_15                                       15
 
 
-
 /*!
  * Region       | dBM
  * ------------ | :-----:
@@ -547,157 +544,192 @@
 #define TX_POWER_15                                 15
 
 
-
 /*!
  * Enumeration of phy attributes.
  */
 typedef enum ePhyAttribute
 {
-		  /*!
+    /*!
      * Frequency. It is available
      * to perform a verification with RegionVerify().
      */
-    PHY_FREQUENCY,	
+    PHY_FREQUENCY,
+
     /*!
      * Minimum RX datarate.
      */
     PHY_MIN_RX_DR,
+
     /*!
      * Minimum TX datarate.
      */
     PHY_MIN_TX_DR,
+
     /*!
      * Maximum RX datarate.
      */
     PHY_MAX_RX_DR,
+
     /*!
      * Maximum TX datarate.
      */
     PHY_MAX_TX_DR,
+
     /*!
      * TX datarate.
      */
     PHY_TX_DR,
+
     /*!
      * Default TX datarate.
      */
     PHY_DEF_TX_DR,
+
     /*!
      * RX datarate.
      */
     PHY_RX_DR,
+
     /*!
      * Maximum TX power.
      */
     PHY_MAX_TX_POWER,
+
     /*!
      * TX power.
      */
     PHY_TX_POWER,
+
     /*!
      * Default TX power.
      */
     PHY_DEF_TX_POWER,
+
     /*!
      * Default ADR_ACK_LIMIT value.
      */
     PHY_DEF_ADR_ACK_LIMIT,
+
     /*!
      * Default ADR_ACK_DELAY value.
      */
     PHY_DEF_ADR_ACK_DELAY,
+
     /*!
      * Maximum payload possible.
      */
     PHY_MAX_PAYLOAD,
+
     /*!
      * Maximum payload possible when repeater support is enabled.
      */
     PHY_MAX_PAYLOAD_REPEATER,
+
     /*!
      * Duty cycle.
      */
     PHY_DUTY_CYCLE,
+
     /*!
      * Maximum receive window duration.
      */
     PHY_MAX_RX_WINDOW,
+
     /*!
      * Receive delay for window 1.
      */
     PHY_RECEIVE_DELAY1,
+
     /*!
      * Receive delay for window 2.
      */
     PHY_RECEIVE_DELAY2,
+
     /*!
      * Join accept delay for window 1.
      */
     PHY_JOIN_ACCEPT_DELAY1,
+
     /*!
      * Join accept delay for window 2.
      */
     PHY_JOIN_ACCEPT_DELAY2,
+
     /*!
      * Maximum frame counter gap.
      */
     PHY_MAX_FCNT_GAP,
+
     /*!
      * Acknowledgement time out.
      */
     PHY_ACK_TIMEOUT,
+
     /*!
      * Default datarate offset for window 1.
      */
     PHY_DEF_DR1_OFFSET,
+
     /*!
      * Default receive window 2 frequency.
      */
     PHY_DEF_RX2_FREQUENCY,
+
     /*!
      * Default receive window 2 datarate.
      */
     PHY_DEF_RX2_DR,
+
     /*!
      * Channels mask.
      */
     PHY_CHANNELS_MASK,
+
     /*!
      * Channels default mask.
      */
     PHY_CHANNELS_DEFAULT_MASK,
+
     /*!
      * Maximum number of supported channels
      */
     PHY_MAX_NB_CHANNELS,
+
     /*!
      * Channels.
      */
     PHY_CHANNELS,
+
     /*!
      * Default value of the uplink dwell time.
      */
     PHY_DEF_UPLINK_DWELL_TIME,
+
     /*!
      * Default value of the downlink dwell time.
      */
     PHY_DEF_DOWNLINK_DWELL_TIME,
+
     /*!
      * Default value of the MaxEIRP.
      */
     PHY_DEF_MAX_EIRP,
+
     /*!
      * Default value of the antenna gain.
      */
     PHY_DEF_ANTENNA_GAIN,
+
     /*!
      * Value for the number of join trials.
      */
     PHY_NB_JOIN_TRIALS,
+
     /*!
      * Default value for the number of join trials.
      */
     PHY_DEF_NB_JOIN_TRIALS,
+
     /*!
      * Next lower datarate.
      */
@@ -713,13 +745,13 @@ typedef enum eInitType
      * Performs an initialization and overwrites all existing data.
      */
     INIT_TYPE_INIT,
+
     /*!
      * Restores default channels only.
      */
     INIT_TYPE_RESTORE,
-	
-	  INIT_TYPE_REJOIN
-	
+
+    INIT_TYPE_REJOIN
 }InitType_t;
 
 typedef enum eChannelsMask
@@ -728,6 +760,7 @@ typedef enum eChannelsMask
      * The channels mask.
      */
     CHANNELS_MASK,
+
     /*!
      * The channels default mask.
      */
@@ -743,14 +776,17 @@ typedef union uPhyParam
      * A parameter value.
      */
     uint32_t Value;
+
     /*!
      * A floating point value.
      */
     float fValue;
+
     /*!
      * Pointer to the channels mask.
      */
     uint16_t* ChannelsMask;
+
     /*!
      * Pointer to the channels.
      */
@@ -766,18 +802,21 @@ typedef struct sGetPhyParams
      * Setup the parameter to get.
      */
     PhyAttribute_t Attribute;
+
     /*!
      * Datarate.
      * The parameter is needed for the following queries:
      * PHY_MAX_PAYLOAD, PHY_MAX_PAYLOAD_REPEATER, PHY_NEXT_LOWER_TX_DR.
      */
     int8_t Datarate;
+
     /*!
      * Uplink dwell time.
      * The parameter is needed for the following queries:
      * PHY_MIN_TX_DR, PHY_MAX_PAYLOAD, PHY_MAX_PAYLOAD_REPEATER, PHY_NEXT_LOWER_TX_DR.
      */
     uint8_t UplinkDwellTime;
+
     /*!
      * Downlink dwell time.
      * The parameter is needed for the following queries:
@@ -795,10 +834,12 @@ typedef struct sSetBandTxDoneParams
      * Channel to update.
      */
     uint8_t Channel;
+
     /*!
      * Joined Set to true, if the node has joined the network
      */
     bool Joined;
+
     /*!
      * Last TX done time.
      */
@@ -810,39 +851,44 @@ typedef struct sSetBandTxDoneParams
  */
 typedef union uVerifyParams
 {
-	    /*!
+    /*!
      * Channel frequency to verify
      */
     uint32_t Frequency;
-		
+
     /*!
      * TX power to verify.
      */
     int8_t TxPower;
+
     /*!
      * Set to true, if the duty cycle is enabled, otherwise false.
      */
     bool DutyCycle;
+
     /*!
      * The number of join trials.
      */
     uint8_t NbJoinTrials;
+
     /*!
      * Datarate to verify.
      */
     struct sDatarateParams
     {
         /*!
-        * Datarate to verify.
-        */
+         * Datarate to verify.
+         */
         int8_t Datarate;
+
         /*!
-        * The downlink dwell time.
-        */
+         * The downlink dwell time.
+         */
         uint8_t DownlinkDwellTime;
+
         /*!
-        * The up link dwell time.
-        */
+         * The up link dwell time.
+         */
         uint8_t UplinkDwellTime;
     }DatarateParams;
 }VerifyParams_t;
@@ -856,6 +902,7 @@ typedef struct sApplyCFListParams
      * Payload which contains the CF list.
      */
     uint8_t* Payload;
+
     /*!
      * Size of the payload.
      */
@@ -871,6 +918,7 @@ typedef struct sChanMaskSetParams
      * Pointer to the channels mask which should be set.
      */
     uint16_t* ChannelsMaskIn;
+
     /*!
      * Pointer to the channels mask which should be set.
      */
@@ -886,22 +934,27 @@ typedef struct sAdrNextParams
      * Set to true, if the function should update the channels mask.
      */
     bool UpdateChanMask;
+
     /*!
      * Set to true, if ADR is enabled.
      */
     bool AdrEnabled;
+
     /*!
      * ADR ack counter.
      */
     uint32_t AdrAckCounter;
+
     /*!
      * Datarate used currently.
      */
     int8_t Datarate;
+
     /*!
      * TX power used currently.
      */
     int8_t TxPower;
+
     /*!
      * UplinkDwellTime
      */
@@ -917,42 +970,52 @@ typedef struct sRxConfigParams
      * The RX channel.
      */
     uint8_t Channel;
+
     /*!
      * RX datarate.
      */
     int8_t Datarate;
+
     /*!
      * RX bandwidth.
      */
     uint8_t Bandwidth;
+
     /*!
      * RX datarate offset.
      */
     int8_t DrOffset;
+
     /*!
      * RX frequency.
      */
     uint32_t Frequency;
+
     /*!
      * RX window timeout
      */
-     uint32_t WindowTimeout;
+    uint32_t WindowTimeout;
+
     /*!
      * RX window offset
      */
     int32_t WindowOffset;
+
     /*!
      * Downlink dwell time.
      */
     uint8_t DownlinkDwellTime;
+
     /*!
      * Set to true, if a repeater is supported.
      */
     bool RepeaterSupport;
+
     /*!
      * Set to true, if RX should be continuous.
      */
     bool RxContinuous;
+
     /*!
      * Sets the RX window. 0: RX window 1, 1: RX window 2.
      */
@@ -968,22 +1031,27 @@ typedef struct sTxConfigParams
      * The TX channel.
      */
     uint8_t Channel;
+
     /*!
      * The TX datarate.
      */
     int8_t Datarate;
+
     /*!
      * The TX power.
      */
     int8_t TxPower;
+
     /*!
      * The Max EIRP, if applicable.
      */
     float MaxEirp;
+
     /*!
      * The antenna gain, if applicable.
      */
     float AntennaGain;
+
     /*!
      * Frame length to setup.
      */
@@ -999,26 +1067,32 @@ typedef struct sLinkAdrReqParams
      * Pointer to the payload which contains the MAC commands.
      */
     uint8_t* Payload;
+
     /*!
      * Size of the payload.
      */
     uint8_t PayloadSize;
+
     /*!
      * Uplink dwell time.
      */
     uint8_t UplinkDwellTime;
+
     /*!
      * Set to true, if ADR is enabled.
      */
     bool AdrEnabled;
+
     /*!
      * The current datarate.
      */
     int8_t CurrentDatarate;
+
     /*!
      * The current TX power.
      */
     int8_t CurrentTxPower;
+
     /*!
      * The current number of repetitions.
      */
@@ -1034,10 +1108,12 @@ typedef struct sRxParamSetupReqParams
      * The datarate to setup.
      */
     int8_t Datarate;
+
     /*!
      * Datarate offset.
      */
     int8_t DrOffset;
+
     /*!
      * The frequency to setup.
      */
@@ -1053,6 +1129,7 @@ typedef struct sNewChannelReqParams
      * Pointer to the new channels.
      */
     ChannelParams_t* NewChannel;
+
     /*!
      * Channel id.
      */
@@ -1068,10 +1145,12 @@ typedef struct sTxParamSetupReqParams
      * Uplink dwell time.
      */
     uint8_t UplinkDwellTime;
+
     /*!
      * Downlink dwell time.
      */
     uint8_t DownlinkDwellTime;
+
     /*!
      * Max EIRP.
      */
@@ -1087,6 +1166,7 @@ typedef struct sDlChannelReqParams
      * Channel Id to add the frequency.
      */
     uint8_t ChannelId;
+
     /*!
      * Alternative frequency for the Rx1 window.
      */
@@ -1113,22 +1193,27 @@ typedef struct sCalcBackOffParams
      * Set to true, if the node has already joined a network, otherwise false.
      */
     bool Joined;
+
     /*!
      * Joined Set to true, if the last uplink was a join request
      */
     bool LastTxIsJoinRequest;
+
     /*!
      * Set to true, if the duty cycle is enabled, otherwise false.
      */
     bool DutyCycleEnabled;
+
     /*!
      * Current channel index.
      */
     uint8_t Channel;
+
     /*!
      * Elapsed time since the start of the node.
      */
     TimerTime_t ElapsedTime;
+
     /*!
      * Time-on-air of the last transmission.
      */
@@ -1144,18 +1229,22 @@ typedef struct sNextChanParams
      * Aggregated time-off time.
      */
     TimerTime_t AggrTimeOff;
+
     /*!
      * Time of the last aggregated TX.
      */
     TimerTime_t LastAggrTx;
+
     /*!
      * Current datarate.
      */
     int8_t Datarate;
+
     /*!
      * Set to true, if the node has already joined a network, otherwise false.
      */
     bool Joined;
+
     /*!
      * Set to true, if the duty cycle is enabled, otherwise false.
      */
@@ -1171,6 +1260,7 @@ typedef struct sChannelAddParams
      * Pointer to the new channel to add.
      */
     ChannelParams_t* NewChannel;
+
     /*!
      * Channel id to add.
      */
@@ -1197,28 +1287,32 @@ typedef struct sContinuousWaveParams
      * Current channel index.
      */
     uint8_t Channel;
+
     /*!
      * Datarate. Used to limit the TX power.
      */
     int8_t Datarate;
+
     /*!
      * The TX power to setup.
      */
     int8_t TxPower;
+
     /*!
      * Max EIRP, if applicable.
      */
     float MaxEirp;
+
     /*!
      * The antenna gain, if applicable.
      */
     float AntennaGain;
+
     /*!
      * Specifies the time the radio will stay in CW mode.
      */
     uint16_t Timeout;
 }ContinuousWaveParams_t;
-
 
 
 /*!
@@ -1229,7 +1323,7 @@ typedef struct sContinuousWaveParams
  *
  * \retval Return true, if the region is supported.
  */
-bool RegionIsActive( LoRaMacRegion_t region );
+bool RegionIsActive(LoRaMacRegion_t region);
 
 /*!
  * \brief The function gets a value of a specific phy attribute.
@@ -1240,7 +1334,7 @@ bool RegionIsActive( LoRaMacRegion_t region );
  *
  * \retval Returns a structure containing the PHY parameter.
  */
-PhyParam_t RegionGetPhyParam( LoRaMacRegion_t region, GetPhyParams_t* getPhy );
+PhyParam_t RegionGetPhyParam(LoRaMacRegion_t region, GetPhyParams_t* getPhy);
 
 /*!
  * \brief Updates the last TX done parameters of the current channel.
@@ -1249,7 +1343,7 @@ PhyParam_t RegionGetPhyParam( LoRaMacRegion_t region, GetPhyParams_t* getPhy );
  *
  * \param [IN] txDone Pointer to the function parameters.
  */
-void RegionSetBandTxDone( LoRaMacRegion_t region, SetBandTxDoneParams_t* txDone );
+void RegionSetBandTxDone(LoRaMacRegion_t region, SetBandTxDoneParams_t* txDone);
 
 /*!
  * \brief Initializes the channels masks and the channels.
@@ -1258,7 +1352,7 @@ void RegionSetBandTxDone( LoRaMacRegion_t region, SetBandTxDoneParams_t* txDone 
  *
  * \param [IN] type Sets the initialization type.
  */
-void RegionInitDefaults( LoRaMacRegion_t region, InitType_t type );
+void RegionInitDefaults(LoRaMacRegion_t region, InitType_t type);
 
 /*!
  * \brief Verifies a parameter.
@@ -1271,7 +1365,7 @@ void RegionInitDefaults( LoRaMacRegion_t region, InitType_t type );
  *
  * \retval Returns true, if the parameter is valid.
  */
-bool RegionVerify( LoRaMacRegion_t region, VerifyParams_t* verify, PhyAttribute_t phyAttribute );
+bool RegionVerify(LoRaMacRegion_t region, VerifyParams_t* verify, PhyAttribute_t phyAttribute);
 
 /*!
  * \brief The function parses the input buffer and sets up the channels of the
@@ -1281,7 +1375,7 @@ bool RegionVerify( LoRaMacRegion_t region, VerifyParams_t* verify, PhyAttribute_
  *
  * \param [IN] applyCFList Pointer to the function parameters.
  */
-void RegionApplyCFList( LoRaMacRegion_t region, ApplyCFListParams_t* applyCFList );
+void RegionApplyCFList(LoRaMacRegion_t region, ApplyCFListParams_t* applyCFList);
 
 /*!
  * \brief Sets a channels mask.
@@ -1292,7 +1386,7 @@ void RegionApplyCFList( LoRaMacRegion_t region, ApplyCFListParams_t* applyCFList
  *
  * \retval Returns true, if the channels mask could be set.
  */
-bool RegionChanMaskSet( LoRaMacRegion_t region, ChanMaskSetParams_t* chanMaskSet );
+bool RegionChanMaskSet(LoRaMacRegion_t region, ChanMaskSetParams_t* chanMaskSet);
 
 /*!
  * \brief Calculates the next datarate to set, when ADR is on or off.
@@ -1309,7 +1403,7 @@ bool RegionChanMaskSet( LoRaMacRegion_t region, ChanMaskSetParams_t* chanMaskSet
  *
  * \retval Returns true, if an ADR request should be performed.
  */
-bool RegionAdrNext( LoRaMacRegion_t region, AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowOut, uint32_t* adrAckCounter );
+bool RegionAdrNext(LoRaMacRegion_t region, AdrNextParams_t* adrNext, int8_t* drOut, int8_t* txPowOut, uint32_t* adrAckCounter);
 
 /*!
  * \brief Configuration of the RX windows.
@@ -1322,7 +1416,7 @@ bool RegionAdrNext( LoRaMacRegion_t region, AdrNextParams_t* adrNext, int8_t* dr
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-bool RegionRxConfig( LoRaMacRegion_t region, RxConfigParams_t* rxConfig, int8_t* datarate );
+bool RegionRxConfig(LoRaMacRegion_t region, RxConfigParams_t* rxConfig, int8_t* datarate);
 
 /*
  * Rx window precise timing
@@ -1345,7 +1439,7 @@ bool RegionRxConfig( LoRaMacRegion_t region, RxConfigParams_t* rxConfig, int8_t*
  *                +---+---+---+---+---+---+---+---+
  *                            |
  *                            +---+---+---+---+---+---+---+---+
- *Downlink preamble 8 symbols |   |   |   |   |   |   |   |   |
+ * Downlink preamble 8 symbols |   |   |   |   |   |   |   |   |
  *                            +---+---+---+---+---+---+---+---+
  *
  *                     Worst case Rx window timings
@@ -1377,7 +1471,7 @@ bool RegionRxConfig( LoRaMacRegion_t region, RxConfigParams_t* rxConfig, int8_t*
  *
  * \param [OUT]rxConfigParams Returns updated WindowTimeout and WindowOffset fields.
  */
-void RegionComputeRxWindowParameters( LoRaMacRegion_t region, int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t *rxConfigParams );
+void RegionComputeRxWindowParameters(LoRaMacRegion_t region, int8_t datarate, uint8_t minRxSymbols, uint32_t rxError, RxConfigParams_t* rxConfigParams);
 
 /*!
  * \brief TX configuration.
@@ -1392,7 +1486,7 @@ void RegionComputeRxWindowParameters( LoRaMacRegion_t region, int8_t datarate, u
  *
  * \retval Returns true, if the configuration was applied successfully.
  */
-bool RegionTxConfig( LoRaMacRegion_t region, TxConfigParams_t* txConfig, int8_t* txPower, TimerTime_t* txTimeOnAir );
+bool RegionTxConfig(LoRaMacRegion_t region, TxConfigParams_t* txConfig, int8_t* txPower, TimerTime_t* txTimeOnAir);
 
 /*!
  * \brief The function processes a Link ADR Request.
@@ -1411,7 +1505,7 @@ bool RegionTxConfig( LoRaMacRegion_t region, TxConfigParams_t* txConfig, int8_t*
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionLinkAdrReq( LoRaMacRegion_t region, LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, int8_t* txPowOut, uint8_t* nbRepOut, uint8_t* nbBytesParsed );
+uint8_t RegionLinkAdrReq(LoRaMacRegion_t region, LinkAdrReqParams_t* linkAdrReq, int8_t* drOut, int8_t* txPowOut, uint8_t* nbRepOut, uint8_t* nbBytesParsed);
 
 /*!
  * \brief The function processes a RX Parameter Setup Request.
@@ -1422,7 +1516,7 @@ uint8_t RegionLinkAdrReq( LoRaMacRegion_t region, LinkAdrReqParams_t* linkAdrReq
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionRxParamSetupReq( LoRaMacRegion_t region, RxParamSetupReqParams_t* rxParamSetupReq );
+uint8_t RegionRxParamSetupReq(LoRaMacRegion_t region, RxParamSetupReqParams_t* rxParamSetupReq);
 
 /*!
  * \brief The function processes a New Channel Request.
@@ -1433,7 +1527,7 @@ uint8_t RegionRxParamSetupReq( LoRaMacRegion_t region, RxParamSetupReqParams_t* 
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionNewChannelReq( LoRaMacRegion_t region, NewChannelReqParams_t* newChannelReq );
+uint8_t RegionNewChannelReq(LoRaMacRegion_t region, NewChannelReqParams_t* newChannelReq);
 
 /*!
  * \brief The function processes a TX ParamSetup Request.
@@ -1446,7 +1540,7 @@ uint8_t RegionNewChannelReq( LoRaMacRegion_t region, NewChannelReqParams_t* newC
  *         Returns -1, if the functionality is not implemented. In this case, the end node
  *         shall ignore the command.
  */
-int8_t RegionTxParamSetupReq( LoRaMacRegion_t region, TxParamSetupReqParams_t* txParamSetupReq );
+int8_t RegionTxParamSetupReq(LoRaMacRegion_t region, TxParamSetupReqParams_t* txParamSetupReq);
 
 /*!
  * \brief The function processes a DlChannel Request.
@@ -1457,7 +1551,7 @@ int8_t RegionTxParamSetupReq( LoRaMacRegion_t region, TxParamSetupReqParams_t* t
  *
  * \retval Returns the status of the operation, according to the LoRaMAC specification.
  */
-uint8_t RegionDlChannelReq( LoRaMacRegion_t region, DlChannelReqParams_t* dlChannelReq );
+uint8_t RegionDlChannelReq(LoRaMacRegion_t region, DlChannelReqParams_t* dlChannelReq);
 
 /*!
  * \brief Alternates the datarate of the channel for the join request.
@@ -1468,7 +1562,7 @@ uint8_t RegionDlChannelReq( LoRaMacRegion_t region, DlChannelReqParams_t* dlChan
  *
  * \retval Datarate to apply.
  */
-int8_t RegionAlternateDr( LoRaMacRegion_t region, AlternateDrParams_t* alternateDr );
+int8_t RegionAlternateDr(LoRaMacRegion_t region, AlternateDrParams_t* alternateDr);
 
 /*!
  * \brief Calculates the back-off time.
@@ -1477,7 +1571,7 @@ int8_t RegionAlternateDr( LoRaMacRegion_t region, AlternateDrParams_t* alternate
  *
  * \param [IN] calcBackOff Pointer to the function parameters.
  */
-void RegionCalcBackOff( LoRaMacRegion_t region, CalcBackOffParams_t* calcBackOff );
+void RegionCalcBackOff(LoRaMacRegion_t region, CalcBackOffParams_t* calcBackOff);
 
 /*!
  * \brief Searches and set the next random available channel
@@ -1493,7 +1587,7 @@ void RegionCalcBackOff( LoRaMacRegion_t region, CalcBackOffParams_t* calcBackOff
  *
  * \retval Function status [1: OK, 0: Unable to find a channel on the current datarate].
  */
-bool RegionNextChannel( LoRaMacRegion_t region, NextChanParams_t* nextChanParams, uint8_t* channel, TimerTime_t* time, TimerTime_t* aggregatedTimeOff );
+bool RegionNextChannel(LoRaMacRegion_t region, NextChanParams_t* nextChanParams, uint8_t* channel, TimerTime_t* time, TimerTime_t* aggregatedTimeOff);
 
 /*!
  * \brief Adds a channel.
@@ -1504,7 +1598,7 @@ bool RegionNextChannel( LoRaMacRegion_t region, NextChanParams_t* nextChanParams
  *
  * \retval Status of the operation.
  */
-LoRaMacStatus_t RegionChannelAdd( LoRaMacRegion_t region, ChannelAddParams_t* channelAdd );
+LoRaMacStatus_t RegionChannelAdd(LoRaMacRegion_t region, ChannelAddParams_t* channelAdd);
 
 /*!
  * \brief Removes a channel.
@@ -1515,7 +1609,7 @@ LoRaMacStatus_t RegionChannelAdd( LoRaMacRegion_t region, ChannelAddParams_t* ch
  *
  * \retval Returns true, if the channel was removed successfully.
  */
-bool RegionChannelsRemove( LoRaMacRegion_t region, ChannelRemoveParams_t* channelRemove );
+bool RegionChannelsRemove(LoRaMacRegion_t region, ChannelRemoveParams_t* channelRemove);
 
 /*!
  * \brief Sets the radio into continuous wave mode.
@@ -1524,7 +1618,7 @@ bool RegionChannelsRemove( LoRaMacRegion_t region, ChannelRemoveParams_t* channe
  *
  * \param [IN] continuousWave Pointer to the function parameters.
  */
-void RegionSetContinuousWave( LoRaMacRegion_t region, ContinuousWaveParams_t* continuousWave );
+void RegionSetContinuousWave(LoRaMacRegion_t region, ContinuousWaveParams_t* continuousWave);
 
 /*!
  * \brief Computes new datarate according to the given offset
@@ -1537,7 +1631,7 @@ void RegionSetContinuousWave( LoRaMacRegion_t region, ContinuousWaveParams_t* co
  *
  * \retval newDr Computed datarate.
  */
-uint8_t RegionApplyDrOffset( LoRaMacRegion_t region, uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset );
+uint8_t RegionApplyDrOffset(LoRaMacRegion_t region, uint8_t downlinkDwellTime, int8_t dr, int8_t drOffset);
 
 /*! \} defgroup REGION */
 //void RegionRxBeaconSetup( LoRaMacRegion_t region, RxBeaconSetup_t* rxBeaconSetup, uint8_t* outDr );

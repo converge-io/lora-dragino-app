@@ -24,30 +24,30 @@
 enum AES_ENUM
 {
     AESSuccess = 0, /*!< success*/
-	AESNull,        /*!< null*/
-	AESLengthError, /*!< length error*/
-	AESLengthZero,  /*!< length is zero*/
-	AESStateError,  /*!< state error*/
-	AESSeedError,   /*!< seed error*/
+    AESNull,        /*!< null*/
+    AESLengthError, /*!< length error*/
+    AESLengthZero,  /*!< length is zero*/
+    AESStateError,  /*!< state error*/
+    AESSeedError,   /*!< seed error*/
     AESKeyLenError, /*!< length of key is not 16, 24 or 32 words*/
-	AESCloseError,  /*!< close error*/
-	AESAttacked     /*!< attacked*/
+    AESCloseError,  /*!< close error*/
+    AESAttacked     /*!< attacked*/
 };
 
 /**
  * @brief AES code mode
  */
-enum AES_ENC_DEC{
-    AES_ENC_MODE =0, /*!< encode mode*/
+enum AES_ENC_DEC {
+    AES_ENC_MODE = 0, /*!< encode mode*/
     AES_DEC_MODE,    /*!< decode mode*/
 };
 
 /**
  * @brief AES ECB or CBC mode
  */
-enum AES_ECB_CBC{
+enum AES_ECB_CBC {
     AES_ECB_MODE = 0, /*!< ECB mode*/
-    AES_CBC_MODE ,    /*!< CBC mode*/
+    AES_CBC_MODE,     /*!< CBC mode*/
 };
 
 /**
@@ -75,7 +75,7 @@ enum AES_ECB_CBC{
  */
 U8 aes_init(U8* key, U8 keymod,U8 mode,U8* IVorNonce);
 
- /**
+/**
  * @brief  AES encryption/decryption
  * @param  in input buffer
  * @param  inLen input length,must be integer multiples of 16
@@ -93,9 +93,9 @@ U8 aes_init(U8* key, U8 keymod,U8 mode,U8* IVorNonce);
  * @retval AESCloseError close error
  * @retval AESAttacked attacked
  */
-U8 aes_crypto(U8* in, U16 inLen, U8 En_De, U8*  out);
+U8 aes_crypto(U8* in, U16 inLen, U8 En_De, U8* out);
 
- /**
+/**
  * @brief  AES close
  * @retval AESSuccess success
  * @retval AESNull null
@@ -112,7 +112,7 @@ U8 aes_close(void);
 #endif /* ifndef __AES_H__ */
 
 /**
- * @} 
+ * @}
  * @}
  * @}
  */

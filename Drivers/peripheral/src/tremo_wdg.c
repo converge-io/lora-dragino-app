@@ -24,6 +24,7 @@ void wdg_deinit(void)
     rcc_rst_peripheral(RCC_PERIPHERAL_WDG, false);
 }
 
+
 /**
  * @brief Start the Watchdog
  * @note  If the WDG counter reaches 0, the WDG Irq will be asserted, and the counter reloaded. If the WDG counter reaches 0 again without feeding, the system will be reset
@@ -33,12 +34,13 @@ void wdg_deinit(void)
 void wdg_start(uint32_t reload_value)
 {
     WDG_UNLOCK();
-    WDG->LOAD    = reload_value;
+    WDG->LOAD = reload_value;
     WDG->CONTROL = WDG_RESEN | WDG_INTEN;
     WDG_LOCK();
 
     TREMO_REG_EN(RCC->RST_CR, RCC_RST_CR_WDG_RESET_REQ_EN_MASK, true);
 }
+
 
 /**
  * @brief Feed the Watchdog
@@ -52,6 +54,7 @@ void wdg_reload(void)
     WDG_LOCK();
 }
 
+
 /**
  * @brief Stop the Watchdog
  * @param None
@@ -63,6 +66,7 @@ void wdg_stop(void)
 
     WDG_UNLOCK();
     WDG->CONTROL = 0x0;
-    WDG->LOAD    = 0xFFFFFFFF;
+    WDG->LOAD = 0xFFFFFFFF;
     WDG_LOCK();
 }
+

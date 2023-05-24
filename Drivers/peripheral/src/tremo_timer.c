@@ -15,12 +15,16 @@ void timer_init(timer_gp_t* TIMERx, timer_init_t* timer_init)
 
     /* Select the Counter Mode */
     tmpcr1 &= ~TIMER_COUNTERMODE_CENTERALIGNED3;
-    if ((timer_init->counter_mode == TIMER_COUNTERMODE_UP) || (timer_init->counter_mode == TIMER_COUNTERMODE_DOWN)) {
+    if ((timer_init->counter_mode == TIMER_COUNTERMODE_UP) || (timer_init->counter_mode == TIMER_COUNTERMODE_DOWN))
+    {
         tmpcr1 &= ~TIMER_DIR;
-        if (timer_init->counter_mode == TIMER_COUNTERMODE_DOWN) {
+        if (timer_init->counter_mode == TIMER_COUNTERMODE_DOWN)
+        {
             tmpcr1 |= TIMER_DIR;
         }
-    } else {
+    }
+    else
+    {
         tmpcr1 |= timer_init->counter_mode;
     }
 
@@ -30,7 +34,8 @@ void timer_init(timer_gp_t* TIMERx, timer_init_t* timer_init)
 
     /* Set the auto-reload preload */
     tmpcr1 &= ~TIMER_AUTORELOAD_PRELOAD;
-    if (timer_init->autoreload_preload == true) {
+    if (timer_init->autoreload_preload == true)
+    {
         tmpcr1 |= TIMER_AUTORELOAD_PRELOAD;
     }
 
@@ -43,6 +48,7 @@ void timer_init(timer_gp_t* TIMERx, timer_init_t* timer_init)
     TIMERx->PSC = timer_init->prescaler;
 }
 
+
 /**
  * @brief  TIMERx deinitialize
  * @param  TIMERx select the TIMER peripheral
@@ -50,26 +56,36 @@ void timer_init(timer_gp_t* TIMERx, timer_init_t* timer_init)
  */
 void timer_deinit(timer_gp_t* TIMERx)
 {
-    if (TIMERx == TIMER0) {
+    if (TIMERx == TIMER0)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_TIMER0, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_TIMER0, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_TIMER0, false);
-    } else if (TIMERx == TIMER1) {
+    }
+    else if (TIMERx == TIMER1)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_TIMER1, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_TIMER1, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_TIMER1, false);
-    } else if (TIMERx == TIMER2) {
+    }
+    else if (TIMERx == TIMER2)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_TIMER2, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_TIMER2, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_TIMER2, false);
-    } else if (TIMERx == TIMER3) {
+    }
+    else if (TIMERx == TIMER3)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_TIMER3, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_TIMER3, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_TIMER3, false);
-    } else {
+    }
+    else
+    {
         return;
     }
 }
+
 
 /**
  * @brief  TIMERx enable or disable
@@ -79,12 +95,16 @@ void timer_deinit(timer_gp_t* TIMERx)
  */
 void timer_cmd(timer_gp_t* TIMERx, bool state)
 {
-    if (state == true) {
+    if (state == true)
+    {
         TIMERx->CR1 |= (uint32_t)TIMER_CEN;
-    } else {
+    }
+    else
+    {
         TIMERx->CR1 &= (uint32_t) ~(uint32_t)TIMER_CEN;
     }
 }
+
 
 /**
  * @brief  TIMERx disable update event
@@ -94,12 +114,16 @@ void timer_cmd(timer_gp_t* TIMERx, bool state)
  */
 void timer_disable_update(timer_gp_t* TIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         TIMERx->CR1 |= (uint32_t)TIMER_UDIS;
-    } else {
+    }
+    else
+    {
         TIMERx->CR1 &= (uint32_t) ~(uint32_t)TIMER_UDIS;
     }
 }
+
 
 /**
  * @brief  TIMERx config update source
@@ -109,12 +133,16 @@ void timer_disable_update(timer_gp_t* TIMERx, uint8_t state)
  */
 void timer_config_update_source(timer_gp_t* TIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         TIMERx->CR1 |= (uint32_t)TIMER_URS;
-    } else {
+    }
+    else
+    {
         TIMERx->CR1 &= (uint32_t) ~(uint32_t)TIMER_URS;
     }
 }
+
 
 /**
  * @brief  TIMERx config master timer mode
@@ -128,6 +156,7 @@ void timer_config_master_mode(timer_gp_t* TIMERx, timer_master_mode_t master_mod
     TIMERx->CR2 |= (uint32_t)master_mode;
 }
 
+
 /**
  * @brief  TIMERx enable xor of channel 0
  * @param  TIMERx select the TIMER peripheral
@@ -136,12 +165,16 @@ void timer_config_master_mode(timer_gp_t* TIMERx, timer_master_mode_t master_mod
  */
 void timer_enable_xor(timer_gp_t* TIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         TIMERx->CR2 |= (uint32_t)TIMER_TI0S_XOR;
-    } else {
+    }
+    else
+    {
         TIMERx->CR2 &= (uint32_t) ~(uint32_t)TIMER_TI0S_XOR;
     }
 }
+
 
 /**
  * @brief  TIMERx enable dma update request
@@ -151,12 +184,16 @@ void timer_enable_xor(timer_gp_t* TIMERx, uint8_t state)
  */
 void timer_enable_ccds_upd(timer_gp_t* TIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         TIMERx->CR2 |= (uint32_t)TIMER_CCDS_UPD;
-    } else {
+    }
+    else
+    {
         TIMERx->CR2 &= (uint32_t) ~(uint32_t)TIMER_CCDS_UPD;
     }
 }
+
 
 /**
  * @brief  Configures the TIMERx External Trigger (ETR).
@@ -177,13 +214,15 @@ void timer_config_etr(
 
     /* Set the Prescaler, the Filter value and the Polarity */
     tmpsmcr |= (uint32_t)(ext_trg_prescaler | ext_trg_filter);
-    if (ext_trg_polarity == true) {
+    if (ext_trg_polarity == true)
+    {
         tmpsmcr |= TIMER_ETP_INVERTED;
     }
 
     /* Write to TIMERx SMCR */
     TIMERx->SMCR = tmpsmcr;
 }
+
 
 /**
  * @brief  Config the External Clock2 mode enable or disable
@@ -193,12 +232,16 @@ void timer_config_etr(
  */
 void timer_config_external_clock2(timer_gp_t* TIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         TIMERx->SMCR |= (uint32_t)TIMER_ECE_ENABLE;
-    } else {
+    }
+    else
+    {
         TIMERx->SMCR &= (uint32_t) ~(uint32_t)TIMER_ECE_ENABLE;
     }
 }
+
 
 /**
  * @brief  Config the Input Trigger source
@@ -220,6 +263,7 @@ void timer_config_itrx(timer_gp_t* TIMERx, timer_ts_t input_trigger_source)
     TIMERx->SMCR = tmpsmcr;
 }
 
+
 /**
  * @brief  Config the Slave Mode
  * @param  TIMERx select the TIMER peripheral
@@ -231,6 +275,7 @@ void timer_config_slave_mode(timer_gp_t* TIMERx, timer_sms_t slave_mode)
     TIMERx->SMCR &= (uint32_t) ~(uint32_t)TIMER_SMS_EXTERNAL1;
     TIMERx->SMCR |= (uint32_t)slave_mode;
 }
+
 
 /**
  * @brief  Configure the channel as input.
@@ -271,7 +316,8 @@ void timer_config_ti(
     uint32_t tmpccmr;
     uint32_t tmpccer;
 
-    if (channel == TIMER_CHANNEL_0) {
+    if (channel == TIMER_CHANNEL_0)
+    {
         /* Disable the Channel 0*/
         TIMERx->CCER &= ~TIMER_CCER_CC0E;
         tmpccmr = TIMERx->CCMR1;
@@ -285,7 +331,9 @@ void timer_config_ti(
         /*Select the polarity and enable the channel*/
         tmpccer &= ~TIMER_CC0P_BOTHEDGE;
         tmpccer |= ic_polarity | TIMER_CCER_CC0E;
-    } else if (channel == TIMER_CHANNEL_1) {
+    }
+    else if (channel == TIMER_CHANNEL_1)
+    {
         /* Disable the Channel 1*/
         TIMERx->CCER &= ~TIMER_CCER_CC1E;
         tmpccmr = TIMERx->CCMR1;
@@ -299,7 +347,9 @@ void timer_config_ti(
         /*Select the polarity and enable the channel*/
         tmpccer &= ~TIMER_CC1P_BOTHEDGE;
         tmpccer |= ic_polarity | TIMER_CCER_CC1E;
-    } else if (channel == TIMER_CHANNEL_2) {
+    }
+    else if (channel == TIMER_CHANNEL_2)
+    {
         /* Disable the Channel 2*/
         TIMERx->CCER &= ~TIMER_CCER_CC2E;
         tmpccmr = TIMERx->CCMR2;
@@ -313,7 +363,9 @@ void timer_config_ti(
         /*Select the polarity and enable the channel*/
         tmpccer &= ~TIMER_CC2P_BOTHEDGE;
         tmpccer |= ic_polarity | TIMER_CCER_CC2E;
-    } else {
+    }
+    else
+    {
         /* Disable the Channel 3*/
         TIMERx->CCER &= ~TIMER_CCER_CC3E;
         tmpccmr = TIMERx->CCMR2;
@@ -329,13 +381,17 @@ void timer_config_ti(
         tmpccer |= ic_polarity | TIMER_CCER_CC3E;
     }
     /*Write to TIMERx CCMR1/CCMR2 and CCER registers*/
-    if ((channel == TIMER_CHANNEL_0) || (channel == TIMER_CHANNEL_1)) {
+    if ((channel == TIMER_CHANNEL_0) || (channel == TIMER_CHANNEL_1))
+    {
         TIMERx->CCMR1 = tmpccmr;
-    } else {
+    }
+    else
+    {
         TIMERx->CCMR2 = tmpccmr;
     }
     TIMERx->CCER = tmpccer;
 }
+
 
 /**
  * @brief  Configure the polarity and filter for TI.
@@ -368,7 +424,8 @@ void timer_config_polarity_filter_ti(timer_gp_t* TIMERx, uint32_t ic_polarity, u
     uint32_t tmpccmr;
     uint32_t tmpccer;
 
-    if (channel == TIMER_CHANNEL_0) {
+    if (channel == TIMER_CHANNEL_0)
+    {
         /* Disable the Channel 0*/
         TIMERx->CCER &= ~TIMER_CCER_CC0E;
         tmpccmr = TIMERx->CCMR1;
@@ -383,7 +440,9 @@ void timer_config_polarity_filter_ti(timer_gp_t* TIMERx, uint32_t ic_polarity, u
 
         /*Write to TIMERx CCMR1*/
         TIMERx->CCMR1 = tmpccmr;
-    } else if (channel == TIMER_CHANNEL_1) {
+    }
+    else if (channel == TIMER_CHANNEL_1)
+    {
         /* Disable the Channel 1*/
         TIMERx->CCER &= ~TIMER_CCER_CC1E;
         tmpccmr = TIMERx->CCMR1;
@@ -398,7 +457,9 @@ void timer_config_polarity_filter_ti(timer_gp_t* TIMERx, uint32_t ic_polarity, u
 
         /*Write to TIMERx CCMR1*/
         TIMERx->CCMR1 = tmpccmr;
-    } else if (channel == TIMER_CHANNEL_2) {
+    }
+    else if (channel == TIMER_CHANNEL_2)
+    {
         /* Disable the Channel 2*/
         TIMERx->CCER &= ~TIMER_CCER_CC2E;
         tmpccmr = TIMERx->CCMR2;
@@ -413,7 +474,9 @@ void timer_config_polarity_filter_ti(timer_gp_t* TIMERx, uint32_t ic_polarity, u
 
         /*Write to TIMERx CCMR2*/
         TIMERx->CCMR2 = tmpccmr;
-    } else {
+    }
+    else
+    {
         /* Disable the Channel 3*/
         TIMERx->CCER &= ~TIMER_CCER_CC3E;
         tmpccmr = TIMERx->CCMR2;
@@ -433,6 +496,7 @@ void timer_config_polarity_filter_ti(timer_gp_t* TIMERx, uint32_t ic_polarity, u
     TIMERx->CCER = tmpccer;
 }
 
+
 /**
  * @brief  Slave Timer configuration function
  * @param  TIMERx select the TIMER peripheral
@@ -447,57 +511,64 @@ int32_t timer_config_slave(timer_gp_t* TIMERx, timer_slave_config_t* slave_confi
     uint32_t tmpccer;
 
     /* Configure the trigger prescaler, filter, and polarity */
-    switch (slave_config->input_trigger) {
-    case TIMER_TS_ETRF: {
-        /* Configure the ETR Trigger source */
-        timer_config_etr(
-            TIMERx, slave_config->trigger_prescaler, slave_config->trigger_polarity, slave_config->trigger_filter);
-        break;
-    }
-
-    case TIMER_TS_TI0F_ED: {
-        if (slave_config->slave_mode == TIMER_SMS_GATED) {
-            return TIMER_ERROR;
+    switch (slave_config->input_trigger)
+    {
+        case TIMER_TS_ETRF:
+        {
+            /* Configure the ETR Trigger source */
+            timer_config_etr(
+                TIMERx, slave_config->trigger_prescaler, slave_config->trigger_polarity, slave_config->trigger_filter);
+            break;
         }
-        /* Disable the Channel 0*/
-        TIMERx->CCER &= ~TIMER_CCER_CC0E;
-        tmpccer  = TIMERx->CCER;
-        tmpccmr1 = TIMERx->CCMR1;
 
-        /* Set the filter */
-        tmpccmr1 &= ~TIMER_IC0F_15;
-        tmpccmr1 |= (slave_config->ic_filter).ic0f_filter;
-        tmpccer |= TIMER_CCER_CC0E;
+        case TIMER_TS_TI0F_ED:
+        {
+            if (slave_config->slave_mode == TIMER_SMS_GATED)
+            {
+                return TIMER_ERROR;
+            }
+            /* Disable the Channel 0*/
+            TIMERx->CCER &= ~TIMER_CCER_CC0E;
+            tmpccer = TIMERx->CCER;
+            tmpccmr1 = TIMERx->CCMR1;
 
-        /* Write to TIMx CCMR1 and CCER registers */
-        TIMERx->CCMR1 = tmpccmr1;
-        TIMERx->CCER  = tmpccer;
-        break;
-    }
+            /* Set the filter */
+            tmpccmr1 &= ~TIMER_IC0F_15;
+            tmpccmr1 |= (slave_config->ic_filter).ic0f_filter;
+            tmpccer |= TIMER_CCER_CC0E;
 
-    case TIMER_TS_TI0FP0: {
-        /* Configure TI0 Filter and Polarity */
-        timer_config_polarity_filter_ti(
-            TIMERx, (uint32_t)((slave_config->ic_polarity).cc0p_polarity), (uint32_t)((slave_config->ic_filter).ic0f_filter), TIMER_CHANNEL_0);
-        break;
-    }
+            /* Write to TIMx CCMR1 and CCER registers */
+            TIMERx->CCMR1 = tmpccmr1;
+            TIMERx->CCER = tmpccer;
+            break;
+        }
 
-    case TIMER_TS_TI1FP1: {
-        /* Configure TI1 Filter and Polarity */
-        timer_config_polarity_filter_ti(
-            TIMERx, (uint32_t)(slave_config->ic_polarity.cc1p_polarity), (uint32_t)(slave_config->ic_filter.ic1f_filter), TIMER_CHANNEL_1);
-        break;
-    }
+        case TIMER_TS_TI0FP0:
+        {
+            /* Configure TI0 Filter and Polarity */
+            timer_config_polarity_filter_ti(
+                TIMERx, (uint32_t)((slave_config->ic_polarity).cc0p_polarity), (uint32_t)((slave_config->ic_filter).ic0f_filter), TIMER_CHANNEL_0);
+            break;
+        }
 
-    case TIMER_TS_ITR0:
-    case TIMER_TS_ITR1:
-    case TIMER_TS_ITR2: {
-        /* Check the parameter */
-        break;
-    }
+        case TIMER_TS_TI1FP1:
+        {
+            /* Configure TI1 Filter and Polarity */
+            timer_config_polarity_filter_ti(
+                TIMERx, (uint32_t)(slave_config->ic_polarity.cc1p_polarity), (uint32_t)(slave_config->ic_filter.ic1f_filter), TIMER_CHANNEL_1);
+            break;
+        }
 
-    default:
-        break;
+        case TIMER_TS_ITR0:
+        case TIMER_TS_ITR1:
+        case TIMER_TS_ITR2:
+        {
+            /* Check the parameter */
+            break;
+        }
+
+        default:
+            break;
     }
 
     /* Get the TIMx SMCR register value */
@@ -523,6 +594,7 @@ int32_t timer_config_slave(timer_gp_t* TIMERx, timer_slave_config_t* slave_confi
     return TIMER_OK;
 }
 
+
 /**
  * @brief  Initializes the TIMER input capture channels
  * @param  TIMERx select the TIMER peripheral
@@ -536,36 +608,44 @@ int32_t timer_config_slave(timer_gp_t* TIMERx, timer_slave_config_t* slave_confi
  */
 void timer_config_channel_ic(timer_gp_t* TIMERx, timer_ic_init_t* ic_init, uint8_t channel)
 {
-    if (channel == TIMER_CHANNEL_0) {
+    if (channel == TIMER_CHANNEL_0)
+    {
         /* TI0 Configuration */
         timer_config_ti(TIMERx, (uint32_t)((ic_init->ic_polarity).cc0p_polarity), (uint32_t)((ic_init->ic_selection).cc0s_selection),
-            (uint32_t)((ic_init->ic_filter).ic0f_filter), channel);
+                (uint32_t)((ic_init->ic_filter).ic0f_filter), channel);
 
         TIMERx->CCMR1 &= ~TIMER_IC0PSC_DIV8;
         TIMERx->CCMR1 |= (ic_init->ic_prescaler).ic0psc_prescaler;
-    } else if (channel == TIMER_CHANNEL_1) {
+    }
+    else if (channel == TIMER_CHANNEL_1)
+    {
         /* TI0 Configuration */
         timer_config_ti(TIMERx, (uint32_t)((ic_init->ic_polarity).cc1p_polarity), (uint32_t)((ic_init->ic_selection).cc1s_selection),
-            (uint32_t)((ic_init->ic_filter).ic1f_filter), channel);
+                (uint32_t)((ic_init->ic_filter).ic1f_filter), channel);
 
         TIMERx->CCMR1 &= ~TIMER_IC1PSC_DIV8;
         TIMERx->CCMR1 |= (ic_init->ic_prescaler).ic0psc_prescaler;
-    } else if (channel == TIMER_CHANNEL_2) {
+    }
+    else if (channel == TIMER_CHANNEL_2)
+    {
         /* TI0 Configuration */
         timer_config_ti(TIMERx, (uint32_t)((ic_init->ic_polarity).cc2p_polarity), (uint32_t)((ic_init->ic_selection).cc0s_selection),
-            (uint32_t)((ic_init->ic_filter).ic0f_filter), channel);
+                (uint32_t)((ic_init->ic_filter).ic0f_filter), channel);
 
         TIMERx->CCMR2 &= ~TIMER_IC0PSC_DIV8;
         TIMERx->CCMR2 |= (ic_init->ic_prescaler).ic0psc_prescaler;
-    } else {
+    }
+    else
+    {
         /* TI0 Configuration */
         timer_config_ti(TIMERx, (uint32_t)((ic_init->ic_polarity).cc3p_polarity), (uint32_t)((ic_init->ic_selection).cc1s_selection),
-            (uint32_t)((ic_init->ic_filter).ic1f_filter), channel);
+                (uint32_t)((ic_init->ic_filter).ic1f_filter), channel);
 
         TIMERx->CCMR2 &= ~TIMER_IC1PSC_DIV8;
         TIMERx->CCMR2 |= (ic_init->ic_prescaler).ic0psc_prescaler;
     }
 }
+
 
 /**
  * @brief  Timer output compare configuration
@@ -586,7 +666,8 @@ void timer_config_oc(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, uint8_t chann
 
     /* Get the TIMERx CR2 register value */
     tmpcr2 = TIMERx->CR2;
-    if (channel == TIMER_CHANNEL_0) {
+    if (channel == TIMER_CHANNEL_0)
+    {
         /* Disable the Channel*/
         TIMERx->CCER &= ~TIMER_CCER_CC0E;
 
@@ -607,13 +688,16 @@ void timer_config_oc(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, uint8_t chann
         /* Reset the Output Polarity level */
         tmpccer &= ~TIMER_CCER_CC0P;
         /* Set the Output Compare Polarity */
-        if (oc_init->high_level != true) {
+        if (oc_init->high_level != true)
+        {
             tmpccer |= TIMER_CCER_CC0P;
         }
         /* Set the Capture Compare Register value */
-        TIMERx->CCR0  = oc_init->pulse;
+        TIMERx->CCR0 = oc_init->pulse;
         TIMERx->CCMR1 = tmpccmrx;
-    } else if (channel == TIMER_CHANNEL_1) {
+    }
+    else if (channel == TIMER_CHANNEL_1)
+    {
         /* Disable the Channel*/
         TIMERx->CCER &= ~TIMER_CCER_CC1E;
 
@@ -634,13 +718,16 @@ void timer_config_oc(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, uint8_t chann
         /* Reset the Output Polarity level */
         tmpccer &= ~TIMER_CCER_CC1P;
         /* Set the Output Compare Polarity */
-        if (oc_init->high_level != true) {
+        if (oc_init->high_level != true)
+        {
             tmpccer |= TIMER_CCER_CC1P;
         }
         /* Set the Capture Compare Register value */
-        TIMERx->CCR1  = oc_init->pulse;
+        TIMERx->CCR1 = oc_init->pulse;
         TIMERx->CCMR1 = tmpccmrx;
-    } else if (channel == TIMER_CHANNEL_2) {
+    }
+    else if (channel == TIMER_CHANNEL_2)
+    {
         /* Disable the Channel*/
         TIMERx->CCER &= ~TIMER_CCER_CC2E;
 
@@ -661,13 +748,16 @@ void timer_config_oc(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, uint8_t chann
         /* Reset the Output Polarity level */
         tmpccer &= ~TIMER_CCER_CC2P;
         /* Set the Output Compare Polarity */
-        if (oc_init->high_level != true) {
+        if (oc_init->high_level != true)
+        {
             tmpccer |= TIMER_CCER_CC2P;
         }
         /* Set the Capture Compare Register value */
-        TIMERx->CCR2  = oc_init->pulse;
+        TIMERx->CCR2 = oc_init->pulse;
         TIMERx->CCMR2 = tmpccmrx;
-    } else {
+    }
+    else
+    {
         /* Disable the Channel*/
         TIMERx->CCER &= ~TIMER_CCER_CC3E;
 
@@ -688,11 +778,12 @@ void timer_config_oc(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, uint8_t chann
         /* Reset the Output Polarity level */
         tmpccer &= ~TIMER_CCER_CC3P;
         /* Set the Output Compare Polarity */
-        if (oc_init->high_level != true) {
+        if (oc_init->high_level != true)
+        {
             tmpccer |= TIMER_CCER_CC3P;
         }
         /* Set the Capture Compare Register value */
-        TIMERx->CCR3  = oc_init->pulse;
+        TIMERx->CCR3 = oc_init->pulse;
         TIMERx->CCMR2 = tmpccmrx;
     }
 
@@ -702,6 +793,7 @@ void timer_config_oc(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, uint8_t chann
     TIMERx->CCER = tmpccer;
 }
 
+
 /**
  * @brief  One pulse configuration
  * @param  TIMERx select the TIMER peripheral
@@ -710,12 +802,16 @@ void timer_config_oc(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, uint8_t chann
  */
 void timer_config_one_pulse(timer_gp_t* TIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         TIMERx->CR1 |= (uint32_t)TIMER_OPM;
-    } else {
+    }
+    else
+    {
         TIMERx->CR1 &= (uint32_t) ~(uint32_t)(TIMER_OPM);
     }
 }
+
 
 /**
  * @brief  Ts trigger source configuration
@@ -728,6 +824,7 @@ void timer_config_ts(timer_gp_t* TIMERx, timer_ts_t ts)
     TIMERx->SMCR &= (uint32_t) ~(uint32_t)TIMER_TS_ETRF;
     TIMERx->SMCR |= (uint32_t)ts;
 }
+
 
 /**
  * @brief  Etr high level clear output
@@ -743,27 +840,38 @@ void timer_config_ts(timer_gp_t* TIMERx, timer_ts_t ts)
  */
 int32_t timer_clear_ocxref(timer_gp_t* TIMERx, timer_clear_ocxref_t* clear_ocxref, uint8_t channel)
 {
-    if ((channel == 0) || (channel == 2)) {
+    if ((channel == 0) || (channel == 2))
+    {
         if (((clear_ocxref->oc_init).oc_mode.oc0m_mode != TIMER_OC0M_PWM1)
-            && ((clear_ocxref->oc_init).oc_mode.oc0m_mode != TIMER_OC0M_PWM2)) {
+                && ((clear_ocxref->oc_init).oc_mode.oc0m_mode != TIMER_OC0M_PWM2))
+        {
             return TIMER_ERROR;
         }
-        if (channel == 0) {
+        if (channel == 0)
+        {
             TIMERx->CCMR1 |= TIMER_CCMR_OC0PE;
             TIMERx->CCMR1 |= TIMER_CCMR_OC0CE;
-        } else {
+        }
+        else
+        {
             TIMERx->CCMR2 |= TIMER_CCMR_OC0PE;
             TIMERx->CCMR2 |= TIMER_CCMR_OC0CE;
         }
-    } else {
+    }
+    else
+    {
         if (((clear_ocxref->oc_init).oc_mode.oc1m_mode != TIMER_OC1M_PWM1)
-            && ((clear_ocxref->oc_init).oc_mode.oc1m_mode != TIMER_OC1M_PWM2)) {
+                && ((clear_ocxref->oc_init).oc_mode.oc1m_mode != TIMER_OC1M_PWM2))
+        {
             return TIMER_ERROR;
         }
-        if (channel == 1) {
+        if (channel == 1)
+        {
             TIMERx->CCMR1 |= TIMER_CCMR_OC1PE;
             TIMERx->CCMR1 |= TIMER_CCMR_OC1CE;
-        } else {
+        }
+        else
+        {
             TIMERx->CCMR2 |= TIMER_CCMR_OC1PE;
             TIMERx->CCMR2 |= TIMER_CCMR_OC1CE;
         }
@@ -774,6 +882,7 @@ int32_t timer_clear_ocxref(timer_gp_t* TIMERx, timer_clear_ocxref_t* clear_ocxre
 
     return TIMER_OK;
 }
+
 
 /**
  * @brief  Timer PWM configuration
@@ -789,12 +898,17 @@ int32_t timer_clear_ocxref(timer_gp_t* TIMERx, timer_clear_ocxref_t* clear_ocxre
  */
 void timer_config_pwm(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, timer_init_t* timerx_init, uint8_t channel)
 {
-    if ((channel == 0) || (channel == 2)) {
-        if (((oc_init->oc_mode).oc0m_mode != TIMER_OC0M_PWM1) && ((oc_init->oc_mode).oc0m_mode != TIMER_OC0M_PWM2)) {
+    if ((channel == 0) || (channel == 2))
+    {
+        if (((oc_init->oc_mode).oc0m_mode != TIMER_OC0M_PWM1) && ((oc_init->oc_mode).oc0m_mode != TIMER_OC0M_PWM2))
+        {
             return;
         }
-    } else {
-        if (((oc_init->oc_mode).oc1m_mode != TIMER_OC1M_PWM1) && ((oc_init->oc_mode).oc1m_mode != TIMER_OC1M_PWM2)) {
+    }
+    else
+    {
+        if (((oc_init->oc_mode).oc1m_mode != TIMER_OC1M_PWM1) && ((oc_init->oc_mode).oc1m_mode != TIMER_OC1M_PWM2))
+        {
             return;
         }
     }
@@ -802,6 +916,7 @@ void timer_config_pwm(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, timer_init_t
     timer_config_oc(TIMERx, oc_init, channel);
     timer_init(TIMERx, timerx_init);
 }
+
 
 /**
  * @brief  Timer enable or disable dma
@@ -812,12 +927,16 @@ void timer_config_pwm(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, timer_init_t
  */
 void timer_config_dma(timer_gp_t* TIMERx, timer_dma_t dma, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         TIMERx->DIER |= (uint32_t)dma;
-    } else {
+    }
+    else
+    {
         TIMERx->DIER &= (uint32_t) ~(uint32_t)dma;
     }
 }
+
 
 /**
  * @brief  Timer enable or disable interrupt
@@ -828,12 +947,16 @@ void timer_config_dma(timer_gp_t* TIMERx, timer_dma_t dma, uint8_t state)
  */
 void timer_config_interrupt(timer_gp_t* TIMERx, timer_interrupt_t interrupt, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         TIMERx->DIER |= (uint32_t)interrupt;
-    } else {
+    }
+    else
+    {
         TIMERx->DIER &= (uint32_t) ~(uint32_t)interrupt;
     }
 }
+
 
 /**
  * @brief  Timer get status
@@ -844,12 +967,16 @@ void timer_config_interrupt(timer_gp_t* TIMERx, timer_interrupt_t interrupt, uin
  */
 void timer_get_status(timer_gp_t* TIMERx, timer_sr_t status, bool* state)
 {
-    if (((TIMERx->SR) & status) == status) {
+    if (((TIMERx->SR) & status) == status)
+    {
         *state = true;
-    } else {
+    }
+    else
+    {
         *state = false;
     }
 }
+
 
 /**
  * @brief  Timer clear status
@@ -862,6 +989,7 @@ void timer_clear_status(timer_gp_t* TIMERx, timer_sr_t status)
     TIMERx->SR &= (uint32_t) ~(uint32_t)status;
 }
 
+
 /**
  * @brief  Timer enable or disable event
  * @param  TIMERx select the TIM peripheral
@@ -871,12 +999,16 @@ void timer_clear_status(timer_gp_t* TIMERx, timer_sr_t status)
  */
 void timer_generate_event(timer_gp_t* TIMERx, timer_egr_t egr_event, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         TIMERx->EGR |= (uint32_t)egr_event;
-    } else {
+    }
+    else
+    {
         TIMERx->EGR &= (uint32_t) ~(uint32_t)egr_event;
     }
 }
+
 
 /**
  * @brief  Timer set dma read/write length
@@ -890,6 +1022,7 @@ void timer_set_dma_rw_len(timer_gp_t* TIMERx, timer_dbl_t dbl_len)
     TIMERx->DCR |= (uint32_t)dbl_len;
 }
 
+
 /**
  * @brief  Timer set dma read/write base address
  * @param  TIMERx select the TIM peripheral
@@ -901,6 +1034,7 @@ void timer_set_dma_base_addr(timer_gp_t* TIMERx, timer_dba_t dba_addr)
     TIMERx->DCR &= (uint32_t) ~(uint32_t)TIMER_DBA_RES2;
     TIMERx->DCR |= (uint32_t)dba_addr;
 }
+
 
 /**
  * @brief  Timer config OR remap of TIM0 TI0
@@ -914,6 +1048,7 @@ void timer_config_or_tim0_ti0(timer_gp_t* TIMERx, timer_tim0_ti0_or_t tim0_ti0_o
     TIMERx->OR |= (uint32_t)tim0_ti0_or;
 }
 
+
 /**
  * @brief  Timer config OR remap of TIM0 TI3
  * @param  TIMERx select the TIMER peripheral
@@ -925,6 +1060,7 @@ void timer_config_or_tim0_ti3(timer_gp_t* TIMERx, timer_tim0_ti3_or_t tim0_ti3_o
     TIMERx->OR &= (uint32_t) ~(uint32_t)TIMER_TIM0_TI3_RESV;
     TIMERx->OR |= (uint32_t)tim0_ti3_or;
 }
+
 
 /**
  * @brief  Timer config OR remap of TIM0 etr
@@ -938,6 +1074,7 @@ void timer_config_or_tim0_etr(timer_gp_t* TIMERx, timer_tim0_etr_or_t tim0_etr_o
     TIMERx->OR |= (uint32_t)tim0_etr_or;
 }
 
+
 /**
  * @brief  Timer config OR remap of TIM1 TI2
  * @param  TIMERx select the TIMER peripheral
@@ -949,6 +1086,7 @@ void timer_config_or_tim1_ti2(timer_gp_t* TIMERx, timer_tim1_ti2_or_t tim1_ti2_o
     TIMERx->OR &= (uint32_t) ~(uint32_t)TIMER_TIM1_TI2_RESV;
     TIMERx->OR |= (uint32_t)tim1_ti2_or;
 }
+
 
 /**
  * @brief  Timer config OR remap of TIM2 TI0
@@ -962,6 +1100,7 @@ void timer_config_or_tim2_ti0(timer_gp_t* TIMERx, timer_tim2_ti0_or_t tim2_ti0_o
     TIMERx->OR |= (uint32_t)tim2_ti0_or;
 }
 
+
 /**
  * @brief  Timer config OR remap of TIM2 TI1
  * @param  TIMERx select the TIMER peripheral
@@ -973,6 +1112,7 @@ void timer_config_or_tim2_ti1(timer_gp_t* TIMERx, timer_tim2_ti1_or_t tim2_ti1_o
     TIMERx->OR &= (uint32_t) ~(uint32_t)TIMER_TIM2_TI1_RESV;
     TIMERx->OR |= (uint32_t)tim2_ti1_or;
 }
+
 
 /**
  * @brief  Timer config OR remap of TIM2 etr
@@ -986,6 +1126,7 @@ void timer_config_or_tim2_etr(timer_gp_t* TIMERx, timer_tim2_etr_or_t tim2_etr_o
     TIMERx->OR |= (uint32_t)tim2_etr_or;
 }
 
+
 /**
  * @brief  Timer config OR remap of TIM3 TI0
  * @param  TIMERx select the TIMER peripheral
@@ -998,6 +1139,7 @@ void timer_config_or_tim3_ti0(timer_gp_t* TIMERx, timer_tim3_ti0_or_t tim3_ti0_o
     TIMERx->OR |= (uint32_t)tim3_ti0_or;
 }
 
+
 /**
  * @brief  Timer config OR remap of TIM3 etr
  * @param  TIMERx select the TIMER peripheral
@@ -1009,3 +1151,4 @@ void timer_config_or_tim3_etr(timer_gp_t* TIMERx, timer_tim3_etr_or_t tim3_etr_o
     TIMERx->OR &= (uint32_t) ~(uint32_t)TIMER_TIM3_ETR_RESV;
     TIMERx->OR |= (uint32_t)tim3_etr_or;
 }
+

@@ -3,7 +3,7 @@
 #include "tremo_delay.h"
 
 
-static uint8_t fac_us  = 0;
+static uint8_t fac_us = 0;
 static uint16_t fac_ms = 0;
 
 /**
@@ -18,7 +18,9 @@ void delay_init(void)
 
     uint32_t clk_freq = rcc_get_clk_freq(RCC_HCLK);
     if (clk_freq < 1000000)
+    {
         return;
+    }
 
     fac_us = clk_freq / 1000000;
     reload = clk_freq / tick_rate;
@@ -28,9 +30,10 @@ void delay_init(void)
     SysTick_Config(reload);
 }
 
+
 /**
  * @brief Delay some microseconds
- * @param nus The delay in microsecond 
+ * @param nus The delay in microsecond
  * @retval None
  */
 void delay_us(uint32_t nus)
@@ -40,32 +43,44 @@ void delay_us(uint32_t nus)
     uint32_t reload = SysTick->LOAD;
 
     if (!fac_us)
+    {
         return;
+    }
 
     ticks = nus * fac_us;
-    tpre  = SysTick->VAL;
-    while (1) {
+    tpre = SysTick->VAL;
+    while (1)
+    {
         tnow = SysTick->VAL;
-        if (tnow != tpre) {
+        if (tnow != tpre)
+        {
             if (tnow < tpre)
+            {
                 tcnt += tpre - tnow;
+            }
             else
+            {
                 tcnt += reload - tnow + tpre;
+            }
 
             tpre = tnow;
 
             if (tcnt >= ticks)
+            {
                 break;
+            }
         }
-    };
+    }
 }
+
 
 /**
  * @brief Delay some milliseconds
- * @param nms The delay in millisecond 
+ * @param nms The delay in millisecond
  * @retval None
  */
 void delay_ms(uint32_t nms)
 {
     delay_us((uint32_t)(nms * 1000));
 }
+

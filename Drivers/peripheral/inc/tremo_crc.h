@@ -28,8 +28,8 @@ extern "C" {
  * @brief The bits of the CRC polynomial value
  */
 typedef enum {
-    CRC_POLY_SIZE_7  = CRC_CR_POLY_SIZE_7,   /*!< 7bits polynomial size */
-    CRC_POLY_SIZE_8  = CRC_CR_POLY_SIZE_8,   /*!< 8bits polynomial size */
+    CRC_POLY_SIZE_7 = CRC_CR_POLY_SIZE_7,    /*!< 7bits polynomial size */
+    CRC_POLY_SIZE_8 = CRC_CR_POLY_SIZE_8,    /*!< 8bits polynomial size */
     CRC_POLY_SIZE_16 = CRC_CR_POLY_SIZE_16,  /*!< 16bits polynomial size */
     CRC_POLY_SIZE_32 = CRC_CR_POLY_SIZE_32,  /*!< 32bits polynomial size */
 } crc_poly_size_t;
@@ -38,10 +38,10 @@ typedef enum {
  * @brief The bit order reverse config of input data
  */
 typedef enum {
-    CRC_REVERSE_IN_NONE  = CRC_CR_REVERSE_IN_NONE,   /*!< The bit order of the input data is not reversed */
-    CRC_REVERSE_IN_BYTE  = CRC_CR_REVERSE_IN_BYTE,   /*!< The bit order of the input data is reversed by byte */
+    CRC_REVERSE_IN_NONE = CRC_CR_REVERSE_IN_NONE,    /*!< The bit order of the input data is not reversed */
+    CRC_REVERSE_IN_BYTE = CRC_CR_REVERSE_IN_BYTE,    /*!< The bit order of the input data is reversed by byte */
     CRC_REVERSE_IN_HWORD = CRC_CR_REVERSE_IN_HWORD,  /*!< The bit order of the input data is reversed by half-word */
-    CRC_REVERSE_IN_WORD  = CRC_CR_REVERSE_IN_WORD,   /*!< The bit order of the input data is reversed by word */
+    CRC_REVERSE_IN_WORD = CRC_CR_REVERSE_IN_WORD,    /*!< The bit order of the input data is reversed by word */
 } crc_reverse_in_t;
 
 /**
@@ -67,6 +67,6 @@ uint32_t crc_calc8(uint8_t* data, uint32_t size);
 #endif //__TREMO_CRC_H
 
 /**
- * @} 
+ * @}
  * @}
  */

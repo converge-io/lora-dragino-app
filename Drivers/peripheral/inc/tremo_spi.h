@@ -85,6 +85,7 @@ __STATIC_INLINE void ssp_clear_interrupt(ssp_typedef_t* SSPx, uint8_t ssp_interr
     SSPx->ICR |= ssp_interrupt;
 }
 
+
 /**
  * @brief  Get flag status
  * @param  SSPx SSP handler
@@ -101,6 +102,7 @@ __STATIC_INLINE it_status_t ssp_get_flag_status(ssp_typedef_t* SSPx, uint8_t ssp
 {
     return SSPx->SR & ssp_flag;
 }
+
 
 /**
  * @brief  Get interrupt status
@@ -119,6 +121,7 @@ __STATIC_INLINE it_status_t ssp_get_interrupt_status(ssp_typedef_t* SSPx, uint8_
     return SSPx->MIS & ssp_interrupt;
 }
 
+
 /**
  * @brief  Get raw interrupt status
  * @param  SSPx SSP handler
@@ -136,6 +139,7 @@ __STATIC_INLINE it_status_t ssp_get_raw_interrupt_status(ssp_typedef_t* SSPx, ui
     return SSPx->RIS & ssp_interrupt;
 }
 
+
 void ssp_init_struct(ssp_init_t* init_struct);
 void ssp_init(ssp_typedef_t* SSPx, ssp_init_t* init_struct);
 void ssp_deinit(ssp_typedef_t* SSPx);
@@ -152,6 +156,6 @@ void ssp_receive_data(ssp_typedef_t* SSPx, uint8_t* rx_data, uint16_t len);
 #endif /* __TREMO_SPI_H */
 
 /**
- * @} 
+ * @}
  * @}
  */

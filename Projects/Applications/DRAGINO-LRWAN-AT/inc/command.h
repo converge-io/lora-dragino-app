@@ -16,8 +16,8 @@
 #define AT_NO_NET_JOINED "AT_NO_NET_JOINED"
 
 #define LWAN_SUCCESS  0
-#define LWAN_ERROR   -1    
-#define LWAN_PARAM_ERROR   -2    
+#define LWAN_ERROR   -1
+#define LWAN_PARAM_ERROR   -2
 #define LWAN_BUSY_ERROR   -3
 #define LWAN_NO_NET_JOINED   -4
 
@@ -25,11 +25,11 @@
 #define AT_DEBUG      "+DEBUG"
 #define AT_RESET      "Z"
 #define AT_FDR        "+FDR"
-#define AT_DEUI       "+DEUI"  
-#define AT_APPEUI     "+APPEUI"  
-#define AT_APPKEY     "+APPKEY"  
-#define AT_DEVADDR    "+DADDR"  
-#define AT_APPSKEY    "+APPSKEY"  
+#define AT_DEUI       "+DEUI"
+#define AT_APPEUI     "+APPEUI"
+#define AT_APPKEY     "+APPKEY"
+#define AT_DEVADDR    "+DADDR"
+#define AT_APPSKEY    "+APPSKEY"
 #define AT_NWKSKEY    "+NWKSKEY"
 #define AT_ADR        "+ADR"
 #define AT_TXP        "+TXP"
@@ -77,18 +77,18 @@
 #define AT_SETCNT     "+SETCNT"
 #define AT_SLEEP      "+SLEEP"
 #define AT_CFG        "+CFG"
-#define AT_UUID       "+UUID" 
+#define AT_UUID       "+UUID"
 #define AT_DDETECT    "+DDETECT"
 #define AT_SETMAXNBTRANS    "+SETMAXNBTRANS"
 #define AT_GETSENSORVALUE   "+GETSENSORVALUE"
-#define AT_DISFCNTCHECK 		"+DISFCNTCHECK"
-#define AT_DISMACANS 	   	  "+DISMACANS"
-#define AT_RXDATEST  			  "+RXDATEST"
+#define AT_DISFCNTCHECK         "+DISFCNTCHECK"
+#define AT_DISMACANS          "+DISMACANS"
+#define AT_RXDATEST               "+RXDATEST"
 
 void set_at_receive(uint8_t AppPort, uint8_t* Buff, uint8_t BuffSize);
 void linkwan_at_init(void);
 void linkwan_at_process(void);
 void linkwan_serial_input(uint8_t cmd);
-int linkwan_serial_output(uint8_t *buffer, int len);
+int linkwan_serial_output(uint8_t* buffer, int len);
 void linkwan_at_prompt_print();
 #endif

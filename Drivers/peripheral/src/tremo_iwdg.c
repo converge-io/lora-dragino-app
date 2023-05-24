@@ -4,8 +4,9 @@
 static void check_iwdg_sr_done()
 {
     while ((IWDG->SR & 0xF) != 0xF)
-        ;
+    {}
 }
+
 
 /**
  * @brief Enable/Disable the IWDG interrupt
@@ -17,6 +18,7 @@ void iwdg_config_interrupt(bool new_state)
     TREMO_REG_EN(IWDG->CR1, IWDG_CR1_RESET_REQ_INT_EN_MASK, new_state);
 }
 
+
 /**
  * @brief Clear the IWDG interrupt status
  * @param None
@@ -26,8 +28,9 @@ void iwdg_clear_interrupt(void)
 {
     IWDG->SR2 = IWDG_SR2_RESET_REQ_SR_MASK;
     while (!(IWDG->SR & IWDG_SR_WRITE_SR2_DONE))
-        ;
+    {}
 }
+
 
 /**
  * @brief Deinitializes the IWDG registers to the reset values
@@ -40,6 +43,7 @@ void iwdg_deinit(void)
     rcc_rst_peripheral(RCC_PERIPHERAL_IWDG, true);
     rcc_rst_peripheral(RCC_PERIPHERAL_IWDG, false);
 }
+
 
 /**
  * @brief Initializes the IWDG registers
@@ -61,6 +65,7 @@ void iwdg_init(bool auto_reset)
     check_iwdg_sr_done();
 }
 
+
 /**
  * @brief Set the prescaler of the IWDG
  * @param prescaler The prescaler.
@@ -81,6 +86,7 @@ void iwdg_set_prescaler(iwdg_prescaler_t prescaler)
     TREMO_REG_SET(IWDG->CR, IWDG_CR_PREDIV_MASK, prescaler);
 }
 
+
 /**
  * @brief Set the reload value of the IWDG
  * @param value The reload value between 0x0 and 0x0FFF
@@ -91,6 +97,7 @@ void iwdg_set_reload(uint32_t value)
     check_iwdg_sr_done();
     IWDG->MAX = value > IWDG_MAX_RELOAD ? IWDG_MAX_RELOAD : value;
 }
+
 
 /**
  * @brief Set the window value of the IWDG
@@ -104,6 +111,7 @@ void iwdg_set_window_value(uint32_t value)
     IWDG->WIN = value > IWDG_MAX_RELOAD ? IWDG_MAX_RELOAD : value;
 }
 
+
 /**
  * @brief Reload the IWDG counter with the value in the reload register
  * @note This function is used to feed the watch dog
@@ -112,7 +120,8 @@ void iwdg_set_window_value(uint32_t value)
  */
 void iwdg_reload(void)
 {
-    if (IWDG->SR2 & IWDG_SR2_RESET_REQ_SR_MASK) {
+    if (IWDG->SR2 & IWDG_SR2_RESET_REQ_SR_MASK)
+    {
         check_iwdg_sr_done();
         IWDG->SR2 = IWDG_SR2_RESET_REQ_SR_MASK;
     }
@@ -120,6 +129,7 @@ void iwdg_reload(void)
     check_iwdg_sr_done();
     IWDG->MAX = IWDG->MAX;
 }
+
 
 /**
  * @brief Start the IWDG
@@ -133,8 +143,9 @@ void iwdg_start(void)
     IWDG->CR |= IWDG_CR_START_MASK | IWDG_CR_WKEN_MASK;
 
     while (!(IWDG->SR & IWDG_SR_WRITE_CR_DONE))
-        ;
+    {}
 }
+
 
 /**
  * @brief Stop the IWDG
@@ -148,5 +159,5 @@ void iwdg_stop(void)
     IWDG->CR &= ~IWDG_CR_START_MASK;
 
     while (!(IWDG->SR & IWDG_SR_WRITE_CR_DONE))
-        ;
+    {}
 }

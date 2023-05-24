@@ -70,7 +70,7 @@ typedef enum {
 /**
  * @brief UART stop bits
  */
-typedef enum { 
+typedef enum {
     UART_STOP_BITS_1 = UART_LCR_H_STOP_1,  /*!< stop bits is 1*/
     UART_STOP_BITS_2 = UART_LCR_H_STOP_2   /*!< stop bits is 2*/
 } uart_stop_bits_t;
@@ -80,15 +80,15 @@ typedef enum {
  */
 typedef enum {
     UART_FLOW_CONTROL_DISABLED = UART_CR_FLOW_CTRL_NONE,    /*!< flow control is disabled */
-    UART_FLOW_CONTROL_RTS      = UART_CR_FLOW_CTRL_RTS,     /*!< RTS is enabled */
-    UART_FLOW_CONTROL_CTS      = UART_CR_FLOW_CTRL_CTS,     /*!< CTS is enabled */
-    UART_FLOW_CONTROL_CTS_RTS  = UART_CR_FLOW_CTRL_CTS_RTS  /*!< Both RTS and CTS are enabled */
+    UART_FLOW_CONTROL_RTS = UART_CR_FLOW_CTRL_RTS,          /*!< RTS is enabled */
+    UART_FLOW_CONTROL_CTS = UART_CR_FLOW_CTRL_CTS,          /*!< CTS is enabled */
+    UART_FLOW_CONTROL_CTS_RTS = UART_CR_FLOW_CTRL_CTS_RTS   /*!< Both RTS and CTS are enabled */
 } uart_flow_control_t;
 
 /**
  * @brief UART parity
  */
-typedef enum { 
+typedef enum {
     UART_PARITY_NO,   /*!< No parity */
     UART_PARITY_ODD,  /*!< Odd parity */
     UART_PARITY_EVEN  /*!< Even parity */
@@ -98,8 +98,8 @@ typedef enum {
  * @brief UART mode
  */
 typedef enum {
-    UART_MODE_TX   = UART_CR_UART_MODE_TX,   /*!< TX mode */
-    UART_MODE_RX   = UART_CR_UART_MODE_RX,   /*!< RX mode */
+    UART_MODE_TX = UART_CR_UART_MODE_TX,     /*!< TX mode */
+    UART_MODE_RX = UART_CR_UART_MODE_RX,     /*!< RX mode */
     UART_MODE_TXRX = UART_CR_UART_MODE_TXRX  /*!< TX and RX mode */
 } uart_mode_t;
 
@@ -128,7 +128,7 @@ typedef enum {
 /**
  * @brief UART DMA req
  */
-typedef enum { 
+typedef enum {
     UART_DMA_REQ_TX = UART_DMACR_TX_EN_MASK,   /*!< DMA tx req */
     UART_DMA_REQ_RX = UART_DMACR_RX_EN_MASK    /*!< DMA rx req */
 } uart_dma_req_t;
@@ -175,6 +175,6 @@ void uart_dma_onerror_config(uart_t* uartx, bool new_state);
 #endif //__TREMO_UART_H
 
 /**
- * @} 
+ * @}
  * @}
  */

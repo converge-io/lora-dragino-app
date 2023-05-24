@@ -8,15 +8,16 @@
  */
 void ssp_init_struct(ssp_init_t* init_struct)
 {
-    init_struct->ssp_sclk      = 1000000; // 1M
-    init_struct->ssp_role      = SSP_ROLE_MASTER;
-    init_struct->ssp_format    = SSP_FRAME_FORMAT_SPI;
+    init_struct->ssp_sclk = 1000000;      // 1M
+    init_struct->ssp_role = SSP_ROLE_MASTER;
+    init_struct->ssp_format = SSP_FRAME_FORMAT_SPI;
     init_struct->ssp_data_size = SSP_DATA_SIZE_8BIT;
-    init_struct->ssp_clk_pol   = SPI_CLK_POLARITY_HIGH;
+    init_struct->ssp_clk_pol = SPI_CLK_POLARITY_HIGH;
     init_struct->ssp_clk_phase = SPI_CLK_PHASE_2EDGE;
     init_struct->ssp_dma_tx_en = DISABLE;
     init_struct->ssp_dma_rx_en = DISABLE;
 }
+
 
 /**
  * @brief  Config interrupt
@@ -33,10 +34,15 @@ void ssp_init_struct(ssp_init_t* init_struct)
 void ssp_config_interrupt(ssp_typedef_t* SSPx, uint8_t ssp_interrupt, uint8_t new_state)
 {
     if (new_state == ENABLE)
+    {
         SSPx->IMSC |= ssp_interrupt;
+    }
     else
+    {
         SSPx->IMSC &= ~ssp_interrupt;
+    }
 }
+
 
 /**
  * @brief  Enable or disable SSP
@@ -47,10 +53,15 @@ void ssp_config_interrupt(ssp_typedef_t* SSPx, uint8_t ssp_interrupt, uint8_t ne
 void ssp_cmd(ssp_typedef_t* SSPx, uint8_t new_state)
 {
     if (new_state == ENABLE)
+    {
         SSPx->CR1 |= (0x1 << 1);
+    }
     else
+    {
         SSPx->CR1 &= ~(0x1 << 1);
+    }
 }
+
 
 /**
  * @brief  SSP initialize
@@ -67,9 +78,12 @@ void ssp_init(ssp_typedef_t* SSPx, ssp_init_t* init_struct)
     ssp_clear_interrupt(SSPx, SSP_INTERRUPT_ALL);
 
     rcc_get_clk_freq(RCC_PCLK0);
-    if (SSPx == SSP0) {
+    if (SSPx == SSP0)
+    {
         ssp_clk_freq = rcc_get_clk_freq(RCC_PCLK0);
-    } else {
+    }
+    else
+    {
         ssp_clk_freq = rcc_get_clk_freq(RCC_PCLK1);
     }
 
@@ -92,26 +106,36 @@ void ssp_init(ssp_typedef_t* SSPx, ssp_init_t* init_struct)
     SSPx->CR0 &= ~(0xf); /* reset data size to 0 */
     SSPx->CR0 |= init_struct->ssp_data_size;
 
-    if (init_struct->ssp_role == SSP_ROLE_MASTER) {
+    if (init_struct->ssp_role == SSP_ROLE_MASTER)
+    {
         SSPx->CR1 &= ~(0x1 << 2); /* reset master/slave select to 0, which is master mode */
-    } else {
+    }
+    else
+    {
         SSPx->CR1 &= ~(0x1 << 2);    /* reset master/slave select to 0, which is master mode */
         SSPx->CR1 |= SSP_ROLE_SLAVE; /* set to slave role */
     }
 
     /* dma handshake config,
-    should be enabled after dmac has been configured and ready */
-    if (init_struct->ssp_dma_tx_en == ENABLE) {
+       should be enabled after dmac has been configured and ready */
+    if (init_struct->ssp_dma_tx_en == ENABLE)
+    {
         SSPx->DMA_CR |= SSP_DMA_TX_EN;
-    } else {
+    }
+    else
+    {
         SSPx->DMA_CR &= ~SSP_DMA_TX_EN;
     }
-    if (init_struct->ssp_dma_rx_en == ENABLE) {
+    if (init_struct->ssp_dma_rx_en == ENABLE)
+    {
         SSPx->DMA_CR |= SSP_DMA_RX_EN;
-    } else {
+    }
+    else
+    {
         SSPx->DMA_CR &= ~SSP_DMA_RX_EN;
     }
 }
+
 
 /**
  * @brief  SSP deinitialize
@@ -120,22 +144,30 @@ void ssp_init(ssp_typedef_t* SSPx, ssp_init_t* init_struct)
  */
 void ssp_deinit(ssp_typedef_t* SSPx)
 {
-    if (SSPx == SSP0) {
+    if (SSPx == SSP0)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_SSP0, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_SSP0, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_SSP0, false);
-    } else if (SSPx == SSP1) {
+    }
+    else if (SSPx == SSP1)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_SSP1, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_SSP1, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_SSP1, false);
-    } else if (SSPx == SSP2) {
+    }
+    else if (SSPx == SSP2)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_SSP2, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_SSP2, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_SSP2, false);
-    } else {
+    }
+    else
+    {
         return;
     }
 }
+
 
 /**
  * @brief  SSP send data
@@ -150,19 +182,25 @@ void ssp_send_data(ssp_typedef_t* SSPx, uint8_t* tx_data, uint16_t len)
 
     data_size = (uint8_t)(SSPx->CR0 & 0xF);
 
-    while (len--) {
+    while (len--)
+    {
         while (!(ssp_get_flag_status(SSPx, SSP_FLAG_TX_FIFO_NOT_FULL)))
-            ; /* wait till tx fifo is not full, change to timeout mechanism */
-
-        if (data_size > SSP_DATA_SIZE_8BIT) {
-            SSPx->DR = *((uint16_t *) tx_data);
-            tx_data = (uint8_t *)((uint16_t *)tx_data + 1);
-        } else {
-            SSPx->DR = *((uint8_t *) tx_data);
-            tx_data = (uint8_t *)tx_data + 1;
+        {
+            /* wait till tx fifo is not full, change to timeout mechanism */
+        }
+        if (data_size > SSP_DATA_SIZE_8BIT)
+        {
+            SSPx->DR = *((uint16_t*)tx_data);
+            tx_data = (uint8_t*)((uint16_t*)tx_data + 1);
+        }
+        else
+        {
+            SSPx->DR = *((uint8_t*)tx_data);
+            tx_data = (uint8_t*)tx_data + 1;
         }
     }
 }
+
 
 /**
  * @brief  SSP receive data
@@ -177,16 +215,22 @@ void ssp_receive_data(ssp_typedef_t* SSPx, uint8_t* rx_data, uint16_t len)
 
     data_size = (uint8_t)(SSPx->CR0 & 0xF);
 
-    while (len--) {
+    while (len--)
+    {
         while (!(ssp_get_flag_status(SSPx, SSP_FLAG_RX_FIFO_NOT_EMPTY)))
-            ; /* wait till rx fifo is not empty, change to timeout mechanism */
-
-        if (data_size > SSP_DATA_SIZE_8BIT) {
-            *((uint16_t *) rx_data) = SSPx->DR;
-            rx_data = (uint8_t *)((uint16_t *)rx_data + 1);
-        } else {
-            *((uint8_t *) rx_data) = SSPx->DR;
-            rx_data = (uint8_t *)rx_data + 1;
+        {
+            /* wait till rx fifo is not empty, change to timeout mechanism */
+        }
+        if (data_size > SSP_DATA_SIZE_8BIT)
+        {
+            *((uint16_t*)rx_data) = SSPx->DR;
+            rx_data = (uint8_t*)((uint16_t*)rx_data + 1);
+        }
+        else
+        {
+            *((uint8_t*)rx_data) = SSPx->DR;
+            rx_data = (uint8_t*)rx_data + 1;
         }
     }
 }
+

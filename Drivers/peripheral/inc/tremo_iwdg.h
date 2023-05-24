@@ -29,11 +29,11 @@ extern "C" {
  * @brief The prescaler of IWDG
  */
 typedef enum {
-    IWDG_PRESCALER_4   = IWDG_CR_PREDIV_4,     /*!< Used to set prescaler to 4 */
-    IWDG_PRESCALER_8   = IWDG_CR_PREDIV_8,     /*!< Used to set prescaler to 8 */
-    IWDG_PRESCALER_16  = IWDG_CR_PREDIV_16,    /*!< Used to set prescaler to 16 */
-    IWDG_PRESCALER_32  = IWDG_CR_PREDIV_32,    /*!< Used to set prescaler to 32 */
-    IWDG_PRESCALER_64  = IWDG_CR_PREDIV_64,    /*!< Used to set prescaler to 64 */
+    IWDG_PRESCALER_4 = IWDG_CR_PREDIV_4,       /*!< Used to set prescaler to 4 */
+    IWDG_PRESCALER_8 = IWDG_CR_PREDIV_8,       /*!< Used to set prescaler to 8 */
+    IWDG_PRESCALER_16 = IWDG_CR_PREDIV_16,     /*!< Used to set prescaler to 16 */
+    IWDG_PRESCALER_32 = IWDG_CR_PREDIV_32,     /*!< Used to set prescaler to 32 */
+    IWDG_PRESCALER_64 = IWDG_CR_PREDIV_64,     /*!< Used to set prescaler to 64 */
     IWDG_PRESCALER_128 = IWDG_CR_PREDIV_128,   /*!< Used to set prescaler to 128 */
     IWDG_PRESCALER_256 = IWDG_CR_PREDIV_256    /*!< Used to set prescaler to 256 */
 } iwdg_prescaler_t;
@@ -55,6 +55,6 @@ void iwdg_clear_interrupt(void);
 #endif //__TREMO_IWDG_H
 
 /**
- * @} 
+ * @}
  * @}
  */

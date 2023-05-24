@@ -27,9 +27,9 @@ enum DES_ENUM
     DESNull,        /*!< input null*/
     DESLengthError, /*!< length error,not integer multiples of 8*/
     DESLengthZero,  /*!< length is zero*/
-    DESStateError,	/*!< state error*/
+    DESStateError,  /*!< state error*/
     DESSeedError,   /*!< seed error*/
-    DESCloseError, 	/*!< close clock error*/
+    DESCloseError,  /*!< close clock error*/
     DESAttacked     /*!< attacked*/
 };
 
@@ -42,7 +42,7 @@ enum TDES_ENUM
     TDESNull,        /*!< input null*/
     TDESLengthError, /*!< length error,not integer multiples of 8*/
     TDESLengthZero,  /*!< length is zero*/
-    TDESStateError,	 /*!< state error*/
+    TDESStateError,  /*!< state error*/
     TDESSeedError,   /*!< seed error*/
     TDESKeyLenError, /*!< key length error*/
     TDESCloseError,  /*!< close clock error*/
@@ -52,17 +52,17 @@ enum TDES_ENUM
 /**
  * @brief DES code mode
  */
-enum DES_ENC_DEC{
-    DES_ENC_MODE =0, /*!< encode mode*/
+enum DES_ENC_DEC {
+    DES_ENC_MODE = 0, /*!< encode mode*/
     DES_DEC_MODE,    /*!< decode mode*/
 };
 
 /**
  * @brief DES mode
  */
-enum DES_ECB_CBC{
+enum DES_ECB_CBC {
     DES_ECB_MODE = 0, /*!< ECB mode*/
-    DES_CBC_MODE ,    /*!< CBC mode*/
+    DES_CBC_MODE,     /*!< CBC mode*/
 };
 
 /**
@@ -77,7 +77,7 @@ enum DES_ECB_CBC{
  * @retval DESNull input key is null
  * @retval DESSuccess seccessfully
  */
-U8 des_init(U8* key,U8 mode ,U8* IVorNONCE);
+U8 des_init(U8* key,U8 mode,U8* IVorNONCE);
 
 /**
  * @brief  DES encryption/decryption
@@ -92,7 +92,7 @@ U8 des_init(U8* key,U8 mode ,U8* IVorNONCE);
  * @retval DESLengthError length isn't integer tims of 8
  * @retval DESSuccess seccessfully
  */
-U8 des_crypto(U8* in, U32 inByteLen, U8 En_De, U8*  out);
+U8 des_crypto(U8* in, U32 inByteLen, U8 En_De, U8* out);
 
 /**
  * @brief  DES close
@@ -141,7 +141,7 @@ U8 tdes_close(void);
 #endif /* ifndef __DES_H__ */
 
 /**
- * @} 
+ * @}
  * @}
  * @}
  */

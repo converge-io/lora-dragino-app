@@ -15,13 +15,13 @@
 #define __TREMO_LCD_H
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif
 
 #include "tremo_regs.h"
 #include "stdbool.h"
 
-	
+
 /**
  * @brief LCD duty definition
  */
@@ -234,7 +234,6 @@ typedef enum {
 } lcd_interrupt_status_t;
 
 
-
 void lcd_init(lcd_duty_t duty, lcd_bias_t bias, lcd_prescaler_t prescaler, lcd_division_t division_clock);
 
 void lcd_enable(bool enable_flag);
@@ -274,6 +273,6 @@ void lcd_enable_analog();
 #endif /* __TREMO_LCD_H */
 
 /**
- * @} 
+ * @}
  * @}
  */

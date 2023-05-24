@@ -45,23 +45,23 @@ extern "C" {
  */
 #define IS_GPIO_PIN(__GPIO__, __PIN__)                                                          \
     (((__GPIO__ == GPIOA) || (__GPIO__ == GPIOB) || (__GPIO__ == GPIOC) || (__GPIO__ == GPIOD)) \
-        && (__PIN__ <= GPIO_PIN_15))
+    && (__PIN__ <= GPIO_PIN_15))
 
 /**
  * @brief Macro is used to check the gpio mode
  */
 #define IS_GPIO_MODE(__MODE__)                                                                   \
     (((__MODE__) == GPIO_MODE_INPUT_FLOATING) || ((__MODE__) == GPIO_MODE_INPUT_PULL_UP)         \
-        || ((__MODE__) == GPIO_MODE_INPUT_PULL_DOWN) || ((__MODE__) == GPIO_MODE_OUTPUT_PP_HIGH) \
-        || ((__MODE__) == GPIO_MODE_OUTPUT_PP_LOW) || ((__MODE__) == GPIO_MODE_OUTPUT_OD_HIZ)    \
-        || ((__MODE__) == GPIO_MODE_OUTPUT_OD_LOW) || ((__MODE__) == GPIO_MODE_ANALOG))
+    || ((__MODE__) == GPIO_MODE_INPUT_PULL_DOWN) || ((__MODE__) == GPIO_MODE_OUTPUT_PP_HIGH) \
+    || ((__MODE__) == GPIO_MODE_OUTPUT_PP_LOW) || ((__MODE__) == GPIO_MODE_OUTPUT_OD_HIZ)    \
+    || ((__MODE__) == GPIO_MODE_OUTPUT_OD_LOW) || ((__MODE__) == GPIO_MODE_ANALOG))
 
 /**
  * @brief Macro is used to check the gpio interrupt
  */
 #define IS_GPIO_INTR(__INTR__)                                                                                         \
     (((__INTR__) == GPIO_INTR_NONE) || ((__INTR__) == GPIO_INTR_RISING_EDGE) || ((__INTR__) == GPIO_INTR_FAILING_EDGE) \
-        || ((__INTR__) == GPIO_INTR_RISING_FAILING_EDGE))
+    || ((__INTR__) == GPIO_INTR_RISING_FAILING_EDGE))
 
 /**
  * @brief The level of the gpio pin
@@ -94,9 +94,9 @@ typedef enum {
  * @brief The interrupt type of the gpio pin
  */
 typedef enum {
-    GPIO_INTR_NONE                = 0,  /*!< Disable GPIO interrupt */
-    GPIO_INTR_RISING_EDGE         = 1,  /*!< GPIO interrupt type: rising edge*/
-    GPIO_INTR_FALLING_EDGE        = 2,  /*!< GPIO interrupt type: falling edge*/
+    GPIO_INTR_NONE = 0,                 /*!< Disable GPIO interrupt */
+    GPIO_INTR_RISING_EDGE = 1,          /*!< GPIO interrupt type: rising edge*/
+    GPIO_INTR_FALLING_EDGE = 2,         /*!< GPIO interrupt type: falling edge*/
     GPIO_INTR_RISING_FALLING_EDGE = 3,  /*!< GPIO interrupt type: both rising and falling edge*/
 } gpio_intr_t;
 
@@ -125,6 +125,6 @@ void gpio_set_iomux(gpio_t* gpiox, uint8_t gpio_pin, uint8_t func_num);
 #endif //__TREMO_GPIO_H
 
 /**
- * @} 
+ * @}
  * @}
  */

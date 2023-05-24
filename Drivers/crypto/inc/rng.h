@@ -21,7 +21,7 @@
  * @brief RNG ERRNO
  */
 enum {
-    RNGSuccess =0,   /*!< success */
+    RNGSuccess = 0,   /*!< success */
     RNGCKError,      /*!< error */
     RNGInitFail      /*!< init failed */
 };
@@ -29,7 +29,7 @@ enum {
 /**
  * @brief rng initialization
  *
- * @param div 
+ * @param div
  * @param mode
  * @retval None
  */
@@ -38,7 +38,7 @@ void rng_init(UINT8 div, UINT8 mode);
 /**
  * @brief rng close
  *
- * @param None 
+ * @param None
  * @retval None
  */
 void rng_close(void);
@@ -50,11 +50,11 @@ void rng_close(void);
  * @param len the length of the buffer
  * @retval None
  */
-void rng_get_rand(UINT8 *buf, UINT16 len);
+void rng_get_rand(UINT8* buf, UINT16 len);
 #endif /* ifndef __RNG_H__ */
 
 /**
- * @} 
+ * @}
  * @}
  * @}
  */

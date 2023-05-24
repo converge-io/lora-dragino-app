@@ -3,12 +3,12 @@
 #include "tremo_rcc.h"
 
 /**
- * @brief  Bstimer initialize 
+ * @brief  Bstimer initialize
  * @param  BSTIMERx the BSTIMER peripheral
  * @param  bstimer_init bstimer configuration
  * @return None
  */
-void bstimer_init(bstimer_t *BSTIMERx, bstimer_init_t *bstimer_init)
+void bstimer_init(bstimer_t* BSTIMERx, bstimer_init_t* bstimer_init)
 {
     uint32_t tmpcr1;
     uint32_t tmpcr2;
@@ -22,7 +22,8 @@ void bstimer_init(bstimer_t *BSTIMERx, bstimer_init_t *bstimer_init)
 
     /* Set the auto-reload preload */
     tmpcr1 &= ~BSTIMER_CR1_ARPE;
-    if (bstimer_init->autoreload_preload == true) {
+    if (bstimer_init->autoreload_preload == true)
+    {
         tmpcr1 |= BSTIMER_CR1_ARPE;
     }
 
@@ -36,85 +37,108 @@ void bstimer_init(bstimer_t *BSTIMERx, bstimer_init_t *bstimer_init)
     BSTIMERx->PSC = bstimer_init->prescaler;
 }
 
+
 /**
- * @brief  Bstimer deinitialize 
+ * @brief  Bstimer deinitialize
  * @param  BSTIMERx the BSTIMER peripheral
  * @return None
  */
-void bstimer_deinit(bstimer_t *BSTIMERx)
+void bstimer_deinit(bstimer_t* BSTIMERx)
 {
-    if (BSTIMERx == BSTIMER0) {
+    if (BSTIMERx == BSTIMER0)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_BSTIMER0, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_BSTIMER0, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_BSTIMER0, false);
-    } else if (BSTIMERx == BSTIMER1) {
+    }
+    else if (BSTIMERx == BSTIMER1)
+    {
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_BSTIMER1, false);
         rcc_rst_peripheral(RCC_PERIPHERAL_BSTIMER1, true);
         rcc_rst_peripheral(RCC_PERIPHERAL_BSTIMER1, false);
-    } else {
+    }
+    else
+    {
         return;
     }
 }
 
+
 /**
- * @brief  Bstimer config one pulse mode 
+ * @brief  Bstimer config one pulse mode
  * @param  BSTIMERx the BSTIMER peripheral
  * @param  state ENABLE or DISABLE
  * @return None
  */
-void bstimer_config_one_pulse(bstimer_t *BSTIMERx, uint8_t state)
+void bstimer_config_one_pulse(bstimer_t* BSTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         BSTIMERx->CR1 |= (uint32_t)BSTIMER_CR1_OPM;
-    } else {
+    }
+    else
+    {
         BSTIMERx->CR1 &= (uint32_t) ~(uint32_t)BSTIMER_CR1_OPM;
     }
 }
 
+
 /**
- * @brief  Bstimer config counter overflow trigger update event 
+ * @brief  Bstimer config counter overflow trigger update event
  * @param  BSTIMERx the BSTIMER peripheral
  * @param  state ENABLE or DISABLE
  * @return None
  */
-void bstimer_config_overflow_update(bstimer_t *BSTIMERx, uint8_t state)
+void bstimer_config_overflow_update(bstimer_t* BSTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         BSTIMERx->CR1 |= (uint32_t)BSTIMER_CR1_URS;
-    } else {
+    }
+    else
+    {
         BSTIMERx->CR1 &= (uint32_t) ~(uint32_t)BSTIMER_CR1_URS;
     }
 }
 
+
 /**
- * @brief  Bstimer config update disable 
+ * @brief  Bstimer config update disable
  * @param  BSTIMERx the BSTIMER peripheral
  * @param  state ENABLE or DISABLE
  * @return None
  */
-void bstimer_config_update_disable(bstimer_t *BSTIMERx, uint8_t state)
+void bstimer_config_update_disable(bstimer_t* BSTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         BSTIMERx->CR1 |= (uint32_t)BSTIMER_CR1_UDIS;
-    } else {
+    }
+    else
+    {
         BSTIMERx->CR1 &= (uint32_t) ~(uint32_t)BSTIMER_CR1_UDIS;
     }
 }
 
+
 /**
- * @brief  Bstimer enable or disable 
+ * @brief  Bstimer enable or disable
  * @param  BSTIMERx the BSTIMER peripheral
  * @param  state true or false
  * @return None
  */
-void bstimer_cmd(bstimer_t *BSTIMERx, bool state)
+void bstimer_cmd(bstimer_t* BSTIMERx, bool state)
 {
-    if (state == true) {
+    if (state == true)
+    {
         BSTIMERx->CR1 |= (uint32_t)BSTIMER_CR1_CEN;
-    } else {
+    }
+    else
+    {
         BSTIMERx->CR1 &= (uint32_t) ~(uint32_t)BSTIMER_CR1_CEN;
     }
 }
+
 
 /**
  * @brief  Bstimer config dma enable or disable
@@ -122,14 +146,18 @@ void bstimer_cmd(bstimer_t *BSTIMERx, bool state)
  * @param  state ENABLE or DISABLE
  * @return None
  */
-void bstimer_config_dma(bstimer_t *BSTIMERx, uint8_t state)
+void bstimer_config_dma(bstimer_t* BSTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         BSTIMERx->DIER |= (uint32_t)BSTIMER_DIER_UDE;
-    } else {
+    }
+    else
+    {
         BSTIMERx->DIER &= (uint32_t) ~(uint32_t)BSTIMER_DIER_UDE;
     }
 }
+
 
 /**
  * @brief  Bstimer config interrupt enable or disable
@@ -137,14 +165,18 @@ void bstimer_config_dma(bstimer_t *BSTIMERx, uint8_t state)
  * @param  state ENABLE or DISABLE
  * @return None
  */
-void bstimer_config_interrupt(bstimer_t *BSTIMERx, uint8_t state)
+void bstimer_config_interrupt(bstimer_t* BSTIMERx, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         BSTIMERx->DIER |= (uint32_t)BSTIMER_DIER_UIE;
-    } else {
+    }
+    else
+    {
         BSTIMERx->DIER &= (uint32_t) ~(uint32_t)BSTIMER_DIER_UIE;
     }
 }
+
 
 /**
  * @brief  Bstimer get SR register status
@@ -153,14 +185,18 @@ void bstimer_config_interrupt(bstimer_t *BSTIMERx, uint8_t state)
  * @retval true set status
  * @retval false reset status
  */
-bool bstimer_get_status(bstimer_t *BSTIMERx, bstimer_sr_t status)
+bool bstimer_get_status(bstimer_t* BSTIMERx, bstimer_sr_t status)
 {
-    if ((BSTIMERx->SR & status) == status) {
+    if ((BSTIMERx->SR & status) == status)
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
+
 
 /**
  * @brief  Bstimer enable or disable event
@@ -169,11 +205,15 @@ bool bstimer_get_status(bstimer_t *BSTIMERx, bstimer_sr_t status)
  * @param  state ENABLE or DISABLE
  * @return None
  */
-void bstimer_generate_event(bstimer_t *BSTIMERx, bstimer_egr_t egr_event, uint8_t state)
+void bstimer_generate_event(bstimer_t* BSTIMERx, bstimer_egr_t egr_event, uint8_t state)
 {
-    if (state == ENABLE) {
+    if (state == ENABLE)
+    {
         BSTIMERx->EGR |= (uint32_t)egr_event;
-    } else {
+    }
+    else
+    {
         BSTIMERx->EGR &= (uint32_t) ~(uint32_t)egr_event;
     }
 }
+

@@ -25,10 +25,10 @@ extern "C" {
  * @brief BSTIMER CR1 register definition
  */
 typedef enum {
-    BSTIMER_CR1_CEN  = 0x1, /*!< Counter enable*/
+    BSTIMER_CR1_CEN = 0x1,  /*!< Counter enable*/
     BSTIMER_CR1_UDIS = 0x2, /*!< Update disable*/
-    BSTIMER_CR1_URS  = 0x4, /*!< Update request source*/
-    BSTIMER_CR1_OPM  = 0x8, /*!< One pulse mode*/
+    BSTIMER_CR1_URS = 0x4,  /*!< Update request source*/
+    BSTIMER_CR1_OPM = 0x8,  /*!< One pulse mode*/
     BSTIMER_CR1_ARPE = 0x80 /*!< Auto-Reload preload*/
 } bstimer_cr1_t;
 
@@ -36,10 +36,10 @@ typedef enum {
  * @brief BSTIMER master mode selection
  */
 typedef enum {
-    BSTIMER_MMS_RESET  = 0x0,  /*!< EGR.UG bit is used as trigger output*/
+    BSTIMER_MMS_RESET = 0x0,   /*!< EGR.UG bit is used as trigger output*/
     BSTIMER_MMS_ENABLE = 0x10, /*!< CR1.CEN bit is used as trigger output*/
     BSTIMER_MMS_UPDATE = 0x20, /*!< Update event is used as trigger output*/
-    BSTIMER_MMS_RESV   = 0x70  /*!< Auto-Reload preload*/
+    BSTIMER_MMS_RESV = 0x70    /*!< Auto-Reload preload*/
 } bstimer_mms_t;
 
 /**
@@ -106,6 +106,6 @@ void bstimer_generate_event(bstimer_t* BSTIMERx, bstimer_egr_t egr_event, uint8_
 #endif // _TREMO_BSTIMER_H_
 
 /**
- * @} 
+ * @}
  * @}
  */

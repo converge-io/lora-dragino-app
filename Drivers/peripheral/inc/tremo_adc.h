@@ -15,13 +15,13 @@
 #define __TREMO_ADC_H
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif
 
 #include "tremo_regs.h"
 #include "stdbool.h"
 
-	
+
 /**
  * @brief ADC control register definition
  */
@@ -198,7 +198,7 @@ void adc_config_interrupt(adc_ier_t interrupt, bool enable_flag);
 
 uint16_t adc_get_data();
 
-void adc_get_calibration_value(bool dif_flag, float *gain_value, float *dco_value);
+void adc_get_calibration_value(bool dif_flag, float* gain_value, float* dco_value);
 
 void adc_enable_vbat31(bool enable_flag);
 void adc_config_ref_voltage(adc_ref_voltage_t ref_voltage);
@@ -209,6 +209,6 @@ void adc_config_ref_voltage(adc_ref_voltage_t ref_voltage);
 #endif /* __TREMO_ADC_H */
 
 /**
- * @} 
+ * @}
  * @}
  */

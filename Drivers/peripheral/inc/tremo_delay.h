@@ -31,6 +31,6 @@ void delay_ms(uint32_t nms);
 #endif //__TREMO_DELAY_H
 
 /**
- * @} 
+ * @}
  * @}
  */

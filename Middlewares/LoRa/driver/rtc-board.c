@@ -124,7 +124,7 @@ volatile uint32_t McuWakeUpTime = 0;
 /*!
  * \brief Start the RTC Alarm (timeoutValue is in ms)
  */
-static void RtcStartWakeUpAlarm( uint32_t timeoutValue );
+static void RtcStartWakeUpAlarm(uint32_t timeoutValue);
 
 /*!
  * \brief Converts a RtcCalendar_t value into TimerTime_t value
@@ -134,9 +134,9 @@ static void RtcStartWakeUpAlarm( uint32_t timeoutValue );
  *                          Others: compute from given calendar value]
  * \retval timerTime New TimerTime_t value
  */
-static TimerTime_t RtcConvertCalendarTickToTimerTime( RtcCalendar_t *calendar );
+static TimerTime_t RtcConvertCalendarTickToTimerTime(RtcCalendar_t* calendar);
 
-static TimerTime_t RtcConvertMsToTick( TimerTime_t timeoutValue );
+static TimerTime_t RtcConvertMsToTick(TimerTime_t timeoutValue);
 
 //static TimerTime_t RtcConvertTickToMs( TimerTime_t timeoutValue );
 
@@ -146,66 +146,72 @@ static TimerTime_t RtcConvertMsToTick( TimerTime_t timeoutValue );
  *
  * \retval calendar RTC calendar
  */
-static RtcCalendar_t RtcGetCalendar( void );
+static RtcCalendar_t RtcGetCalendar(void);
 
 extern void rtc_check_syn(void);
 
-void RtcInit( void )
+void RtcInit(void)
 {
-    if( RtcInitialized == false )
+    if (RtcInitialized == false)
     {
         rtc_deinit();
         rcc_enable_peripheral_clk(RCC_PERIPHERAL_RTC, true);
 
         rtc_calendar_cmd(ENABLE);
         NVIC_EnableIRQ(RTC_IRQn);
-        
+
         RtcInitialized = true;
     }
 }
 
-void RtcSetTimeout( uint32_t timeout )
+
+void RtcSetTimeout(uint32_t timeout)
 {
-    RtcStartWakeUpAlarm( timeout );
+    RtcStartWakeUpAlarm(timeout);
 }
 
-void RtcStopTimeout( void )
+
+void RtcStopTimeout(void)
 {
     rtc_cyc_cmd(DISABLE);
     rtc_config_interrupt(RTC_CYC_IT, DISABLE); // disable
 }
 
-TimerTime_t RtcGetTimerContext( void )
+
+TimerTime_t RtcGetTimerContext(void)
 {
     return RtcTimerContext;
 }
 
-TimerTime_t RtcSetTimerContext( void )
+
+TimerTime_t RtcSetTimerContext(void)
 {
     RtcTimerContext = RtcGetTimerValue();
-    
+
     return RtcTimerContext;
 }
 
-TimerTime_t RtcGetElapsedTime( void )
+
+TimerTime_t RtcGetElapsedTime(void)
 {
-    return (RtcGetTimerValue() - RtcTimerContext); 
+    return (RtcGetTimerValue() - RtcTimerContext);
 }
 
-TimerTime_t RtcGetAdjustedTimeoutValue( uint32_t timeout )
+
+TimerTime_t RtcGetAdjustedTimeoutValue(uint32_t timeout)
 {
-    if( timeout > McuWakeUpTime )
+    if (timeout > McuWakeUpTime)
     {   // we have waken up from a GPIO and we have lost "McuWakeUpTime" that we need to compensate on next event
-        if( NonScheduledWakeUp == true )
+        if (NonScheduledWakeUp == true)
         {
             NonScheduledWakeUp = false;
             timeout -= McuWakeUpTime;
         }
     }
 
-    if( timeout > McuWakeUpTime )
+    if (timeout > McuWakeUpTime)
     {   // we don't go in low power mode for delay below 50ms (needed for LEDs)
-        if( timeout < 50 ) // 50 ms
+        if (timeout < 50)  // 50 ms
         {
             RtcTimerEventAllowsLowPower = false;
         }
@@ -215,36 +221,41 @@ TimerTime_t RtcGetAdjustedTimeoutValue( uint32_t timeout )
             timeout -= McuWakeUpTime;
         }
     }
-    return  timeout;
+    return timeout;
 }
 
-TimerTime_t RtcGetTimerValue( void )
+
+TimerTime_t RtcGetTimerValue(void)
 {
-    return RtcConvertCalendarTickToTimerTime( NULL );
+    return RtcConvertCalendarTickToTimerTime(NULL);
 }
 
-void BlockLowPowerDuringTask ( bool status )
+
+void BlockLowPowerDuringTask (bool status)
 {
-    if( status == true )
+    if (status == true)
     {
         RtcRecoverMcuStatus( );
     }
     LowPowerDisableDuringTask = status;
 }
 
-void RtcEnterLowPowerStopMode( void )
+
+void RtcEnterLowPowerStopMode(void)
 {
-    if(Radio.GetStatus() != RF_IDLE)
+    if (Radio.GetStatus() != RF_IDLE)
+    {
         return;
-    
+    }
+
     rtc_check_syn();
     pwr_deepsleep_wfi(PWR_LP_MODE_STOP3);
 }
 
-void RtcRecoverMcuStatus( void )
-{
 
-}
+void RtcRecoverMcuStatus(void)
+{}
+
 
 //static void RtcComputeWakeUpTime( void )
 //{
@@ -257,10 +268,10 @@ void RtcRecoverMcuStatus( void )
 //    }
 //}
 
-static void RtcStartWakeUpAlarm( uint32_t timeout )
-{   
+static void RtcStartWakeUpAlarm(uint32_t timeout)
+{
     RtcCalendar_t now;
-    if( timeout <= 5 )
+    if (timeout <= 5)
     {
         timeout = 5;
     }
@@ -278,7 +289,8 @@ static void RtcStartWakeUpAlarm( uint32_t timeout )
     rtc_config_interrupt(RTC_CYC_IT, ENABLE);
 }
 
-static TimerTime_t RtcConvertCalendarTickToTimerTime( RtcCalendar_t *calendar )
+
+static TimerTime_t RtcConvertCalendarTickToTimerTime(RtcCalendar_t* calendar)
 {
     TimerTime_t timeCounter = 0;
     RtcCalendar_t now;
@@ -286,7 +298,7 @@ static TimerTime_t RtcConvertCalendarTickToTimerTime( RtcCalendar_t *calendar )
 
     // Passing a NULL pointer will compute from "now" else,
     // compute from the given calendar value
-    if( calendar == NULL )
+    if (calendar == NULL)
     {
         now = RtcGetCalendar( );
     }
@@ -296,86 +308,92 @@ static TimerTime_t RtcConvertCalendarTickToTimerTime( RtcCalendar_t *calendar )
     }
 
     // Years (calculation valid up to year 2099)
-    for( int16_t i = 0; i < (now.CalendarTime.year-2000) ; i++ )
+    for ( int16_t i = 0; i < (now.CalendarTime.year - 2000) ; i++ )
     {
-        if( ( i == 0 ) || ( i % 4 ) == 0 )
+        if ((i == 0) || (i % 4) == 0)
         {
-            timeCounterTemp += ( uint32_t )SecondsInLeapYear;
+            timeCounterTemp += (uint32_t)SecondsInLeapYear;
         }
         else
         {
-            timeCounterTemp += ( uint32_t )SecondsInYear;
+            timeCounterTemp += (uint32_t)SecondsInYear;
         }
     }
 
     // Months (calculation valid up to year 2099)*/
-    if( ( now.CalendarTime.year % 4 ) == 0 )
+    if ((now.CalendarTime.year % 4) == 0)
     {
-        for( uint8_t i = 0; i < ( now.CalendarTime.month - 1 ); i++ )
+        for ( uint8_t i = 0; i < (now.CalendarTime.month - 1); i++ )
         {
-            timeCounterTemp += ( uint32_t )( DaysInMonthLeapYear[i] * SecondsInDay );
+            timeCounterTemp += (uint32_t)(DaysInMonthLeapYear[i] * SecondsInDay);
         }
     }
     else
     {
-        for( uint8_t i = 0;  i < ( now.CalendarTime.month - 1 ); i++ )
+        for ( uint8_t i = 0; i < (now.CalendarTime.month - 1); i++ )
         {
-            timeCounterTemp += ( uint32_t )( DaysInMonth[i] * SecondsInDay );
+            timeCounterTemp += (uint32_t)(DaysInMonth[i] * SecondsInDay);
         }
     }
 
-    timeCounterTemp += ( TimerTime_t )( now.CalendarTime.second +
-                                      ( ( TimerTime_t )now.CalendarTime.minute * SecondsInMinute ) +
-                                      ( ( TimerTime_t )now.CalendarTime.hour * SecondsInHour ) +
-                                      ( ( TimerTime_t )( (now.CalendarTime.day-1) * SecondsInDay ) ) );
+    timeCounterTemp += (TimerTime_t)(now.CalendarTime.second +
+            ((TimerTime_t)now.CalendarTime.minute * SecondsInMinute) +
+            ((TimerTime_t)now.CalendarTime.hour * SecondsInHour) +
+            ((TimerTime_t)((now.CalendarTime.day - 1) * SecondsInDay)));
 
-    timeCounter = timeCounterTemp*1000 + now.CalendarTime.subsecond/1000;
+    timeCounter = timeCounterTemp * 1000 + now.CalendarTime.subsecond / 1000;
 
-    return ( timeCounter );
+    return (timeCounter);
 }
 
-TimerTime_t RtcConvertMsToTick( TimerTime_t timeoutValue )
+
+TimerTime_t RtcConvertMsToTick(TimerTime_t timeoutValue)
 {
     double retVal = 0;
     uint32_t rtc_ticks_per_second = 32768;
-	
+
     if (RCC_RTC_CLK_SOURCE_RCO32K == rcc_get_rtc_clk_source())
+    {
         rtc_ticks_per_second = 32000;
-	
-    retVal = round( ( ( double )timeoutValue ) * rtc_ticks_per_second / 1000);
-    return( ( TimerTime_t )retVal );
+    }
+
+    retVal = round(((double)timeoutValue) * rtc_ticks_per_second / 1000);
+    return((TimerTime_t)retVal);
 }
 
-static RtcCalendar_t RtcGetCalendar( void )
+
+static RtcCalendar_t RtcGetCalendar(void)
 {
     RtcCalendar_t now;
     rtc_get_calendar(&now.CalendarTime);
 
-    return( now );
+    return(now);
 }
+
 
 /*!
  * \brief RTC IRQ Handler of the RTC Alarm
  */
-void RtcOnIrq( void )
+void RtcOnIrq(void)
 {
     uint8_t intr_stat;
-    intr_stat =  rtc_get_status(RTC_CYC_SR);
- 
-    if( intr_stat == true ) {
-        
+    intr_stat = rtc_get_status(RTC_CYC_SR);
+
+    if (intr_stat == true)
+    {
         rtc_cyc_cmd(DISABLE);
         rtc_config_interrupt(RTC_CYC_IT, DISABLE); // disable
         rtc_set_status(RTC_CYC_SR, false); // clear
-        
+
         TimerIrqHandler( );
-    
+
         rtc_config_interrupt(RTC_CYC_IT, ENABLE); // enable
-        
     }
 }
 
-void RtcProcess( void )
+
+void RtcProcess(void)
 {
     // Not used on this platform.
 }
+
