@@ -62,6 +62,8 @@
 #ifndef __BSP_H__
 #define __BSP_H__
 
+#define BSP_ONEWIRE_OBJECT              BSP_ONEWIRE_DEFINE(_gpio_)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -69,6 +71,8 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdbool.h>
+#include "bsp_onewire.h"
+#include "bsp_onewire_gpio.h"
 
 typedef struct {
     bool in1;
@@ -131,6 +135,13 @@ uint16_t ADC_Read(uint8_t temp,uint8_t message);
 bool Digital_input_Read(uint8_t temp,uint8_t message);
 uint16_t battery_voltage_measurement(void);
 
+typedef enum eBspResult
+{
+    BSP_RESULT_OK,
+    BSP_RESULT_ERROR,
+    BSP_RESULT_BUSY,
+}
+bsp_Result_t;
 /**
  * @brief  sensor  read.
  *
