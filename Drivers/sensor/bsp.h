@@ -62,7 +62,6 @@
 #ifndef __BSP_H__
 #define __BSP_H__
 
-#define BSP_ONEWIRE_OBJECT              BSP_ONEWIRE_DEFINE(_gpio_)
 
 #ifdef __cplusplus
 extern "C" {
@@ -71,8 +70,39 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdbool.h>
-#include "bsp_onewire.h"
-#include "bsp_onewire_gpio.h"
+//#include "bsp_onewire.h"
+//#include "bsp_onewire_gpio.h"
+
+#define BSP_ONEWIRE_OBJECT              BSP_ONEWIRE_DEFINE(_gpio_)
+#define MAX_SUPPORTED_TEMP_PROBES       (5U)
+#pragma pack(1)
+typedef struct sSafeBuffer
+{
+    uint32_t max_length;        /* Space available in buffer          */
+    uint32_t* length;           /* Length of buffer (in and/or out)   */
+    uint8_t* buffer;             /* Pointer to data                    */
+}
+safe_buffer_t;
+#pragma pack()
+typedef enum eBspResult
+{
+    BSP_RESULT_OK,
+    BSP_RESULT_ERROR,
+    BSP_RESULT_BUSY,
+}
+bsp_Result_t;
+
+typedef struct 
+{
+    float value;
+    uint8_t address[8];
+} temperature_t;
+
+typedef struct
+{
+    temperature_t temperature[MAX_SUPPORTED_TEMP_PROBES];
+    uint8_t num_of_temp_probes;
+} sample_t;
 
 typedef struct {
     bool in1;
@@ -114,6 +144,8 @@ typedef struct {
     uint32_t count_pa8;
 
     /**more may be added*/
+    sample_t sample;
+
 } sensor_t;
 
 /* Exported constants --------------------------------------------------------*/
@@ -135,13 +167,6 @@ uint16_t ADC_Read(uint8_t temp,uint8_t message);
 bool Digital_input_Read(uint8_t temp,uint8_t message);
 uint16_t battery_voltage_measurement(void);
 
-typedef enum eBspResult
-{
-    BSP_RESULT_OK,
-    BSP_RESULT_ERROR,
-    BSP_RESULT_BUSY,
-}
-bsp_Result_t;
 /**
  * @brief  sensor  read.
  *

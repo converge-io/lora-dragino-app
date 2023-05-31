@@ -29,6 +29,8 @@
 #include "bsp_board.h"
 #include "bsp_onewire.h"
 #include "tremo_gpio.h"
+#include "tremo_delay.h"
+#include "log.h"
 
 
 /**
@@ -38,16 +40,16 @@
  */
 #define PORT_ENTER_CRITICAL
 #define PORT_EXIT_CRITICAL
-#define BSP_GPIO_PULL_STATE  BSP_GPIO_PULL_DISABLED
+//#define BSP_GPIO_PULL_STATE  BSP_GPIO_PULL_DISABLED
 
+#define port  BSP_BOARD_TAIL_ONE_WIRE_PORT
+#define pin  BSP_BOARD_TAIL_ONE_WIRE_PIN
 
 /**
  *****************************************************************************************************************************************************
  *  \section LOCAL VARIABLES
  *****************************************************************************************************************************************************
  */
-uint8_t port = BSP_BOARD_TAIL_ONE_WIRE_PORT;
-uint8_t pin = BSP_BOARD_TAIL_ONE_WIRE_PIN;
 
 
 /**
@@ -67,7 +69,7 @@ uint8_t pin = BSP_BOARD_TAIL_ONE_WIRE_PIN;
 bsp_Result_t bsp_onewire_gpio_Init(void)
 {
     BSP_BOARD_TAIL_CLK_ENABLE();
-    gpio_init(BSP_BOARD_TAIL_ONE_WIRE_PORT, BSP_BOARD_TAIL_ONE_WIRE_PIN, GPIO_MODE_OUTPUT_INPUT_PULL_UP);
+    gpio_init(BSP_BOARD_TAIL_ONE_WIRE_PORT, BSP_BOARD_TAIL_ONE_WIRE_PIN, GPIO_MODE_INPUT_PULL_UP);
     return BSP_RESULT_OK;
 }
 
@@ -92,11 +94,13 @@ bsp_Result_t bsp_onewire_gpio_Deinit(void)
 // shorted).
 static inline bool bsp_onewire_gpio_WaitForBus(int max_wait)
 {
-    bool state;
+    uint8_t state;
     //bsp_gpio_ConfigurePinSimpleInput(port, pin, BSP_GPIO_PULL_STATE);
+    gpio_init(port, pin, GPIO_MODE_INPUT_PULL_UP);
+
     for (int i = 0; i < ((max_wait + 4) / 5); i++)
     {
-        if (gpio_read(port, pin) == GPIO_LEVEL_HIGH)
+        if (gpio_read(port, pin) == 1)
         {
             break;
         }
@@ -106,7 +110,7 @@ static inline bool bsp_onewire_gpio_WaitForBus(int max_wait)
     // Wait an extra 1us to make sure the devices have an adequate recovery
     // time before we drive things low again.
     delay_us(1);
-    return state == GPIO_LEVEL_HIGH;
+    return (state == 1);
 }
 
 
@@ -117,52 +121,43 @@ static inline bool bsp_onewire_gpio_WaitForBus(int max_wait)
 // Returns true if a device asserted a presence pulse, false otherwise.
 //
 bool bsp_onewire_gpio_Reset(void)
-{
-    bsp_gpio_ConfigurePinSimpleInput(port, pin, BSP_GPIO_PULL_STATE);
-    // wait until the wire is high... just in case
-    if (!bsp_onewire_gpio_WaitForBus(250))
-    {
-        return false;
-    }
+{        
+    BSP_BOARD_TAIL_CLK_ENABLE();
+    gpio_init(port, pin, GPIO_MODE_OUTPUT_PP_HIGH);
 
-    gpio_write(port, pin, GPIO_LEVEL_LOW);
-    delay_us(480);
+    gpio_write(port, pin, 0);
+    delay_us(750);
+    gpio_write(port, pin, 1);
+    delay_us(30);
 
-    PORT_ENTER_CRITICAL;
-    bsp_gpio_ConfigurePinSimpleInput(port, pin, BSP_GPIO_PULL_STATE);
-    delay_us(70);
-    bool r = (gpio_read(port, pin) == GPIO_LEVEL_LOW);
-    PORT_EXIT_CRITICAL;
+    /* now detect presence */
+    gpio_init(port, pin, GPIO_MODE_INPUT_PULL_UP);
 
-    // Wait for all devices to finish pulling the bus low before returning
-    if (!bsp_onewire_gpio_WaitForBus(410))
-    {
-        return false;
-    }
-
-    return r;
+    return (gpio_read(port, pin) == 0);
 }
 
 
 bsp_Result_t bsp_onewire_gpio_WriteBit(bool v)
 {
-    if (!bsp_onewire_gpio_WaitForBus(10))
-    {
-        return BSP_RESULT_ERROR;
-    }
     PORT_ENTER_CRITICAL;
+    BSP_BOARD_TAIL_CLK_ENABLE();
+    gpio_init(port, pin, GPIO_MODE_OUTPUT_PP_HIGH);
     if (v)
     {
-        gpio_write(port, pin, GPIO_LEVEL_LOW);  // drive output low
+        gpio_write(port, pin, 0);  // drive output low
         delay_us(10);
         //bsp_gpio_ConfigurePinSimpleInput(port, pin, BSP_GPIO_PULL_STATE);  // allow output high
+        gpio_write(port, pin, 1);  // drive output low
         delay_us(55);
     }
     else
     {
-        gpio_write(port, pin, GPIO_LEVEL_LOW);  // drive output low
+        gpio_write(port, pin, 0);  // drive output low
         delay_us(65);
-        //bsp_gpio_ConfigurePinSimpleInput(port, pin, BSP_GPIO_PULL_STATE);  // allow output high
+        gpio_init(port, pin, GPIO_MODE_INPUT_PULL_UP);
+       // delay_us(90);
+       // gpio_write(port, pin, 1);
+       // delay_us(2);
     }
     delay_us(1);
     PORT_EXIT_CRITICAL;
@@ -179,13 +174,14 @@ bsp_Result_t bsp_onewire_gpio_ReadBit(bool* read_bit)
     }
 
     PORT_ENTER_CRITICAL;
-    gpio_write(port, pin, GPIO_LEVEL_LOW);
-    delay_us(2);
-    //bsp_gpio_ConfigurePinSimpleInput(port, pin, BSP_GPIO_PULL_STATE);  // let pin float, pull up will raise
-    delay_us(11);
-    *read_bit = (gpio_read(port, pin) == GPIO_LEVEL_HIGH);  // Must sample within 15us of start
-    delay_us(48);
+    gpio_init(port, pin, GPIO_MODE_OUTPUT_PP_HIGH);
+    gpio_write(port, pin, 0);
+    delay_us(10);
+
+    gpio_init(port, pin, GPIO_MODE_INPUT_PULL_UP);
+    *read_bit = (gpio_read(port, pin) == 1);  // Must sample within 15us of start
     PORT_EXIT_CRITICAL;
+    delay_us(45);
 
     return BSP_RESULT_OK;
 }
@@ -264,9 +260,13 @@ bsp_Result_t bsp_onewire_gpio_ReadBytes(uint8_t* buf, size_t count)
 bsp_Result_t bsp_onewire_gpio_Select(bsp_onewire_addr_t addr)
 {
     uint8_t i;
+    
+    LOG_PRINTF(LL_DEBUG,"\r\nselect\n\r");
 
     if (bsp_onewire_gpio_Write(ONEWIRE_SELECT_ROM) != BSP_RESULT_OK)
     {
+
+         LOG_PRINTF(LL_DEBUG,"\r\nseleceawerat\n\r");
         return BSP_RESULT_ERROR;
     }
 
@@ -293,11 +293,8 @@ bool bsp_onewire_gpio_Power(void)
 {
     // Make sure the bus is not being held low before driving it high, or we
     // may end up shorting ourselves out.
-    if (!bsp_onewire_gpio_WaitForBus(10))
-    {
-        return false;
-    }
-
+    //gpio_init(port, pin, GPIO_MODE_INPUT_PULL_UP);
+    gpio_init(port, pin, GPIO_MODE_OUTPUT_PP_HIGH);
     gpio_write(port, pin, GPIO_LEVEL_HIGH);
 
     return true;
@@ -306,7 +303,9 @@ bool bsp_onewire_gpio_Power(void)
 
 bool bsp_onewire_gpio_Depower(void)
 {
-    bsp_gpio_ConfigurePinSimpleInput(port, pin, BSP_GPIO_PULL_STATE);
+    //bsp_gpio_ConfigurePinSimpleInput(port, pin, BSP_GPIO_PULL_STATE);
+    gpio_init(port, pin, GPIO_MODE_OUTPUT_PP_HIGH);
+    gpio_write(port, pin, GPIO_LEVEL_LOW);
     return true;
 }
 

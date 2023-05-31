@@ -51,7 +51,6 @@ typedef uint64_t bsp_onewire_addr_t;
  *  \section EXTERNAL FUNCTION PROTOTYPES
  *****************************************************************************************************************************************************
  */
-extern result_t bsp_onewire_gpio_Initialise(hal_sensor_Handle_t* handle);
 extern bsp_Result_t bsp_onewire_gpio_Init(void);
 extern bsp_Result_t bsp_onewire_gpio_Deinit(void);
 extern bool bsp_onewire_gpio_Reset(void);

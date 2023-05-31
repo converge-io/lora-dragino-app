@@ -47,6 +47,7 @@ extern "C"
  */
 #include <stdbool.h>
 #include <stdint.h>
+#include <stddef.h>
 #include "bsp.h"
 
 
@@ -70,7 +71,6 @@ extern "C"
    In bsp_board.h, define the BSP_ONEWIRE_OBJECT using the macro defined below.
    Supported interfaces are:
    1. (_gpio_)
-   2. (_ds2484_)
  */
 #define BSP_ONEWIRE_DEFINE(interface)  \
     { \

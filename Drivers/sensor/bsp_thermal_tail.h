@@ -42,6 +42,7 @@ extern "C"
  *  \section INCLUDE FILES
  *****************************************************************************************************************************************************
  */
+#include "bsp.h"
 
 
 /**
@@ -68,8 +69,9 @@ extern "C"
  *  \section EXTERNAL FUNCTION PROTOTYPES
  *****************************************************************************************************************************************************
  */
-void bsp_thermal_tail_Init(void);
-int bsp_thermal_tail_Discover(void);
+extern void bsp_thermal_tail_Init(void);
+extern int bsp_thermal_tail_Discover(void);
+extern bsp_Result_t bsp_thermal_tail_Read(sample_t* sample);
 
 
 #ifdef __cplusplus

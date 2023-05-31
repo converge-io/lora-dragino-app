@@ -14,6 +14,7 @@
 #include "weight.h"
 #include "tfsensor.h"
 #include "ult.h"
+#include "bsp_thermal_tail.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -24,9 +25,7 @@
 /* Exported functions ---------------------------------------------------------*/
 
 /* Private variables ---------------------------------------------------------*/
-
 #define VBAT_FACTOR     3.06f
-
 bool bh1750flags = 0;
 uint8_t mode2_flag = 0;
 static uint8_t flags = 0;
@@ -212,9 +211,15 @@ void BSP_sensor_Read(sensor_t* sensor_data, uint8_t message,uint8_t mod_temp)
         delay_ms(20);
     }
 
+    //int devices_found = bsp_thermal_tail_Discover();
+    //LOG_PRINTF(LL_DEBUG,"\r\nDevices found:%d \n\r",devices_found);
+    sample_t sample;
+    bsp_thermal_tail_Read(&sample);
+
     if (mod_temp == 1)
     {
-        sensor_data->temp1 = DS18B20_Read(1,message);
+        //sensor_data->temp1 = DS18B20_Read(1,message);
+        //LOG_PRINTF(LL_DEBUG,"\r\nTemp1:%f \n\r",sensor_data->temp1);
         I2C_read_data(sensor_data,flags,message);
         POWER_open_time(power_5v_time);
         sensor_data->ADC_4 = ADC_Read(1,message);

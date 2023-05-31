@@ -90,10 +90,11 @@ bool bsp_onewire_Search(bsp_onewire_search_t* search)
             search->last_discrepancy = 0;
             search->last_device_found = false;
             search->last_family_discrepancy = 0;
-            logging_Info("couldn't reset the line");
+            LOG_PRINTF(LL_DEBUG,"\n\rcouldn't reset the line\r\n");
 
             return false;
         }
+        LOG_PRINTF(LL_DEBUG,"\n\rDetected a prescence pulse\r\n");
 
         /* issue the search command */
         onewire.Write(ONEWIRE_SEARCH);
